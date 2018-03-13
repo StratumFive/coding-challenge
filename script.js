@@ -43,9 +43,15 @@ class Boat {
 		switch (direction) {
 			case 'L':
 				this.degrees -= 90;
+				if( this.degrees < 0 ){
+					this.degrees = 270;
+				}
 				break;
 			case 'R':
 				this.degrees += 90;
+				if( this.degrees === 360 ){
+					this.degrees = 0;
+				}
 				break;
 		}
 
@@ -113,23 +119,40 @@ class ShipNavigator {
 		// loop through boat data
 	}
 
+	/**
+   * Navigates a single ship given a start position and route
+   * Updates the output string
+   * @param {number} x, the start x position of the boat
+   * @param {number} y, the start y position of the boat
+   * @param {string} o, the start orientation of the boat
+   * @param {string} directions, the directions
+   */
 	navigateShip(x, y, o, directions) {
 		// Test vars
 		this.bounds = [5, 3];
-		const dirs = 'RFRFRFRF';
-		const boat = new Boat(1, 1, 'E');
+		const dirs = 'FRRFLLFFRRFLL';
+		const boat = new Boat(3, 2, 'N');
 
 		// Run through the direction string.
 		for( let dir of dirs ) {
 			dir === 'F'
-				? console.log('sdfs')
+				? boat.move()
 				: boat.rotate(dir);
+
+			if(!this.inBounds(boat.x, boat.y)) {
+				boat.setLost();
+			}
 		}
-		console.log(boat);
+
 
 		this.output = `${boat.x} ${boat.y} ${boat.orientation} ${boat.lost}`
 
-		console.log(this.output);
+		console.log(boat)
+		console.log(this.output)
+	}
+
+	inBounds(x,y) {
+		return x >= 0 && x <= this.bounds[0] && y >= 0 && y <= this.bounds[1];
 	}
 }
 
