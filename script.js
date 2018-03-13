@@ -119,9 +119,15 @@ class ShipNavigator {
 		this.extractData(data);
 	}
 
+	/**
+   * Navigates all ships and logs the final output string
+   */
 	run() {
-		// run all ships function
-		// loop through boat data
+		this.boats.forEach( (boat) => {
+      this.navigateShip(parseInt(boat[0]), parseInt(boat[1]), boat[2], boat[3])
+    })
+
+    console.log(this.output)
 	}
 
 	/**
@@ -133,13 +139,9 @@ class ShipNavigator {
    * @param {string} directions, the directions
    */
 	navigateShip(x, y, o, directions) {
-		// Test vars
-		this.bounds = [5, 3];
-		const dirs = 'FRRFLLFFRRFLL';
-		const boat = new Boat(3, 2, 'N');
-
+		const boat = new Boat(x, y, o);
 		// Run through the direction string.
-		for( let dir of dirs ) {
+		for( let dir of directions ) {
 			dir === 'F'
 				? boat.move()
 				: boat.rotate(dir);
@@ -149,10 +151,7 @@ class ShipNavigator {
 			}
 		}
 
-		this.output = `${boat.x} ${boat.y} ${boat.orientation} ${boat.lost}`
-
-		console.log(boat)
-		console.log(this.output)
+		this.output += `${boat.x} ${boat.y} ${boat.orientation} ${boat.lost}\n`
 	}
 
 	/**
@@ -184,9 +183,6 @@ class ShipNavigator {
 		this.boats = boatData.map( (boat) => {
 			return [ ...boat[0].split(' '), boat[1] ];
 		})
-
-		console.log('boats', this.boats)
-		console.log('bounds', this.bounds)
 	}
 
 	chunkShips(arr) {
@@ -199,4 +195,4 @@ class ShipNavigator {
 }
 
 const shipNavigator = new ShipNavigator(inputData);
-shipNavigator.navigateShip()
+shipNavigator.run()
