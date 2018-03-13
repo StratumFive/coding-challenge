@@ -31,8 +31,18 @@ class Boat {
 		this.lost = '';
 	}
 
+	/**
+   * Updates the boats rotate position,
+   */
 	rotate(direction) {
-		// Rotate function
+		switch (direction) {
+			case 'L':
+				this.degrees -= 90;
+				break;
+			case 'R':
+				this.degrees += 90;
+				break;
+		}
 	}
 
 	/**
