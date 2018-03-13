@@ -1,5 +1,15 @@
 # StratumFive - Coding Challenge
 
+## How to use
+
+### Prerequisites
+
+* [ Node.js ](https://nodejs.org/en/)
+
+## Usage
+
+Run `node script.js` to run the program
+
 ## Introduction
 Welcome to the StratumFive Coding Challenge. Please take ten minutes to carefully read through this document before starting the challenge.
 * We don’t expect you to spend much more than 3 hours on this challenge
