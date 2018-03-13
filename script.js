@@ -1,24 +1,24 @@
-var fs = require("fs");
-var inputData = '';
-
-// Create a readable stream
-var readerStream = fs.createReadStream('input.txt');
-
-// Set the encoding to utf8.
-readerStream.setEncoding('UTF8');
-
-// Handle stream events --> data, end, and error
-readerStream.on('data', function(chunk) {
-	inputData += chunk;
-});
-
-readerStream.on('end', function(){
-	console.log(inputData);
-});
-
-readerStream.on('error', function(err){
-	console.log(err.stack);
-})
+// var fs = require("fs");
+// var inputData = '';
+//
+// // Create a readable stream
+// var readerStream = fs.createReadStream('input.txt');
+//
+// // Set the encoding to utf8.
+// readerStream.setEncoding('UTF8');
+//
+// // Handle stream events --> data, end, and error
+// readerStream.on('data', function(chunk) {
+// 	inputData += chunk;
+// });
+//
+// readerStream.on('end', function(){
+// 	console.log(inputData);
+// });
+//
+// readerStream.on('error', function(err){
+// 	console.log(err.stack);
+// })
 
 class Boat {
 
@@ -29,6 +29,11 @@ class Boat {
 		this.orientation = o;
 		this.degrees = this.orientations[o];
 		this.lost = '';
+
+		this.setOrientation();
+		this.setNextMove()
+
+		console.log(this);
 	}
 
 	/**
@@ -43,6 +48,9 @@ class Boat {
 				this.degrees += 90;
 				break;
 		}
+
+		this.setOrientation();
+		this.setNextMove()
 	}
 
 	/**
@@ -71,17 +79,16 @@ class Boat {
 			case 'W':
 				this.nextMove = [-1,0];
 				break;
-			default:
 
 		}
 	}
 
 	/**
-	 * Sets the boats orientation,
-	 */
-	setOrientation() {
-		this.orientation = Object.keys(this.orientations).find(key => this.orientations[key] === this.degrees)
-	}
+   * Sets the boats orientation,
+   */
+  setOrientation() {
+    this.orientation = Object.keys(this.orientations).find(key => this.orientations[key] === this.degrees)
+  }
 
 	setLost() {
 		this.lost = 'LOST';
@@ -106,7 +113,25 @@ class ShipNavigator {
 		// loop through boat data
 	}
 
-	navigateShip() {
-		// run a single ship
+	navigateShip(x, y, o, directions) {
+		// Test vars
+		this.bounds = [5, 3];
+		const dirs = 'RFRFRFRF';
+		const boat = new Boat(1, 1, 'E');
+
+		// Run through the direction string.
+		for( let dir of dirs ) {
+			dir === 'F'
+				? console.log('sdfs')
+				: boat.rotate(dir);
+		}
+		console.log(boat);
+
+		this.output = `${boat.x} ${boat.y} ${boat.orientation} ${boat.lost}`
+
+		console.log(this.output);
 	}
 }
+
+const shipNavigator = new ShipNavigator();
+shipNavigator.navigateShip()
