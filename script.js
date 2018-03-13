@@ -20,6 +20,16 @@
 // 	console.log(err.stack);
 // })
 
+const inputData = `5 3
+1 1 E
+RFRFRFRF
+
+3 2 N
+FRRFLLFFRRFLL
+
+0 3 W
+LLFFFLFLFL`
+
 class Boat {
 
 	constructor(x, y, o) {
@@ -103,7 +113,7 @@ class Boat {
 
 class ShipNavigator {
 
-	constructor() {
+	constructor(data) {
 		this.output = '',
 		this.bounds = [];
 		this.boats = [];
@@ -151,10 +161,19 @@ class ShipNavigator {
 		console.log(this.output)
 	}
 
+	/**
+   * Check that the boat is still in the bounds of the grid
+   * @param {x} the x position of the boat
+   * @param {y} the y position of the boat
+   */
 	inBounds(x,y) {
 		return x >= 0 && x <= this.bounds[0] && y >= 0 && y <= this.bounds[1];
 	}
+
+	extractData(dataAsString) {
+		//extract the data into usable parts
+	}
 }
 
-const shipNavigator = new ShipNavigator();
+const shipNavigator = new ShipNavigator(inputData);
 shipNavigator.navigateShip()
