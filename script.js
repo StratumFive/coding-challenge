@@ -35,12 +35,46 @@ class Boat {
 		// Rotate function
 	}
 
+	/**
+	 * Updates the boats x and y position,
+	 */
 	move() {
-		// Move function
+		this.x += this.nextMove[0];
+		this.y += this.nextMove[1];
 	}
 
+	/**
+	 * Calculates the next move data,
+	 */
+	setNextMove() {
+		// Calculate next move vector by current orientation...
+		switch (this.orientation) {
+			case 'N':
+				this.nextMove = [0,1];
+				break;
+			case 'E':
+				this.nextMove = [1,0];
+				break;
+			case 'S':
+				this.nextMove = [0,-1];
+				break;
+			case 'W':
+				this.nextMove = [-1,0];
+				break;
+			default:
+
+		}
+	}
+
+	/**
+	 * Sets the boats orientation,
+	 */
 	setOrientation() {
-		// Set initial orientation
+		this.orientation = Object.keys(this.orientations).find(key => this.orientations[key] === this.degrees)
+	}
+
+	setLost() {
+		this.lost = 'LOST';
 	}
 }
 
