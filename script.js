@@ -145,7 +145,8 @@ class ShipNavigator {
 		const boat = new Boat(x, y, o);
 		// Run through the direction string.
 		for( let dir of directions ) {
-			dir === 'F'
+
+			dir === 'F' && this.moveIsSafe(boat)
 				? boat.move()
 				: boat.rotate(dir);
 
@@ -172,6 +173,21 @@ class ShipNavigator {
    */
 	inBounds(x,y) {
 		return x >= 0 && x <= this.bounds[0] && y >= 0 && y <= this.bounds[1];
+	}
+
+	/**
+	 * Check that the next move is save given previous lost data
+	 * @param {array} boat
+	 */
+	moveIsSafe( boat ){
+		const nextMove = boat.nextMove;
+		let safe = true;
+		this.lostCoords.forEach( (pos) => {
+			if( pos[0] === boat.x + nextMove[0] && pos[1] === boat.y + nextMove[1]){
+				safe = false;
+			}
+		})
+		return safe
 	}
 
 	/**
