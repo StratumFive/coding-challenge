@@ -19,3 +19,50 @@ readerStream.on('end', function(){
 readerStream.on('error', function(err){
 	console.log(err.stack);
 })
+
+class Boat {
+
+	constructor(x, y, o) {
+		this.orientations = { N: 0, E: 90, S: 180, W: 270 };
+		this.x = x;
+		this.y = y;
+		this.orientation = o;
+		this.degrees = this.orientations[o];
+		this.lost = '';
+	}
+
+	rotate(direction) {
+		// Rotate function
+	}
+
+	move() {
+		// Move function
+	}
+
+	setOrientation() {
+		// Set initial orientation
+	}
+}
+
+class ShipNavigator {
+
+	constructor() {
+		this.output = '',
+		this.bounds = [];
+		this.boats = [];
+	}
+
+	extractData() {
+		// extract the data from the input
+		// transform into useful format
+	}
+
+	run() {
+		// run all ships function
+		// loop through boat data
+	}
+
+	navigateShip() {
+		// run a single ship
+	}
+}
