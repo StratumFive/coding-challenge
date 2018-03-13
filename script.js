@@ -1,34 +1,25 @@
-// var fs = require("fs");
-// var inputData = '';
-//
-// // Create a readable stream
-// var readerStream = fs.createReadStream('input.txt');
-//
-// // Set the encoding to utf8.
-// readerStream.setEncoding('UTF8');
-//
-// // Handle stream events --> data, end, and error
-// readerStream.on('data', function(chunk) {
-// 	inputData += chunk;
-// });
-//
-// readerStream.on('end', function(){
-// 	console.log(inputData);
-// });
-//
-// readerStream.on('error', function(err){
-// 	console.log(err.stack);
-// })
+var fs = require("fs");
+var inputData = '';
 
-const inputData = `5 3
-1 1 E
-RFRFRFRF
+// Create a readable stream
+var readerStream = fs.createReadStream('input.txt');
 
-3 2 N
-FRRFLLFFRRFLL
+// Set the encoding to utf8.
+readerStream.setEncoding('UTF8');
 
-0 3 W
-LLFFFLFLFL`
+// Handle stream events --> data, end, and error
+readerStream.on('data', function(chunk) {
+	inputData += chunk;
+});
+
+readerStream.on('end', function(){
+	const shipNavigator = new ShipNavigator(inputData);
+	shipNavigator.run()
+});
+
+readerStream.on('error', function(err){
+	console.log(err.stack);
+})
 
 class Boat {
 
@@ -220,6 +211,3 @@ class ShipNavigator {
 		return newArray;
 	}
 }
-
-const shipNavigator = new ShipNavigator(inputData);
-shipNavigator.run()
