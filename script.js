@@ -42,8 +42,6 @@ class Boat {
 
 		this.setOrientation();
 		this.setNextMove()
-
-		console.log(this);
 	}
 
 	/**
@@ -117,11 +115,8 @@ class ShipNavigator {
 		this.output = '',
 		this.bounds = [];
 		this.boats = [];
-	}
 
-	extractData() {
-		// extract the data from the input
-		// transform into useful format
+		this.extractData(data);
 	}
 
 	run() {
@@ -154,7 +149,6 @@ class ShipNavigator {
 			}
 		}
 
-
 		this.output = `${boat.x} ${boat.y} ${boat.orientation} ${boat.lost}`
 
 		console.log(boat)
@@ -170,8 +164,37 @@ class ShipNavigator {
 		return x >= 0 && x <= this.bounds[0] && y >= 0 && y <= this.bounds[1];
 	}
 
+	/**
+   * Extract the data from a string
+   * @param {string} dataAsString the input data
+   * @return {array} the boat data
+   */
 	extractData(dataAsString) {
-		//extract the data into usable parts
+		let data = dataAsString.split(/\n/);
+		// get the Bounds data and remove it from data array
+		this.bounds = data[0].split(' ');
+		data.splice(0, 1);
+		// remove empty lines
+		let newData = data.filter( (value) => {
+			return value !== '';
+		})
+		// Chunk the ship data
+		let boatData = this.chunkShips(newData);
+		// Finally split start data into useful pieces
+		this.boats = boatData.map( (boat) => {
+			return [ ...boat[0].split(' '), boat[1] ];
+		})
+
+		console.log('boats', this.boats)
+		console.log('bounds', this.bounds)
+	}
+
+	chunkShips(arr) {
+		var newArray = [];
+		while (arr.length > 0) {
+			newArray.push(arr.splice(0, 2));
+		}
+		return newArray;
 	}
 }
 
