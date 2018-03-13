@@ -71,6 +71,8 @@ class Boat {
 	 * Updates the boats x and y position,
 	 */
 	move() {
+		this.lastPosition = [ this.x, this.y ];
+
 		this.x += this.nextMove[0];
 		this.y += this.nextMove[1];
 	}
@@ -115,6 +117,7 @@ class ShipNavigator {
 		this.output = '',
 		this.bounds = [];
 		this.boats = [];
+		this.lostCoords = [];
 
 		this.extractData(data);
 	}
@@ -148,6 +151,14 @@ class ShipNavigator {
 
 			if(!this.inBounds(boat.x, boat.y)) {
 				boat.setLost();
+				this.lostCoords.push([boat.x, boat.y]);
+
+				// reset position to last know co-ordinates
+				boat.x = boat.lastPosition[0];
+				boat.y = boat.lastPosition[1];
+
+				// Stop execution
+				break
 			}
 		}
 
