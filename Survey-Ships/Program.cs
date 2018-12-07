@@ -8,6 +8,7 @@ namespace Survey_Ships
    {
       static private Grid _grid = new Grid();
       static private Ship _ship = new Ship();
+      static private string _movement = string.Empty;
 
       static void Main(string[] args)
       {
@@ -15,6 +16,8 @@ namespace Survey_Ships
 
          GetGridCoordinates();
          GetShipData();
+         GetShipMovement();
+         MoveShip();
 
          Console.ReadKey();
       }
@@ -37,12 +40,30 @@ namespace Survey_Ships
          Console.WriteLine("Please enter the Ship starting position and orientation:");
          var shipStart = Console.ReadLine();
 
-         while (SetShipStartData(shipStart))
+         while (!SetShipStartData(shipStart))
          {
             Console.WriteLine("Invalid data, two numbers and one Direction(N S W E) separated by space!");
             shipStart = Console.ReadLine();
          }
          Console.WriteLine($"Ship starting coordinates are: X'{_ship.PosX}', Y'{_ship.PosY}', facing '{_ship.Orientation}'\n");
+      }
+
+      private static void GetShipMovement()
+      {
+         Console.WriteLine("Please enter the Ship movements:\n (F - forward, R - turn right, L - turn left)\n(invalid entries will be disregarded)");
+         var movement = Console.ReadLine();
+
+         while (!ValidateMovement(movement))
+         {
+            Console.WriteLine("Invalid data, only F R L accepted!");
+            movement = Console.ReadLine();
+         }
+         Console.WriteLine($"Accepted Ship movement '{_movement}'\n");
+      }
+
+      private static void MoveShip()
+      {
+
       }
 
       private static bool SetGridTopRight(string topRight)
@@ -74,17 +95,35 @@ namespace Survey_Ships
 
          int.TryParse(data[0].ToString(), out int posX);
          int.TryParse(data[1].ToString(), out int posY);
-         Direction direction;
 
-         if (Enum.TryParse(data[2].ToString(), out direction)
+         if (Enum.TryParse(data[2].ToString().ToUpper(), out Direction direction)
             && posX > 0 && posY > 0)
          {
             _ship.SetPositionX(posX);
             _ship.SetPositionY(posY);
             _ship.SetOrientation(direction);
+
+            return true;
          }
 
          return false;
+      }
+
+      private static bool ValidateMovement(string movement)
+      {
+         if (string.IsNullOrWhiteSpace(movement)) return false;
+
+         var data = movement.ToUpper().ToCharArray();
+
+         foreach (var item in data)
+         {
+            if (Enum.TryParse(item.ToString(), out Heading heading))
+            {
+               _movement += heading;
+            }
+         }
+
+         return true;
       }
    }
 }

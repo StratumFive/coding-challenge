@@ -7,4 +7,11 @@
       E,
       W
    }
+
+   public enum Heading
+   {
+      F,
+      R,
+      L
+   }
 }
