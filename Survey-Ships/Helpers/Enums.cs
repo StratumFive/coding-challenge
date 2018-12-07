@@ -2,10 +2,10 @@
 {
    public enum Direction
    {
-      N,
-      S,
-      E,
-      W
+      N = 0,
+      S = 180,
+      E = 90,
+      W = 270
    }
 
    public enum Heading
