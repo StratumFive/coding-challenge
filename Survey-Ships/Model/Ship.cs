@@ -8,11 +8,8 @@ namespace Survey_Ships.Model
       public int PosY { get; set; }
       public Direction Orientation { get; set; }
 
-      public Ship(int posX, int posY, Direction orientation)
-      {
-         PosX = posX;
-         PosY = posY;
-         Orientation = orientation;
-      }
+      public void SetPositionX(int value) => PosX = value;
+      public void SetPositionY(int value) => PosY = value;
+      public void SetOrientation(Direction value) => Orientation = value;
    }
 }

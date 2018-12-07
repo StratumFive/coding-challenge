@@ -5,10 +5,8 @@
       public int PosNorth { get; set; }
       public int PosEast { get; set; }
 
-      public Grid(int posN, int posE)
-      {
-         PosNorth = posN;
-         PosEast = posE;
-      }
+      public void SetNorth(int value) => PosNorth = value;
+
+      public void SetEast(int value) => PosEast = value;
    }
 }
