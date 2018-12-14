@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<style>
+#theMap {
+    width: 500px;
+    height: 500px;
+    border: solid 1px #ccc;
+    position: relative;
+    margin: 50px;
+    overflow: hidden;
+}
+#theMap .ship, #theMap .dangerZone {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ccc;
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    border: solid 0px #000;
+}
+#theMap .dangerZone {
+    top: -100px;
+    left: -100px;
+    background: red;
+}
+#theMap .ship.N {
+    border-top-width: 5px;
+}
+#theMap .ship.S {
+    border-bottom-width: 5px;
+}
+#theMap .ship.E {
+    border-right-width: 5px;
+}
+#theMap .ship.W {
+    border-left-width: 5px;
+}
+	.error {
+		color:red;
+	}
+</style>
+</head>
+
+<body>
+<div id="SurveyShips">
+  <div id="theMap" :style="[{'width':(worldSize.x*1 + 1) * 100 + 'px'},{'height':(worldSize.y*1 + 1) * 100 + 'px'}]">
+    <div v-for="ship in ships" v-if="!ship.lost" class="ship" :class="ship.currentOrientation" :style="[{'left':(ship.currentPosition.x) * 100 + 'px'},{'top':(worldSize.y - ship.currentPosition.y) * 100 + 'px'}]"></div>
+    <div class="dangerZone"></div>
+  </div>
+  <div id="data">
+	  <div class="worldSize">
+		  World Size:<br/>
+		  x: <input type="number" min="0" max="50" step="1" v-model="worldSize.x"><br/>
+		  y: <input type="number" min="0" max="50" step="1" v-model="worldSize.y"><br/>
+	  </div>
+	 
+    <div v-for="ship in ships">
+      <ul>
+        <li>Start coord. X: <input type="number" min="0" max="50" step="1" v-model="ship.startPosition.x"> | Y: <input type="number" min="0" max="50" step="1" v-model="ship.startPosition.y"></li>
+        <li>Start Orientation: <input type="text" v-model="ship.startOrientation"></li>
+		 <li>Instructions: <input type="text" v-model="ship.instructions"></li> 
+        <li><strong>End coord. X: {{ ship.currentPosition.x}} | Y: {{ ship.currentPosition.y}}</strong></li>
+        <li><strong>End Orientation {{ ship.currentOrientation}}</strong></li>
+        
+        <li v-if="ship.lost" class="error"><strong> LOST </strong></li>
+      </ul>
+    </div>
+  </div>
+  <button @click="calculatePaths()">Calculate path</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
+<script>
+	new Vue({
+		el: '#SurveyShips',
+		data: {
+			worldSize : {
+				x : 5,
+				y : 3
+			},
+			ships: [
+				{
+					startPosition: {
+						x: 1,
+						y: 1
+					},
+					currentPosition: {
+						x: 1,
+						y: 1
+					},
+					startOrientation: 'E',
+					currentOrientation: 'E',
+					instructions: 'RFRFRFRF',
+					lost : false
+					
+				},
+				{
+					startPosition: {
+						x: 3,
+						y: 2
+					},
+					currentPosition: {
+						x: 3,
+						y: 2
+					},
+					startOrientation: 'N',
+					currentOrientation: 'N',
+					instructions: 'FRRFLLFFRRFLL',
+					lost : false
+					
+				},
+				{
+					startPosition: {
+						x: 0,
+						y: 3
+					},
+					currentPosition: {
+						x: 0,
+						y: 3
+					},
+					startOrientation: 'W',
+					currentOrientation: 'W',
+					instructions: 'LLFFFLFLFL',
+					lost : false
+					
+				}
+			],
+			dangerZones: [
+				
+				
+			]
+		},
+		methods: {
+			addDangerZones : function() {
+				
+				for (var i =0; i < this.ships.length; i++) {
+					if (ships[i].lost) {
+						var dangerZone = {
+					position: {
+						x:ships[i].currentPosition.x,
+						y:ships[i].currentPosition.y
+					},
+					orientation: ships[i].currentOrientation
+					};
+					}
+					if (!dangerZone instanceof this.dangerZones) {
+					this.dangerZones.push(dangerZone);
+					}
+				}
+				
+			},
+			moveShip: function(ship,delayFactor) {
+				
+									setTimeout(function(){
+										if (!ship.lost) {
+				switch (ship.currentOrientation) {
+					case 'N':
+						if (ship.currentPosition.y+1 > this.worldSize.y) { ship.lost = true; } else { ship.currentPosition.y++ };					
+						break;
+					case 'S':
+						if (ship.currentPosition.y-1 < 0) { ship.lost = true; }  else { ship.currentPosition.y--};
+						break;
+					case 'W':
+						if (ship.currentPosition.x-1 < 0) { ship.lost = true; } else { ship.currentPosition.x-- } ;
+						break;
+					case 'E':
+						if (ship.currentPosition.x+1 > this.worldSize.x) { ship.lost = true; } else {ship.currentPosition.x++ } ;	
+						break;
+						
+				}
+					console.log(this.worldSize.x);
+					console.log(this.worldSize.y);
+											}
+				}.bind(this), 100*delayFactor);	
+				
+			},
+			rotateShip: function(ship,rotateTo,delayFactor) {
+				
+				setTimeout(function(){
+					if (!ship.lost) {
+				switch (ship.currentOrientation) {
+					case 'N':
+						if (rotateTo == 'L') { ship.currentOrientation = 'W';} else { ship.currentOrientation = 'E'; }
+						break;
+					case 'S':
+						if (rotateTo == 'L') { ship.currentOrientation = 'E';} else { ship.currentOrientation = 'W'; }
+						break;
+					case 'E':
+						if (rotateTo == 'L') { ship.currentOrientation = 'N';} else { ship.currentOrientation = 'S'; }
+						break;
+					case 'W':
+						if (rotateTo == 'L') { ship.currentOrientation = 'S';} else { ship.currentOrientation = 'N'; }
+						break;
+				}
+						}
+				}, 100*delayFactor);
+				
+			},
+			calculatePaths: function() {
+				var delayFactor = 0;
+				for (var i =0; i < this.ships.length; i++) {
+					for (var j = 0; j < this.ships[i].instructions.length; j++) {
+						delayFactor++;
+						var ship = this.ships[i];
+						var instruction = ship.instructions.charAt(j);
+						switch (instruction) {
+  							case 'L':
+    							this.rotateShip(ship,instruction, delayFactor);
+    							break;
+  							case 'R':
+								this.rotateShip(ship,instruction, delayFactor);
+    							break;
+							case 'F':
+								this.moveShip(ship, delayFactor);
+    							break;	
+  							default:
+    							console.log('Invalid instruction found');
+							}
+						
+						
+						
+						
+					}
+
+				}
+				setTimeout(function(){ 
+					this.addDangerZones();
+				}.bind(this), 100*delayFactor);
+			},
+			
+		}
+	});
+	</script>
+</body>
+</html>
