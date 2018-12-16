@@ -1,0 +1,11 @@
+C:\code\coding-challenge-1\src\SurveyShips.App\obj\Debug\netcoreapp2.2\SurveyShips.App.csprojAssemblyReference.cache
+C:\code\coding-challenge-1\src\SurveyShips.App\obj\Debug\netcoreapp2.2\SurveyShips.App.csproj.CoreCompileInputs.cache
+C:\code\coding-challenge-1\src\SurveyShips.App\obj\Debug\netcoreapp2.2\SurveyShips.App.AssemblyInfoInputs.cache
+C:\code\coding-challenge-1\src\SurveyShips.App\obj\Debug\netcoreapp2.2\SurveyShips.App.AssemblyInfo.cs
+C:\code\coding-challenge-1\src\SurveyShips.App\bin\Debug\netcoreapp2.2\SurveyShips.App.deps.json
+C:\code\coding-challenge-1\src\SurveyShips.App\bin\Debug\netcoreapp2.2\SurveyShips.App.runtimeconfig.json
+C:\code\coding-challenge-1\src\SurveyShips.App\bin\Debug\netcoreapp2.2\SurveyShips.App.runtimeconfig.dev.json
+C:\code\coding-challenge-1\src\SurveyShips.App\bin\Debug\netcoreapp2.2\SurveyShips.App.dll
+C:\code\coding-challenge-1\src\SurveyShips.App\bin\Debug\netcoreapp2.2\SurveyShips.App.pdb
+C:\code\coding-challenge-1\src\SurveyShips.App\obj\Debug\netcoreapp2.2\SurveyShips.App.dll
+C:\code\coding-challenge-1\src\SurveyShips.App\obj\Debug\netcoreapp2.2\SurveyShips.App.pdb
