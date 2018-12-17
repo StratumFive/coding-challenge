@@ -53,7 +53,7 @@ namespace SurveyShips.Tests
             var rec = gridOfShips.IsGridARectangle();
             
             //assert
-            Assert.True(rec,$"Assert failed, isnt a rectangle {rec}");
+            Assert.True(rec,$"Assert failed, isn't a rectangle {rec}");
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace SurveyShips.Tests
             var rec = gridOfShips.IsGridARectangle();
             
             //assert
-            Assert.False(rec,$"Assert failed, isnt a rectangle {rec}");
+            Assert.False(rec,$"Assert failed, isn't a rectangle {rec}");
         }
         
         [Fact]

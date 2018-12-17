@@ -1,3 +1,6 @@
 {
-    "dotnet-test-explorer.testProjectPath": "**/tests*/*/*.Tests.csproj"
+    "dotnet-test-explorer.testProjectPath": "**/tests*/*/*.Tests.csproj",
+    "cSpell.words": [
+        "nameof"
+    ]
 }
