@@ -14,3 +14,4 @@ C:\code\coding-challenge-1\tests\SurveyShips.Tests\obj\Debug\netcoreapp2.2\Surve
 C:\code\coding-challenge-1\tests\SurveyShips.Tests\obj\Debug\netcoreapp2.2\SurveyShips.Tests.dll
 C:\code\coding-challenge-1\tests\SurveyShips.Tests\obj\Debug\netcoreapp2.2\SurveyShips.Tests.pdb
 C:\code\coding-challenge-1\tests\SurveyShips.Tests\bin\Debug\netcoreapp2.2\input2.txt
+C:\code\coding-challenge-1\tests\SurveyShips.Tests\bin\Debug\netcoreapp2.2\input3.txt

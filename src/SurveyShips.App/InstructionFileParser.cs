@@ -1,30 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using Xunit;
+using System.Linq;
 
-namespace SurveyShips.Tests
+namespace SurveyShips.App
 {
-    /*
-    1. String not greater than 100
-    2. 1st line: Rectangle Size
-    3. 2nd Line: Ship starting position
-    4. 3rd Line: Movement
-    5. Only L, R and F for 3rd line.
-     */
 
-    // 0 5 3
-    // 1 1 1 E
-    // 2 RFRFRFRF
-
-    // 1 3 2 N
-    // 2 FRRFLLFFRRFLL
-
-    // 1 0 3 W
-    // 2 LLFFFLFLFL
-    public class InstructionFileParser
+/// <summary>
+/// Simple Object to Parse the Instruction file.
+/// </summary>
+public class InstructionFileParser
     {
         /// <summary>
         /// Parse the file, and validate the Instructions.
@@ -210,87 +196,5 @@ namespace SurveyShips.Tests
             return true;         
         }
 
-    }
-
-    public class InstructionTests
-    {
-        [Fact]
-        public void No_Instruction_Should_Be_Greater_Than_100()
-        {
-            //arrange
-            //act
-            //assert
-        }
-
-        [Fact]
-        public async Task As_1st_Line_Should_Have_Rectangle_Size()
-        {
-            //arrange
-            var lines = await InstructionFileParser.ParseLinesAsync("input.txt");
-            
-            //act
-            //assert
-            Assert.True(lines[0] == "5 3",$"Assert failed failed: {lines[0]}");
-        }
-
-        [Fact]
-        public async Task As_1st_Line_Should_Have_Rectangle_Size_Fails()
-        {
-            //arrange
-            var ex = await Assert.ThrowsAnyAsync<IOException>( () =>   InstructionFileParser.ParseLinesAsync("input2.txt"));
-            
-            //act
-            //assert
-            Assert.True(ex.Message == "First line failed",$"Assert failed {ex.Message}");
-        }
-
-        [Fact]
-        public async Task As_2nd_Line_Should_Have_Starting_Position()
-        {
-            //arrange
-            var lines = await InstructionFileParser.ParseLinesAsync("input.txt");
-            
-            //act
-            var shiplines = lines?.Where(s => s.Contains("[ship-start]") && !s.Contains("Failed"));
-            //assert
-            Assert.True(shiplines.Count() > 0,$"Assert failed failed: {shiplines.Count()}");
-        }
-    
-        [Fact]
-        public async Task As_A_Ship_Position_I_Should_Fail_Incorrect_Orientation()
-        {
-            //arrange
-            var lines = await InstructionFileParser.ParseLinesAsync("input3.txt");
-            
-            //act
-            var shiplines = lines?.Where(s => s.Contains("[ship-start]") && s.Contains("Failed"));
-            //assert
-            Assert.True(shiplines.Count() > 0,$"Assert failed failed: {shiplines.Count()}");
-        }
-
-        [Fact]
-        public async Task As_3rd_Line_Should_Have_L_R_And_F()
-        {
-            //arrange
-            var lines = await InstructionFileParser.ParseLinesAsync("input.txt");
-            
-            //act
-            var shiplines = lines?.Where(s => s.Contains("[ship-instr]") && !s.Contains("Failed"));
-            //assert
-            Assert.True(shiplines.Count() > 0,$"Assert failed failed: {shiplines.Count()}");
-        }
-
-
-        [Fact]
-        public async Task As_3rd_Line_Should_Have_L_R_And_F_Should_Fail()
-        {
-            //arrange
-            var lines = await InstructionFileParser.ParseLinesAsync("input3.txt");
-            
-            //act
-            var shiplines = lines?.Where(s => s.Contains("[ship-instr]") && s.Contains("Failed"));
-            //assert
-            Assert.True(shiplines.Count() > 0,$"Assert failed failed: {shiplines.Count()}");
-        }
     }
 }

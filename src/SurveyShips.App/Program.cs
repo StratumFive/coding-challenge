@@ -14,16 +14,13 @@ namespace SurveyShips.App
 
             try
             {
-                using (StreamReader sr = new StreamReader("input.txt"))
+                var parsedFile = await InstructionFileParser.ParseLinesAsync("input.txt");
+                foreach(var l in parsedFile)
                 {
-                    while((line = await sr.ReadLineAsync()) != null)  
-                    {  
-                        Console.WriteLine($"{linecount} {line}");  
-                        linecount++;  
-                    }  
+                    Console.WriteLine(l);
                 }
             }
-            catch (Exception ex)
+            catch (IOException ex)
             {
                 Console.WriteLine($"Issue opening file: {ex}");
             }

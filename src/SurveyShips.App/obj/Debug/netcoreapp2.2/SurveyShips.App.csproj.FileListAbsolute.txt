@@ -9,3 +9,4 @@ C:\code\coding-challenge-1\src\SurveyShips.App\bin\Debug\netcoreapp2.2\SurveyShi
 C:\code\coding-challenge-1\src\SurveyShips.App\bin\Debug\netcoreapp2.2\SurveyShips.App.pdb
 C:\code\coding-challenge-1\src\SurveyShips.App\obj\Debug\netcoreapp2.2\SurveyShips.App.dll
 C:\code\coding-challenge-1\src\SurveyShips.App\obj\Debug\netcoreapp2.2\SurveyShips.App.pdb
+C:\code\coding-challenge-1\src\surveyships.app\bin\Debug\netcoreapp2.2\input.txt
