@@ -26,6 +26,7 @@ namespace SurveyShips.Tests
     // 2 LLFFFLFLFL
     public class InstructionFileParser
     {
+        private static List<string> parsed = new List<string>();
         /// <summary>
         /// Parse the file, and validate the Instructions.
         /// </summary>
@@ -33,10 +34,10 @@ namespace SurveyShips.Tests
         /// <returns>Validated instructions.</returns>
         public static async Task<List<string>> ParseLinesAsync(string fileName)
         {
+
             string line = default(string);
             int count = 1;
             bool firstRecordPassed  = false;
-            List<string> lines = new List<string>();
             try
             {
                 using (StreamReader sr = new StreamReader(fileName))
@@ -55,7 +56,7 @@ namespace SurveyShips.Tests
                                 throw new IOException("First line failed"); //Throw because without this you cannot set grid.
                             }
                             firstRecordPassed = true;
-                            lines.Add(line);
+                            parsed.Add(line);
                             continue;
                         }
                     
@@ -65,11 +66,11 @@ namespace SurveyShips.Tests
                         {
                             if(await parseShipCoordinates(line))
                             {
-                                lines.Add($"[ship-start] {line}");
+                                parsed.Add($"[ship-start] {line}");
                             }
                             else 
                             {
-                                lines.Add($"[ship-start] Failed");          //Added Failed record so that the calling application can still continue
+                                parsed.Add($"[ship-start] Failed");          //Added Failed record so that the calling application can still continue
                             }
                             count++;
                             continue;
@@ -77,10 +78,10 @@ namespace SurveyShips.Tests
                         {
                             if(await parseShipInstructions(line))
                             {
-                                lines.Add($"[ship-instr] {line}");
+                                parsed.Add($"[ship-instr] {line}");
                             }else
                             {
-                                lines.Add($"[ship-instr] Failed");
+                                parsed.Add($"[ship-instr] Failed");
                             }
                             count = 1;
                         }
@@ -93,7 +94,7 @@ namespace SurveyShips.Tests
             {
                 Console.WriteLine($"Issue opening file: {ex}");
             }
-            return lines;
+            return parsed;
         }
     
         /// <summary>
@@ -210,6 +211,15 @@ namespace SurveyShips.Tests
             return true;         
         }
 
+
+        /// <summary>
+        /// Total successfully parsed ships ()
+        /// </summary>
+        /// <returns></returns>
+        public static int CountOfShips()
+        {
+            return parsed.Where(s => s.Contains("[ship-start]") && !s.Contains("Failed")).Count();
+        }
     }
 
     public class InstructionTests
@@ -291,6 +301,18 @@ namespace SurveyShips.Tests
             var shiplines = lines?.Where(s => s.Contains("[ship-instr]") && s.Contains("Failed"));
             //assert
             Assert.True(shiplines.Count() > 0,$"Assert failed failed: {shiplines.Count()}");
+        }
+
+        [Fact]
+        public async Task Should_Count_3_Ships()
+        {
+            //arrange
+            var lines = await InstructionFileParser.ParseLinesAsync("input.txt");
+            
+            //act
+            var count = InstructionFileParser.CountOfShips();
+            //assert
+            Assert.True(count == 3,$"Assert failed failed: {count}");
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Drawing;
 using Xunit;
 
 namespace SurveyShips.Tests
@@ -9,6 +10,31 @@ namespace SurveyShips.Tests
         4. Grid should know if a ship has been lost.
         5. Cartesian coordinates 0,0 being bottom left.
      */
+
+
+     public struct ShipGrid
+     {
+         public Point GridSize;
+         public Point[] LostShipCoordinates;
+         public ShipGrid(int maxX, int maxY, int maxShips)
+         {
+             GridSize = new Point(maxX,maxY);
+             LostShipCoordinates = new Point[maxShips];
+         }
+
+        /// <summary>
+        /// Simple method to determine if the Grid is rectangular.
+        /// </summary>
+        /// <returns></returns>
+         public bool IsGridARectangle()
+         {
+             //Really simplified Alg.
+             if(GridSize.X != GridSize.Y)
+                return true;
+            return false;
+         }
+
+     }
     public class GridTests
     {
         [Fact]

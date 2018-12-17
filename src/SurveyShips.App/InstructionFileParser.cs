@@ -12,6 +12,8 @@ namespace SurveyShips.App
 /// </summary>
 public class InstructionFileParser
     {
+        private static List<string> parsed = new List<string>();
+
         /// <summary>
         /// Parse the file, and validate the Instructions.
         /// </summary>
@@ -22,7 +24,6 @@ public class InstructionFileParser
             string line = default(string);
             int count = 1;
             bool firstRecordPassed  = false;
-            List<string> lines = new List<string>();
             try
             {
                 using (StreamReader sr = new StreamReader(fileName))
@@ -41,7 +42,7 @@ public class InstructionFileParser
                                 throw new IOException("First line failed"); //Throw because without this you cannot set grid.
                             }
                             firstRecordPassed = true;
-                            lines.Add(line);
+                            parsed.Add(line);
                             continue;
                         }
                     
@@ -51,11 +52,11 @@ public class InstructionFileParser
                         {
                             if(await parseShipCoordinates(line))
                             {
-                                lines.Add($"[ship-start] {line}");
+                                parsed.Add($"[ship-start] {line}");
                             }
                             else 
                             {
-                                lines.Add($"[ship-start] Failed");          //Added Failed record so that the calling application can still continue
+                                parsed.Add($"[ship-start] Failed");          //Added Failed record so that the calling application can still continue
                             }
                             count++;
                             continue;
@@ -63,10 +64,10 @@ public class InstructionFileParser
                         {
                             if(await parseShipInstructions(line))
                             {
-                                lines.Add($"[ship-instr] {line}");
+                                parsed.Add($"[ship-instr] {line}");
                             }else
                             {
-                                lines.Add($"[ship-instr] Failed");
+                                parsed.Add($"[ship-instr] Failed");
                             }
                             count = 1;
                         }
@@ -79,7 +80,7 @@ public class InstructionFileParser
             {
                 Console.WriteLine($"Issue opening file: {ex}");
             }
-            return lines;
+            return parsed;
         }
     
         /// <summary>
@@ -196,5 +197,13 @@ public class InstructionFileParser
             return true;         
         }
 
+        /// <summary>
+        /// Total successfully parsed ships ()
+        /// </summary>
+        /// <returns></returns>
+        public static int CountOfShips()
+        {
+            return parsed.Where(s => s.Contains("[ship-start]") && !s.Contains("Failed")).Count();
+        }
     }
 }
