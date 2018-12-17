@@ -1,3 +1,12 @@
+# Notes from Gareth
+
+- Built a small powershell script, once cloned, then just run the script using (Making sure you have Powershell)
+
+.\run
+
+- BUG: LOST piece isn't working.
+- BUG: If LOST is fired it doesn't pass that event to the next ship.
+
 # StratumFive - Coding Challenge
 
 ## Introduction
