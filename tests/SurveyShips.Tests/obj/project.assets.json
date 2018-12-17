@@ -5852,11 +5852,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\code\\coding-challenge-1\\tests\\SurveyShips.Tests\\SurveyShips.Tests.csproj",
+      "projectUniqueName": "c:\\code\\coding-challenge-1\\tests\\SurveyShips.Tests\\SurveyShips.Tests.csproj",
       "projectName": "SurveyShips.Tests",
-      "projectPath": "C:\\code\\coding-challenge-1\\tests\\SurveyShips.Tests\\SurveyShips.Tests.csproj",
+      "projectPath": "c:\\code\\coding-challenge-1\\tests\\SurveyShips.Tests\\SurveyShips.Tests.csproj",
       "packagesPath": "C:\\Users\\garfb\\.nuget\\packages\\",
-      "outputPath": "C:\\code\\coding-challenge-1\\tests\\SurveyShips.Tests\\obj\\",
+      "outputPath": "c:\\code\\coding-challenge-1\\tests\\SurveyShips.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
