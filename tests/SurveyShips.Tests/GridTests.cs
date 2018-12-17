@@ -11,7 +11,9 @@ namespace SurveyShips.Tests
         5. Cartesian coordinates 0,0 being bottom left.
      */
 
-
+    /// <summary>
+    /// Simple object that represents a Cartesian grid for Ships
+    /// </summary>
      public struct ShipGrid
      {
          public Point GridSize;
@@ -43,7 +45,29 @@ namespace SurveyShips.Tests
 
         [Fact]
         public void As_A_Grid_We_Should_Be_Rectangular()
-        {}
+        {
+            //arrange
+            var gridOfShips = new ShipGrid(5,3,1);
+        
+            //act
+            var rec = gridOfShips.IsGridARectangle();
+            
+            //assert
+            Assert.True(rec,$"Assert failed, isnt a rectangle {rec}");
+        }
+
+        [Fact]
+        public void As_A_Grid_We_Shouldnt_Be_Rectangular()
+        {
+            //arrange
+            var gridOfShips = new ShipGrid(5,5,1);
+        
+            //act
+            var rec = gridOfShips.IsGridARectangle();
+            
+            //assert
+            Assert.False(rec,$"Assert failed, isnt a rectangle {rec}");
+        }
         
         [Fact]
         public void As_A_Grid_I_Should_Report_Warning_Of_Known_Boundary()

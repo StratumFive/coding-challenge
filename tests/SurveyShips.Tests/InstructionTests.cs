@@ -26,7 +26,8 @@ namespace SurveyShips.Tests
     // 2 LLFFFLFLFL
     public class InstructionFileParser
     {
-        private static List<string> parsed = new List<string>();
+        private static List<string> parsed;
+
         /// <summary>
         /// Parse the file, and validate the Instructions.
         /// </summary>
@@ -38,6 +39,7 @@ namespace SurveyShips.Tests
             string line = default(string);
             int count = 1;
             bool firstRecordPassed  = false;
+            parsed = new List<string>();
             try
             {
                 using (StreamReader sr = new StreamReader(fileName))
@@ -220,6 +222,27 @@ namespace SurveyShips.Tests
         {
             return parsed.Where(s => s.Contains("[ship-start]") && !s.Contains("Failed")).Count();
         }
+    
+        /// <summary>
+        /// Returns the Grid coordinates.
+        /// </summary>
+        /// <returns>X, Y coordinates</returns>
+        public static (int x, int y) GridCoordinates()
+        {
+            string value = parsed[0];
+            if(string.IsNullOrWhiteSpace(value))
+                return (0,0);
+
+            int x , y = 0;
+            char xx = value[0];
+            char yy = value[2];
+            
+            x = (int)char.GetNumericValue(xx);
+            y = (int)char.GetNumericValue(yy);
+
+            return (x,y);
+
+        }
     }
 
     public class InstructionTests
@@ -313,6 +336,20 @@ namespace SurveyShips.Tests
             var count = InstructionFileParser.CountOfShips();
             //assert
             Assert.True(count == 3,$"Assert failed failed: {count}");
+        }
+
+        [Fact]
+        public async Task Should_Return_Grid_Size()
+        {
+            //arrange
+            var lines = await InstructionFileParser.ParseLinesAsync("input.txt");
+
+            //act
+            (var x, var y) = InstructionFileParser.GridCoordinates();
+
+            //assert
+            Assert.True(x == 5, $"Assert failed {x}");
+            Assert.True(y == 3, $"Assert failed {y}");
         }
     }
 }

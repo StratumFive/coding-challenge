@@ -12,7 +12,7 @@ namespace SurveyShips.App
 /// </summary>
 public class InstructionFileParser
     {
-        private static List<string> parsed = new List<string>();
+        private static List<string> parsed;
 
         /// <summary>
         /// Parse the file, and validate the Instructions.
@@ -24,6 +24,7 @@ public class InstructionFileParser
             string line = default(string);
             int count = 1;
             bool firstRecordPassed  = false;
+            parsed = new List<string>();
             try
             {
                 using (StreamReader sr = new StreamReader(fileName))
@@ -205,5 +206,25 @@ public class InstructionFileParser
         {
             return parsed.Where(s => s.Contains("[ship-start]") && !s.Contains("Failed")).Count();
         }
+   
+        /// <summary>
+        /// Returns the Grid coordinates.
+        /// </summary>
+        /// <returns>X, Y coordinates</returns>
+        public static (int x, int y) GridCoordinates()
+        {
+            string value = parsed[0];
+            if(string.IsNullOrWhiteSpace(value))
+                return (0,0);
+
+            int x , y = 0;
+            char xx = value[0];
+            char yy = value[2];
+            
+            x = (int)char.GetNumericValue(xx);
+            y = (int)char.GetNumericValue(yy);
+
+            return (x,y);
+        }   
     }
 }

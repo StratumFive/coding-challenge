@@ -15,6 +15,17 @@ namespace SurveyShips.App
             try
             {
                 var parsedFile = await InstructionFileParser.ParseLinesAsync("input.txt");
+                (var maxX, var maxY) = InstructionFileParser.GridCoordinates();
+                var grid = new ShipGrid(maxX,maxY,InstructionFileParser.CountOfShips());
+                Console.WriteLine($"--Start-- Grid Size {grid.GridSize.X},{grid.GridSize.Y} for {grid.LostShipCoordinates.Length} ships");
+
+                if(!grid.IsGridARectangle())
+                {
+                    Console.WriteLine("Error, grid isn't a rectangle, press any key to exit");
+                    Console.ReadKey();
+                    return;
+                }
+
                 foreach(var l in parsedFile)
                 {
                     Console.WriteLine(l);
