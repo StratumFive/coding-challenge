@@ -243,18 +243,64 @@ namespace SurveyShips.Tests
             return (x,y);
 
         }
+   
+         /// <summary>
+        /// Get Starting Coordinates and Orientation
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<string> GetShipStartCoordinates()
+        {
+            return parsed.Where(s => s.Contains("[ship-start]") && !s.Contains("Failed"));
+        }
+
+        /// <summary>
+        /// Get Starting Coordinates and Orientation
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="orientation"></param>
+        /// <returns></returns>
+        public static List<(int,int,char)> GetShipStartCoordinatesAsList()
+        {
+            //[ship-start] 
+            var coords = GetShipStartCoordinates().Select(i => i.Substring(13,i.Length-13)).ToList();
+            if(coords?.Count() == 0)
+            {
+                return new List<(int, int, char)> {
+                    (0,0,'U')
+                };
+            }
+            var converted = new List<(int,int,char)>();
+
+            foreach(var coord in coords)
+            {               
+                int x , y = 0;
+                char xx = coord[0];
+                char yy = coord[2];
+                char zz = coord[4];
+            
+                x = (int)char.GetNumericValue(xx);
+                y = (int)char.GetNumericValue(yy);
+
+                (int,int,char) item = (x,y,zz);
+                converted.Add(item);
+            }
+            return converted;
+        }
+
+        /// <summary>
+        /// Get Ship Instructions
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<string> GetShipInstructions()
+        {
+            return parsed.Where(s => s.Contains("[ship-instr]") && !s.Contains("Failed"));
+        }
+     
     }
 
     public class InstructionTests
     {
-        [Fact]
-        public void No_Instruction_Should_Be_Greater_Than_100()
-        {
-            //arrange
-            //act
-            //assert
-        }
-
         [Fact]
         public async Task As_1st_Line_Should_Have_Rectangle_Size()
         {
@@ -350,6 +396,31 @@ namespace SurveyShips.Tests
             //assert
             Assert.True(x == 5, $"Assert failed {x}");
             Assert.True(y == 3, $"Assert failed {y}");
+        }
+
+        [Fact]
+        public async Task Should_Return_Ship_Starting_Coordinates()
+        {
+            //arrange
+            var lines = await InstructionFileParser.ParseLinesAsync("input.txt");
+
+            //act
+            var coords = InstructionFileParser.GetShipStartCoordinates();
+
+            //assert
+            Assert.True(coords.Count() == 3, $"Assert failed {coords.Count()}");
+        }
+
+        [Fact]
+        public async Task Return_Ship_Starting_Coordinate_As_Tuples()
+        {
+            //arrange
+            var lines = await InstructionFileParser.ParseLinesAsync("input.txt");
+            
+            //act
+            var coords = InstructionFileParser.GetShipStartCoordinatesAsList();
+            
+            Assert.True(coords.Count() == 3, $"Assert failed {coords.Count()}");
         }
     }
 }

@@ -39,9 +39,6 @@ namespace SurveyShips.Tests
      }
     public class GridTests
     {
-        [Fact]
-        public void As_A_Grid_We_Should_Have_X_Y_Coordinates()
-        {}
 
         [Fact]
         public void As_A_Grid_We_Should_Be_Rectangular()
@@ -69,8 +66,5 @@ namespace SurveyShips.Tests
             Assert.False(rec,$"Assert failed, isn't a rectangle {rec}");
         }
         
-        [Fact]
-        public void As_A_Grid_I_Should_Report_Warning_Of_Known_Boundary()
-        {}
     }
 }

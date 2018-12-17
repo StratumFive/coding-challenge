@@ -1,16 +1,18 @@
 using System;
 using System.Drawing;
-using Xunit;
 
-namespace SurveyShips.Tests
+namespace SurveyShips.App
 {
     /*
-        1. Ship should have a current position (X, Y)
-        2. Ship should have a current orientation (N,E,S,W)
-        3. We should know if the ship is 'lost'
-        4. Ship can rotate 90 degrees Left or Right
-     */
+    		        N
 
+        W           			E
+
+		            S
+     */
+    /// <summary>
+    /// Compass Orientation values.
+    /// </summary>
     public enum Orientation
     {
         North,
@@ -163,169 +165,5 @@ namespace SurveyShips.Tests
 
             return Orientation.Unknown;
         }
-    }
-    public class ShipsTests
-    {
-        [Fact]
-        public void As_A_Ship_We_Can_Turn_Left_From_North()
-        {
-            //arrange
-            var ship = new Ship(1,1,'N');
-
-            //act
-            ship.ProcessInstructions("L");
-            
-            //assert
-            Assert.True(ship.CurrentOrientation == Orientation.West, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_A_Ship_We_Can_Turn_Left_From_East()
-        {
-            //arrange
-            var ship = new Ship(1,1,'E');
-
-            //act
-            ship.ProcessInstructions("L");
-            
-            //assert
-            Assert.True(ship.CurrentOrientation == Orientation.North, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_A_Ship_We_Can_Turn_Left_From_South()
-        {
-            //arrange
-            var ship = new Ship(1,1,'S');
-
-            //act
-            ship.ProcessInstructions("L");
-            
-            //assert
-            Assert.True(ship.CurrentOrientation == Orientation.East, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_A_Ship_We_Can_Turn_Left_From_West()
-        {
-            //arrange
-            var ship = new Ship(1,1,'W');
-
-            //act
-            ship.ProcessInstructions("L");
-            
-            //assert
-            Assert.True(ship.CurrentOrientation == Orientation.South, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_A_Ship_We_Can_Turn_Right_From_North()
-        {
-            //arrange
-            var ship = new Ship(1,1,'N');
-
-            //act
-            ship.ProcessInstructions("R");
-            
-            //assert
-            Assert.True(ship.CurrentOrientation == Orientation.East, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_A_Ship_We_Can_Turn_Right_From_East()
-        {
-            //arrange
-            var ship = new Ship(1,1,'E');
-
-            //act
-            ship.ProcessInstructions("R");
-            
-            //assert
-            Assert.True(ship.CurrentOrientation == Orientation.South, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_A_Ship_We_Can_Turn_Right_From_South()
-        {
-            //arrange
-            var ship = new Ship(1,1,'S');
-
-            //act
-            ship.ProcessInstructions("R");
-            
-            //assert
-            Assert.True(ship.CurrentOrientation == Orientation.West, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_A_Ship_We_Can_Turn_Right_From_West()
-        {
-            //arrange
-            var ship = new Ship(1,1,'W');
-
-            //act
-            ship.ProcessInstructions("R");
-            
-            //assert
-            Assert.True(ship.CurrentOrientation == Orientation.North, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_As_Ship_We_Can_Move_1_From_North()
-        {
-            //arrange
-            var ship = new Ship(1,1,'N');
-            var newPoint = new Point(1,2);
-
-            //act
-            ship.ProcessInstructions("F");
-            
-            //assert
-            Assert.True(ship.CurrentPosition == newPoint, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_As_Ship_We_Can_Move_1_From_South()
-        {
-            //arrange
-            var ship = new Ship(1,1,'S');
-            var newPoint = new Point(1,0);
-
-            //act
-            ship.ProcessInstructions("F");
-            
-            //assert
-            Assert.True(ship.CurrentPosition == newPoint, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_As_Ship_We_Can_Move_1_From_East()
-        {
-            //arrange
-            var ship = new Ship(1,1,'E');
-            var newPoint = new Point(2,1);
-
-            //act
-            ship.ProcessInstructions("F");
-            
-            //assert
-            Assert.True(ship.CurrentPosition == newPoint, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        [Fact]
-        public void As_As_Ship_We_Can_Move_1_From_West()
-        {
-            //arrange
-            var ship = new Ship(1,1,'W');
-            var newPoint = new Point(0,1);
-
-            //act
-            ship.ProcessInstructions("F");
-            
-            //assert
-            Assert.True(ship.CurrentPosition == newPoint, $"Assert failed {ship.CurrentOrientation}");
-        }
-
-        
     }
 }

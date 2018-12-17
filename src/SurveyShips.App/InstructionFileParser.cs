@@ -206,6 +206,7 @@ public class InstructionFileParser
         {
             return parsed.Where(s => s.Contains("[ship-start]") && !s.Contains("Failed")).Count();
         }
+
    
         /// <summary>
         /// Returns the Grid coordinates.
@@ -226,5 +227,60 @@ public class InstructionFileParser
 
             return (x,y);
         }   
+    
+         /// <summary>
+        /// Get Starting Coordinates and Orientation
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<string> GetShipStartCoordinates()
+        {
+            return parsed.Where(s => s.Contains("[ship-start]") && !s.Contains("Failed"));
+                         
+        }
+
+        /// <summary>
+        /// Get Starting Coordinates and Orientation
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="orientation"></param>
+        /// <returns></returns>
+        public static List<(int,int,char)> GetShipStartCoordinatesAsList()
+        {
+            //[ship-start] 
+            var coords = GetShipStartCoordinates().Select(i => i.Substring(13,i.Length-13)).ToList();
+            if(coords?.Count() == 0)
+            {
+                return new List<(int, int, char)> {
+                    (0,0,'U')
+                };
+            }
+            var converted = new List<(int,int,char)>();
+
+            foreach(var coord in coords)
+            {               
+                int x , y = 0;
+                char xx = coord[0];
+                char yy = coord[2];
+                char zz = coord[4];
+            
+                x = (int)char.GetNumericValue(xx);
+                y = (int)char.GetNumericValue(yy);
+
+                (int,int,char) item = (x,y,zz);
+                converted.Add(item);
+            }
+            return converted;
+        }
+
+        /// <summary>
+        /// Get Ship Instructions
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetShipInstructions()
+        {
+            return parsed.Where(s => s.Contains("[ship-instr]") && !s.Contains("Failed"))
+                         .Select(i => i.Substring(13,i.Length-13)).ToList();
+        }
     }
 }

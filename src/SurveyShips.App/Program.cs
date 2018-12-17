@@ -9,15 +9,12 @@ namespace SurveyShips.App
         static async Task Main(string[] args)
         {
             //TODO: Remove hard coding of file, take from args
-            int linecount = 0;
-            string line = default(string);
-
             try
             {
                 var parsedFile = await InstructionFileParser.ParseLinesAsync("input.txt");
                 (var maxX, var maxY) = InstructionFileParser.GridCoordinates();
                 var grid = new ShipGrid(maxX,maxY,InstructionFileParser.CountOfShips());
-                Console.WriteLine($"--Start-- Grid Size {grid.GridSize.X},{grid.GridSize.Y} for {grid.LostShipCoordinates.Length} ships");
+                Console.WriteLine($"-- Start Grid Size {grid.GridSize.X},{grid.GridSize.Y} for {grid.LostShipCoordinates.Length} ships");
 
                 if(!grid.IsGridARectangle())
                 {
@@ -26,9 +23,26 @@ namespace SurveyShips.App
                     return;
                 }
 
-                foreach(var l in parsedFile)
+                Ship[] ships = new Ship[grid.LostShipCoordinates.Length];
+                var startingCoordinates = InstructionFileParser.GetShipStartCoordinatesAsList();
+                var instructions = InstructionFileParser.GetShipInstructions();
+
+                if(ships.Length != startingCoordinates.Count)
+                    throw new Exception("Error, values didn't match for ships vs. coordinates");
+
+                for(int i=0;i < ships.Length;i++)
                 {
-                    Console.WriteLine(l);
+                    ships[i] = new Ship(startingCoordinates[i].Item1,
+                                        startingCoordinates[i].Item2,
+                                        startingCoordinates[i].Item3);
+                    Console.WriteLine($"-- Set up Ship {i} - {ships[i].CurrentPosition} pointing {ships[i].CurrentOrientation}");
+                    ships[i].ProcessInstructions(instructions[i]);
+                    bool lost = false;
+                    if((ships[i].CurrentPosition.X > grid.GridSize.X) || (ships[i].CurrentPosition.Y > grid.GridSize.Y))
+                    {
+                        lost = true;
+                    }
+                    Console.WriteLine($"-- End Ship    {i} - {ships[i].CurrentPosition} pointing {ships[i].CurrentOrientation} {(lost ? "LOST" : "")}");
                 }
             }
             catch (IOException ex)
