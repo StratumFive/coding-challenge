@@ -33,6 +33,13 @@ namespace SurveyShips.Tests
             this.CurrentPosition = new Point(startX, startY);
             this.CurrentOrientation = ConvertCharToOrientation(startOrientation);
         }
+
+        /// <summary>
+        /// Process the instructions to move and turn a ship.
+        /// </summary>
+        /// <param name="instructions"></param>
+        /// <exception><see cref="ArgumentNullException"/></exception>
+        /// <exception><see cref="ArgumentException"/></exception>
         public void ProcessInstructions(string instructions)
         {
             if(string.IsNullOrEmpty(instructions))
@@ -52,6 +59,8 @@ namespace SurveyShips.Tests
                         TurnRight();
                         break;
                     case 'f':
+                        MoveForward();
+                        break;
                     default:
                         break;
                 }
@@ -108,6 +117,30 @@ namespace SurveyShips.Tests
         }
 
         /// <summary>
+        /// Move Forward one grid point.
+        /// </summary>
+        private void MoveForward()
+        {
+             switch(CurrentOrientation)
+            {
+                case Orientation.North:
+                    this.CurrentPosition = new Point(CurrentPosition.X, CurrentPosition.Y + 1);
+                    break;
+                case Orientation.East:
+                    this.CurrentPosition = new Point(CurrentPosition.X + 1, CurrentPosition.Y);
+                    break;
+                case Orientation.South:
+                    this.CurrentPosition = new Point(CurrentPosition.X, CurrentPosition.Y - 1);
+                    break;
+                case Orientation.West:
+                    this.CurrentPosition = new Point(CurrentPosition.X - 1, CurrentPosition.Y);
+                    break;
+                default:
+                    break;
+            }           
+        }
+        
+        /// <summary>
         /// Quick method to return a instruction orientation to <see cref="Orientation.cs" />
         /// </summary>
         /// <param name="orientationCode"></param>
@@ -135,18 +168,6 @@ namespace SurveyShips.Tests
     }
     public class ShipsTests
     {
-        [Fact]
-        public void As_As_Ship_We_Should_Know_Our_Current_Position()
-        {}
-
-        [Fact]
-        public void As_A_Ship_We_Should_Know_Our_Current_Orientation()
-        {}
-
-        [Fact]
-        public void As_A_Ship_We_Should_Know_If_We_Are_Lost()
-        {}
-
         [Fact]
         public void As_A_Ship_We_Can_Turn_Left_From_North()
         {
@@ -249,6 +270,62 @@ namespace SurveyShips.Tests
             
             //assert
             Assert.True(ship.CurrentOrientation == Orientation.North, $"Assert failed {ship.CurrentOrientation}");
+        }
+
+        [Fact]
+        public void As_As_Ship_We_Can_Move_1_From_North()
+        {
+            //arrange
+            var ship = new Ship(1,1,'N');
+            var newPoint = new Point(1,2);
+
+            //act
+            ship.ProcessInstructions("F");
+            
+            //assert
+            Assert.True(ship.CurrentPosition == newPoint, $"Assert failed {ship.CurrentOrientation}");
+        }
+
+        [Fact]
+        public void As_As_Ship_We_Can_Move_1_From_South()
+        {
+            //arrange
+            var ship = new Ship(1,1,'S');
+            var newPoint = new Point(1,0);
+
+            //act
+            ship.ProcessInstructions("F");
+            
+            //assert
+            Assert.True(ship.CurrentPosition == newPoint, $"Assert failed {ship.CurrentOrientation}");
+        }
+
+        [Fact]
+        public void As_As_Ship_We_Can_Move_1_From_East()
+        {
+            //arrange
+            var ship = new Ship(1,1,'E');
+            var newPoint = new Point(2,1);
+
+            //act
+            ship.ProcessInstructions("F");
+            
+            //assert
+            Assert.True(ship.CurrentPosition == newPoint, $"Assert failed {ship.CurrentOrientation}");
+        }
+
+        [Fact]
+        public void As_As_Ship_We_Can_Move_1_From_West()
+        {
+            //arrange
+            var ship = new Ship(1,1,'W');
+            var newPoint = new Point(0,1);
+
+            //act
+            ship.ProcessInstructions("F");
+            
+            //assert
+            Assert.True(ship.CurrentPosition == newPoint, $"Assert failed {ship.CurrentOrientation}");
         }
 
         
