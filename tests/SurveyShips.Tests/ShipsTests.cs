@@ -192,19 +192,35 @@ namespace SurveyShips.Tests
         private bool CanMoveForward(int x, int y)
         {
             //Stop ship moving forward if a ship got lost their previously.
-            if (this.LostShipCoordinates.Where(i => i.X == x && i.Y == y)
-                                        .Count() > 0)
+            //Might be able to move in a particular direction though
+            if (this.LostShipCoordinates.Count() > 0)
+            {
+                if(x <=  this.Grid.X && y > this.Grid.Y)
+                {
+                    this.CurrentPosition = new Point(x,CurrentPosition.Y);
+                } else if(x > this.Grid.X && y <= this.Grid.Y)
+                {
+                    this.CurrentPosition = new Point(CurrentPosition.X,y);
+                }
+                else if(x <= this.Grid.X && y <= this.Grid.Y)
+                {
+                    this.CurrentPosition = new Point(x,y);
+                }
+                lost = false;
                 return false;
+            }
+
             if(lost)
                 return false;
+            
             if(x > this.Grid.X || y > this.Grid.Y)
             {
-                lost = true;
-                // this.CurrentPosition = new Point(x, y);        
+                lost = true;     
                 return false;
             }
             return true;
         }
+
 
         /// <summary>
         /// Quick method to return a instruction orientation to <see cref="Orientation.cs" />

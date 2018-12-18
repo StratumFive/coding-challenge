@@ -4,6 +4,7 @@
    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
    "version": "0.2.0",
    "configurations": [
+       
         {
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
@@ -13,6 +14,20 @@
             "program": "${workspaceFolder}/tests/SurveyShips.Tests/bin/Debug/netcoreapp2.2/SurveyShips.Tests.dll",
             "args": [],
             "cwd": "${workspaceFolder}/tests/SurveyShips.Tests",
+            // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": ".NET Core Launch (consoleapp)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/SurveyShips.App/bin/Debug/netcoreapp2.2/SurveyShips.App.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/SurveyShips.App",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
             "console": "internalConsole",
             "stopAtEntry": false,

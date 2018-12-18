@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SurveyShips.App
@@ -11,7 +13,7 @@ namespace SurveyShips.App
             //TODO: Remove hard coding of file, take from args
             try
             {
-                var parsedFile = await InstructionFileParser.ParseLinesAsync("input.txt");
+                await InstructionFileParser.ParseLinesAsync("input.txt");
                 (var maxX, var maxY) = InstructionFileParser.GridCoordinates();
                 var grid = new ShipGrid(maxX,maxY,InstructionFileParser.CountOfShips());
                 Console.WriteLine($"-- Start Grid Size {grid.GridSize.X},{grid.GridSize.Y} for {grid.LostShipCoordinates.Length} ships");
@@ -34,19 +36,18 @@ namespace SurveyShips.App
                 {
                     ships[i] = new Ship(startingCoordinates[i].Item1,
                                         startingCoordinates[i].Item2,
-                                        startingCoordinates[i].Item3);
+                                        startingCoordinates[i].Item3,
+                                        grid.LostShipCoordinates.Where(c => c.X != 0 && c.Y != 0).ToList(),
+                                        grid.GridSize);
 
                     Console.WriteLine($"-- Set up Ship {i} - {ships[i].CurrentPosition} pointing {ships[i].CurrentOrientation}");
-                    ships[i].ProcessInstructions(instructions[i],true);
+                    ships[i].ProcessInstructions(instructions[i]);
                     
-                    bool lost = false;
-                    if((ships[i].CurrentPosition.X > grid.GridSize.X) 
-                    || (ships[i].CurrentPosition.Y > grid.GridSize.Y))
+                    if(ships[i].IsLost())
                     {
-                        lost = true;
                         grid.LostShipCoordinates[i] = ships[i].CurrentPosition;
                     }
-                    Console.WriteLine($"-- End Ship    {i} - {ships[i].CurrentPosition} pointing {ships[i].CurrentOrientation} {(lost ? "LOST" : "")}");
+                    Console.WriteLine($@"-- End Ship    {i} - {ships[i].CurrentPosition} pointing {ships[i].CurrentOrientation} {(ships[i].IsLost() ? "LOST" : "" )}");
                 }
             }
             catch (IOException ex)
@@ -55,5 +56,6 @@ namespace SurveyShips.App
             }
 
         }
+
     }
 }
