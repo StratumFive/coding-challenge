@@ -35,12 +35,16 @@ namespace SurveyShips.App
                     ships[i] = new Ship(startingCoordinates[i].Item1,
                                         startingCoordinates[i].Item2,
                                         startingCoordinates[i].Item3);
+
                     Console.WriteLine($"-- Set up Ship {i} - {ships[i].CurrentPosition} pointing {ships[i].CurrentOrientation}");
-                    ships[i].ProcessInstructions(instructions[i]);
+                    ships[i].ProcessInstructions(instructions[i],true);
+                    
                     bool lost = false;
-                    if((ships[i].CurrentPosition.X > grid.GridSize.X) || (ships[i].CurrentPosition.Y > grid.GridSize.Y))
+                    if((ships[i].CurrentPosition.X > grid.GridSize.X) 
+                    || (ships[i].CurrentPosition.Y > grid.GridSize.Y))
                     {
                         lost = true;
+                        grid.LostShipCoordinates[i] = ships[i].CurrentPosition;
                     }
                     Console.WriteLine($"-- End Ship    {i} - {ships[i].CurrentPosition} pointing {ships[i].CurrentOrientation} {(lost ? "LOST" : "")}");
                 }

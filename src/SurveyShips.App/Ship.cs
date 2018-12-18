@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace SurveyShips.App
 {
@@ -28,12 +30,17 @@ namespace SurveyShips.App
     public class Ship
     {
         public Point CurrentPosition {get;private set;} 
+        public Point Grid {get;private set;}
         public Orientation CurrentOrientation {get;private set;}
+
+        public List<Point> LostShipCoordinates {get;set;}
+
 
         public Ship(int startX, int startY, char startOrientation)
         {
             this.CurrentPosition = new Point(startX, startY);
             this.CurrentOrientation = ConvertCharToOrientation(startOrientation);
+            this.LostShipCoordinates = new List<Point>();
         }
 
         /// <summary>
@@ -42,7 +49,7 @@ namespace SurveyShips.App
         /// <param name="instructions"></param>
         /// <exception><see cref="ArgumentNullException"/></exception>
         /// <exception><see cref="ArgumentException"/></exception>
-        public void ProcessInstructions(string instructions)
+        public void ProcessInstructions(string instructions, bool debug = false)
         {
             if(string.IsNullOrEmpty(instructions))
                 throw new ArgumentNullException(nameof(instructions));
@@ -66,6 +73,10 @@ namespace SurveyShips.App
                     default:
                         break;
                 }
+                if(debug)
+                {
+                    Console.WriteLine($"Debug: Instruction {instructions[i]} {this.CurrentPosition.X}, {this.CurrentPosition.Y} with a position");
+                }            
             }
             
         }
@@ -126,15 +137,27 @@ namespace SurveyShips.App
              switch(CurrentOrientation)
             {
                 case Orientation.North:
+                    if(this.LostShipCoordinates.Where(i => i.X ==  CurrentPosition.X && (i.Y == CurrentPosition.Y  + 1))
+                                               .Count() > 0)
+                        break;
                     this.CurrentPosition = new Point(CurrentPosition.X, CurrentPosition.Y + 1);
                     break;
                 case Orientation.East:
+                    if(this.LostShipCoordinates.Where(i => i.X + 1 ==  CurrentPosition.X && (i.Y == CurrentPosition.Y))
+                                               .Count() > 0)
+                        break;
                     this.CurrentPosition = new Point(CurrentPosition.X + 1, CurrentPosition.Y);
                     break;
                 case Orientation.South:
+                    if(this.LostShipCoordinates.Where(i => i.X ==  CurrentPosition.X && (i.Y == CurrentPosition.Y  - 1))
+                                               .Count() > 0)
+                        break;
                     this.CurrentPosition = new Point(CurrentPosition.X, CurrentPosition.Y - 1);
                     break;
                 case Orientation.West:
+                    if(this.LostShipCoordinates.Where(i => i.X - 1 ==  CurrentPosition.X && (i.Y == CurrentPosition.Y))
+                                               .Count() > 0)
+                        break;
                     this.CurrentPosition = new Point(CurrentPosition.X - 1, CurrentPosition.Y);
                     break;
                 default:
