@@ -42,7 +42,7 @@ namespace SurveyShips.Tests
             this.CurrentPosition = new Point(startX, startY);
             this.CurrentOrientation = ConvertCharToOrientation(startOrientation);
             this.LostShipCoordinates = new List<Point>();
-            this.Grid = new Point();
+            this.Grid = new Point(50,25);                                           //Setting a default.
         }
         
         public Ship(int startX, int startY, char startOrientation, List<Point> missingShips, Point grid)
