@@ -4,8 +4,21 @@
 
 .\run
 
-- BUG: LOST piece isn't working.
-- BUG: If LOST is fired it doesn't pass that event to the next ship.
+### Output
+
+> Start Grid Size 5,3 for 3 ships
+>
+> Set up Ship 0 - {X=1,Y=1} pointing East
+>
+> End Ship    0 - {X=1,Y=1} pointing East
+>
+> Set up Ship 1 - {X=3,Y=2} pointing North
+>
+> End Ship    1 - {X=3,Y=3} pointing North LOST
+>
+> Set up Ship 2 - {X=0,Y=3} pointing West
+>
+> End Ship    2 - {X=2,Y=3} pointing South
 
 # StratumFive - Coding Challenge
 
