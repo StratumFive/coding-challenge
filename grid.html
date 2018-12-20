@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Untitled Document</title>
+</head>
+
+<body>
+  <div>
+    grid size<br />
+    x:<input id="grid-x" type="number" min="0" max="50" value="5">
+    y:<input id="grid-y" type="number" min="0" max="50" value="3">
+    <button onclick='build()' >build</button>
+  </div>
+  <div>
+    <button id="ship1start" onclick='shipStartPosition(1)' >ship 1 start position</button>
+
+  </div>
+
+
+
+
+    <script type="text/javascript">
+      document.getElementById("ship1start").hidden = true;
+      var newGrid
+      var reversed;
+        //create the 2d array and set the value of each position as its co ordinate
+      var grid = function(columns, rows) {
+          this.rows = rows;
+          this.columns = columns;
+          this.gridArray = new Array(this.rows);
+          for (var i = 0; i < this.rows; i += 1) {
+              this.gridArray[i] = new Array(this.columns)
+              for (var j = 0; j < this.columns; j++) {
+                  this.gridArray[i][j] = j + "," + i;
+              }
+          }
+          return this.gridArray;
+      }
+
+    function build() {
+        //get size of grid from input fields and display reversed array in console
+        var gridX = document.getElementById('grid-x').value;gridX++
+        var gridY = document.getElementById('grid-y').value;gridY++
+        newGrid = new grid(gridX, gridY);
+        // put 0,0 at bottom left
+        newGrid.reverse();
+        console.log(newGrid);
+        document.getElementById("ship1start").hidden = false;
+      }
+
+    function shipStartPosition(s){
+        //get ship co ords and direction
+        var ship = prompt("ship" + s + " starting position");
+        console.log(ship);
+        //reset array before adding elements to it
+        newGrid.reverse();
+        var shipCoOrd1 = ship.substr(0, 1);
+        var shipCoOrd2 = ship.substr(2, 1);
+        var shipCoOrd3 = ship.substr(4, 1);
+
+        //plot first ship and its initial direction
+        newGrid[shipCoOrd2][shipCoOrd1] = shipCoOrd3;
+        newGrid.reverse();
+        console.log(newGrid);
+
+    }
+
+
+    </script>
+</body>
+
+</html>
