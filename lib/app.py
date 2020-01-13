@@ -1,3 +1,5 @@
+# write a program that determines each sequence of ship positions and reports the final position of the ship
+
 def take_inputs () :
     # ask for input
 
