@@ -19,14 +19,17 @@ def take_inputs () :
 
     # input 3: Ship instruction (2 lines per ship)
     # ship instruction : string of the letters "L", "R", and "F" on one line, < 100 characters 
-    # # Left: the ship turns left 90 degrees and remains on the current grid point.
-    # # Right: the ship turns right 90 degrees and remains on the current grid point.
-    # # Forward: the ship moves forward one grid point in the direction of the current orientation and maintains the same orientation. The direction North corresponds to the direction from grid point (x, y) to grid point (x, y+1) and the direction east corresponds to the direction from grid point (x, y) to grid point (x+1, y).
     shipInstruction = str(input("Type in Ship instructions i.e. LRF: ")).upper()
     print(shipInstruction)
 
 def analyze_inputs () :
     take_inputs()
+    # collect grid point coordinates into integers of X & Y
+    # collect ship orientation string in ship position
+    # analyze ship instructions
+    # # Left: the ship turns left 90 degrees and remains on the current grid point.
+    # # Right: the ship turns right 90 degrees and remains on the current grid point.
+    # # Forward: the ship moves forward one grid point in the direction of the current orientation and maintains the same orientation. The direction North corresponds to the direction from grid point (x, y) to grid point (x, y+1) and the direction east corresponds to the direction from grid point (x, y) to grid point (x+1, y).
 
 analyze_inputs()
 
