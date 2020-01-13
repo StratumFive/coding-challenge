@@ -37,7 +37,7 @@ def take_inputs () :
     # # if R, E --> S 
     # # if R, S --> W 
     # # if R, W --> N 
-        if ('R' in shipInstructionList):
+        if (i == "R"):
             if (shipOrientation == "N") :
                 shipOrientation = "E"
             elif (shipOrientation == "E") :
@@ -52,7 +52,7 @@ def take_inputs () :
     # # if L, W --> S
     # # if L, S --> E
     # # if L, E --> N
-        elif ('L' in shipInstructionList):
+        elif (i == "L"):
             if (shipOrientation == "N") :
                 shipOrientation = "W"
             elif (shipOrientation == "W") :
@@ -65,17 +65,14 @@ def take_inputs () :
     # # Forward: the ship moves forward one grid point in the direction of the current orientation and maintains the same orientation. The direction North corresponds to the direction from grid point (x, y) to grid point (x, y+1) and the direction east corresponds to the direction from grid point (x, y) to grid point (x+1, y).
     # # if F, X = X+1
     # # if F, Y = Y+1
-        elif ('F' in shipInstructionList):
-            X = X + 1
-            Y = Y + 1
+        elif (i == "F"):
+            if (shipOrientation == "N") :
+                Y = Y + 1
+            elif (shipOrientation == "E") :
+                X = X + 1
     # see if it works:
     print(f'X: {X}\nY: {Y}\nShip Orientation: {shipOrientation}')
 
 
 
 take_inputs()
-
-# def find_ships () :
-    # process inputs and make outputs
-    # # indicate the final grid position and orientation of the ship.
-    # # print "LOST" if the grid point coordinates (x, y) = ints > 50  
