@@ -12,20 +12,23 @@ def take_inputs () :
     print(northEastList)
 
     # input2: ship position ((grid point coordinates (x, y) + (ship orientation))
-    shipPosition = str(input("Type in grid point coordinates and ship orientation i.e. XYN: ")).upper()
+    # # orientation (N, S, E, W) = string, Uppercase
+    shipPosition = str(input("Type in grid point coordinates and ship orientation i.e. X Y N: ")).upper()
     shipPositionList = ''.join(shipPosition).split() 
     print(shipPositionList)
-
-    # # orientation (N, S, E, W) = string, Uppercase
-
 
     # input 3: Ship instruction (2 lines per ship)
     # ship instruction : string of the letters "L", "R", and "F" on one line, < 100 characters 
     # # Left: the ship turns left 90 degrees and remains on the current grid point.
     # # Right: the ship turns right 90 degrees and remains on the current grid point.
     # # Forward: the ship moves forward one grid point in the direction of the current orientation and maintains the same orientation. The direction North corresponds to the direction from grid point (x, y) to grid point (x, y+1) and the direction east corresponds to the direction from grid point (x, y) to grid point (x+1, y).
+    shipInstruction = str(input("Type in Ship instructions i.e. LRF: ")).upper()
+    print(shipInstruction)
 
-take_inputs()
+def analyze_inputs () :
+    take_inputs()
+
+analyze_inputs()
 
 # def find_ships () :
     # process inputs and make outputs
