@@ -8,6 +8,12 @@ def take_inputs () :
     # # first line of input is the top right (y (north), x (east))
     # # lower-left (or south-west) coordinates are assumed to be( y(south) = 0, x(west) = 0)
 
+    southWestX = 0
+    southWestY = 0
+    northEastX = int(input("Type in North East X coordinate : "))
+    northEastY = int(input("Type in North East Y coordinate : "))
+
+
     # input2: ship position ((grid point coordinates (x, y) + (ship orientation))
     # # orientation (N, S, E, W) = string, Uppercase
 
