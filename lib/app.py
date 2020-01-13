@@ -28,6 +28,7 @@ def take_inputs () :
     # ship instruction : string of the letters "L", "R", and "F" on one line, < 100 characters 
     shipInstruction = str(input("Type in Ship instructions i.e. LRF: ")).upper()   
     print(shipInstruction)
+    for i in shipInstruction:
     # analyze ship instructions
     # make sure input is only LRF
     # # R: the ship turns right 90 degrees and remains on the current grid point.
@@ -35,14 +36,21 @@ def take_inputs () :
     # # if R, E --> S 
     # # if R, S --> W 
     # # if R, W --> N 
+        if ('R' in shipInstruction):
+            print ("found R")
     # # L: the ship turns left 90 degrees and remains on the current grid point.
     # # if L, N --> W
     # # if L, W --> S
     # # if L, S --> E
     # # if L, E --> N
+        if ('L' in shipInstruction):
+            print ("found L")
     # # Forward: the ship moves forward one grid point in the direction of the current orientation and maintains the same orientation. The direction North corresponds to the direction from grid point (x, y) to grid point (x, y+1) and the direction east corresponds to the direction from grid point (x, y) to grid point (x+1, y).
     # # if F, X = X+1
-     # # if F, Y = Y+1
+    # # if F, Y = Y+1
+        if ('F' in shipInstruction):
+            print ("found F")
+
 
 
 take_inputs()
