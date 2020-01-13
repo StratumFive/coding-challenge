@@ -21,7 +21,7 @@ def take_inputs () :
     Y = int(shipPositionList[1])
     # collect ship orientation string in ship position
     shipOrientation = str(shipPositionList[2])
-    print(f'X: {X}\nY: {Y}\nShip Orientation: {shipOrientation}')
+    print(f'Input: {X} {Y} {shipOrientation}')
 
 
     # input 3: Ship instruction (2 lines per ship)
@@ -29,9 +29,9 @@ def take_inputs () :
     shipInstruction = str(input("Type in Ship instructions i.e. LRF: ")).upper()
     shipInstructionList = ' '.join(shipInstruction).split()   
     print(shipInstructionList)
-    for i in shipInstructionList:
+
     # analyze ship instructions
-    # make sure input is only LRF
+    for i in shipInstructionList:
     # # R: the ship turns right 90 degrees and remains on the current grid point.
     # # if R, N --> E 
     # # if R, E --> S 
@@ -71,7 +71,10 @@ def take_inputs () :
             elif (shipOrientation == "E") :
                 X = X + 1
     # see if it works:
-    print(f'X: {X}\nY: {Y}\nShip Orientation: {shipOrientation}')
+    if (X and Y >= 50):
+        print(f'{X} {Y} {shipOrientation} LOST')
+    elif (X and Y < 50):
+        print(f'{X} {Y} {shipOrientation}')
 
 
 
