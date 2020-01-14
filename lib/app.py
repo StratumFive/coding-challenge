@@ -23,7 +23,7 @@ class Ships:
         return self.gridCoord
     
     def calculate_ship_position (self) :
-        # input2: ship position ((grid point coordinates (x, y) + (ship orientation))
+    # input2: ship position ((grid point coordinates (x, y) + (ship orientation))
     # # orientation (N, S, E, W) = string, Uppercase
         shipPosition = str(input("Type in grid point coordinates and ship orientation i.e. X Y N: ")).upper()
         shipPositionList = ''.join(shipPosition).split() 
@@ -88,7 +88,21 @@ class Ships:
                 elif (shipOrientation == "E") :
                     X = X + 1
     # see if it works:
+        print(self.gridCoord)
         print(f'Output: {X} {Y} {shipOrientation}')
+   
+    # # i think the lost point is where y and x == one of the grid coordinates of the rectangular world eg 
+    # # grid coordinates of the rectangular world: 5 3 
+    # # final output = 3 3 N LOST
+        gridX = int(self.gridCoord[0])
+        gridY = int(self.gridCoord[1])
+        if (X == gridX and Y == gridX):
+            print(f'Output: {X} {Y} {shipOrientation} LOST')
+        elif (X == gridY and Y == gridY):
+            print(f'Output: {X} {Y} {shipOrientation} LOST')
+        else:
+            print("nailed it!!!")
+            
     # continuity:
         self.find_another_ship ()
     
