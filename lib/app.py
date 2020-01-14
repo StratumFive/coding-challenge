@@ -1,4 +1,5 @@
 # write a program that determines each sequence of ship positions and reports the final position of the ship
+
 def find_ship () :
     # ask for input
 
@@ -6,10 +7,10 @@ def find_ship () :
     # grid point coordinates (x, y) = int < 50  
     # # first line of input is the top right (y (north), x (east))
     # # lower-left (or south-west) coordinates are assumed to be( y(south) = 0, x(west) = 0)
-    northEast = str(input("Type in grid point coordinates i.e. X Y: "))
-    northEastList = ''.join(northEast).split() 
-    print(northEastList)
-
+    north_east = str(input("Type in grid point coordinates i.e. X Y: "))
+    north_east_list = ''.join(north_east).split() 
+    print(f'Coordinates of the rectangular world: {north_east}')
+    
     # input 2 & 3
     calculate_ship_position ()
 
@@ -24,14 +25,13 @@ def calculate_ship_position () :
     Y = int(shipPositionList[1])
     # collect ship orientation string in ship position
     shipOrientation = str(shipPositionList[2])
-    print(f'Input: {X} {Y} {shipOrientation}')
-
-
+    
     # input 3: Ship instruction (2 lines per ship)
     # ship instruction : string of the letters "L", "R", and "F" on one line, < 100 characters 
     shipInstruction = str(input("Type in Ship instructions i.e. LRF: ")).upper()
     shipInstructionList = ' '.join(shipInstruction).split()   
-    print(shipInstructionList)
+    
+    print(f'Input: {X} {Y} {shipOrientation} \n {shipInstruction}')
 
     # analyze ship instructions
     for i in shipInstructionList:
@@ -49,7 +49,7 @@ def calculate_ship_position () :
                 shipOrientation = "W"
             elif (shipOrientation == "W") :
                 shipOrientation = "N"
-            print (shipOrientation)
+
     # # L: the ship turns left 90 degrees and remains on the current grid point.
     # # if L, N --> W
     # # if L, W --> S
@@ -64,8 +64,9 @@ def calculate_ship_position () :
                 shipOrientation = "E"
             elif (shipOrientation == "E") :
                 shipOrientation = "N"
-            print (shipOrientation)
-    # # Forward: the ship moves forward one grid point in the direction of the current orientation and maintains the same orientation. The direction North corresponds to the direction from grid point (x, y) to grid point (x, y+1) and the direction east corresponds to the direction from grid point (x, y) to grid point (x+1, y).
+           
+    # # Forward: the ship moves forward one grid point in the direction of the current orientation and maintains the same orientation. 
+    # # The direction North corresponds to the direction from grid point (x, y) to grid point (x, y+1) and the direction east corresponds to the direction from grid point (x, y) to grid point (x+1, y).
     # # if F, X = X+1
     # # if F, Y = Y+1
     # account for W (x-1) and S (y-1)
@@ -79,10 +80,7 @@ def calculate_ship_position () :
             elif (shipOrientation == "E") :
                 X = X + 1
     # see if it works:
-    if (X or Y >= 50):
-        print(f'Output: {X} {Y} {shipOrientation} LOST')
-    elif (X and Y < 50):
-        print(f'Output: {X} {Y} {shipOrientation}')
+    print(f'Output: {X} {Y} {shipOrientation}')
     # continuity:
     find_another_ship ()
 
@@ -106,3 +104,10 @@ def menu () :
 
 
 menu ()
+
+# put the functions in a class(oop) to be able to return and access values like the coordinates of the rectangular world
+# to find the lost point:
+# # i think the lost point is where y and x == one of the grid coordinates of the rectangular world eg 
+# # grid coordinates of the rectangular world: 5 3 
+# # final output = 3 3 N LOST
+# also account for input having a maximum value of 50 and 100characters
