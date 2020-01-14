@@ -86,12 +86,8 @@ class Ships:
                 elif (shipOrientation == "S") :
                     Y = Y - 1
                 elif (shipOrientation == "E") :
-                    X = X + 1
-    # see if it works:
-        print(self.gridCoord)
-        print(f'Output: {X} {Y} {shipOrientation}')
-   
-    # # i think the lost point is where y and x == one of the grid coordinates of the rectangular world eg 
+                    X = X + 1      
+    # # i think the lost point is where both y and x == one of the grid coordinates of the rectangular world eg 
     # # grid coordinates of the rectangular world: 5 3 
     # # final output = 3 3 N LOST
         gridX = int(self.gridCoord[0])
@@ -101,8 +97,8 @@ class Ships:
         elif (X == gridY and Y == gridY):
             print(f'Output: {X} {Y} {shipOrientation} LOST')
         else:
-            print("nailed it!!!")
-            
+            print(f'Output: {X} {Y} {shipOrientation}')
+
     # continuity:
         self.find_another_ship ()
     
