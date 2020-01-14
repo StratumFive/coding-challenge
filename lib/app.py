@@ -1,4 +1,17 @@
 # write a program that determines each sequence of ship positions and reports the final position of the ship
+def find_ship () :
+    # ask for input
+
+    #  input1: coordinates of the rectangular world
+    # grid point coordinates (x, y) = int < 50  
+    # # first line of input is the top right (y (north), x (east))
+    # # lower-left (or south-west) coordinates are assumed to be( y(south) = 0, x(west) = 0)
+    northEast = str(input("Type in grid point coordinates i.e. X Y: "))
+    northEastList = ''.join(northEast).split() 
+    print(northEastList)
+
+    # input 2 & 3
+    calculate_ship_position ()
 
 def calculate_ship_position () :
     # input2: ship position ((grid point coordinates (x, y) + (ship orientation))
@@ -70,10 +83,20 @@ def calculate_ship_position () :
         print(f'Output: {X} {Y} {shipOrientation} LOST')
     elif (X and Y < 50):
         print(f'Output: {X} {Y} {shipOrientation}')
+    # continuity:
+    find_another_ship ()
+
+def find_another_ship ():
+     # input to find another ship
+    another_ship = str(input("Would you like to find another ship? Y or N: ")).upper()
+    if (another_ship == 'Y'):
+        calculate_ship_position ()
+    else:
+        menu()
 
 def menu () :
     print("Welcome to FleetWeather Group survey ships apps")
-    print("For nearly half a century, The FleetWeather Group has provided weather routing and forecasting to the commercial shipping industry.\nOur clients across the globe have trusted The FleetWeather Group to provide accurate forecasts, superior customer service and timely reports to ensure decisions are made with confidence and to minimize risk.")
+    print("For nearly half a century, \nThe FleetWeather Group has provided weather routing and forecasting to the commercial shipping industry.\nOur clients across the globe have trusted The FleetWeather Group to provide accurate forecasts, \nsuperior customer service and timely reports to ensure decisions are made with confidence and to minimize risk.")
     menu_input = str(input("Would you like to find a ship today? Y or N: ")).title()
     if (menu_input == "Y"):
         find_ship()
@@ -81,27 +104,5 @@ def menu () :
         print("Goodbye!!!")
         exit()
 
-def find_ship () :
-    # ask for input
 
-    #  input1: coordinates of the rectangular world
-    # grid point coordinates (x, y) = int < 50  
-    # # first line of input is the top right (y (north), x (east))
-    # # lower-left (or south-west) coordinates are assumed to be( y(south) = 0, x(west) = 0)
-    northEast = str(input("Type in grid point coordinates i.e. X Y: "))
-    northEastList = ''.join(northEast).split() 
-    print(northEastList)
-
-    # input 2 & 3
-    calculate_ship_position ()
-
-    # input to find another ship
-    another_ship = str(input("Would you like to find another ship? Y or N: ")).upper()
-    if (another_ship == 'Y'):
-        calculate_ship_position ()
-        another_ship
-    else:
-        menu()
-
-
-find_ship()
+menu ()
