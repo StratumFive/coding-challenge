@@ -1,6 +1,6 @@
 # write a program that determines each sequence of ship positions and reports the final position of the ship
 
-def take_inputs () :
+def find_ship () :
     # ask for input
 
     #  input1: 
@@ -65,6 +65,7 @@ def take_inputs () :
     # # Forward: the ship moves forward one grid point in the direction of the current orientation and maintains the same orientation. The direction North corresponds to the direction from grid point (x, y) to grid point (x, y+1) and the direction east corresponds to the direction from grid point (x, y) to grid point (x+1, y).
     # # if F, X = X+1
     # # if F, Y = Y+1
+    # account for W (x-1) and S (y-1)
         elif (i == "F"):
             if (shipOrientation == "N") :
                 Y = Y + 1
@@ -82,4 +83,4 @@ def take_inputs () :
 
 
 
-take_inputs()
+find_ship()
