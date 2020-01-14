@@ -68,6 +68,10 @@ def take_inputs () :
         elif (i == "F"):
             if (shipOrientation == "N") :
                 Y = Y + 1
+            elif (shipOrientation == "W") :
+                X = X - 1
+            elif (shipOrientation == "S") :
+                Y = Y - 1
             elif (shipOrientation == "E") :
                 X = X + 1
     # see if it works:
