@@ -21,6 +21,11 @@ export default {
       required: true
     },
 
+    dangerZones: {
+      type: Array,
+      required: true
+    },
+
     edgeOfTheWorldCoordinates: {
       type: Object,
       required: true
@@ -65,6 +70,14 @@ export default {
         left: `${kZeroPosition.x + kGridSize * x}px`,
         transform: `rotate(${this.heading}deg)`
       }
+    },
+
+    forbiddenHeading () {
+      const { x, y } = this.position
+
+      return this.dangerZones.find(zone => {
+        return zone.coordinates.x === x && zone.coordinates.y === y
+      })?.heading
     }
   },
 
@@ -112,6 +125,10 @@ export default {
     },
 
     moveVessel () {
+      if (this.heading === this.forbiddenHeading) {
+        return
+      }
+
       const { xDiff, yDiff } = kMoveMap.get(this.heading)
       const initialPosition = { ...this.position }
 

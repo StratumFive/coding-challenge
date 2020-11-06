@@ -13,6 +13,7 @@
       v-for="vessel in vessels"
       :key="vessel.id"
       v-bind="vessel"
+      :danger-zones="dangerZones"
       :edge-of-the-world-coordinates="edgeOfTheWorldCoordinates"
       class="vessel"
       @lost="setDangerZone"
