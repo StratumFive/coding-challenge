@@ -1,23 +1,30 @@
 <template>
-  <div class="grid-container">
-    <div
-      v-for="gridItem in gridItems"
-      :key="gridItem.id"
-      class="grid-item"
-      :class="{ 'grid-item--danger': checkZone(gridItem) }"
-    >
-      {{ gridItem.x }}, {{ gridItem.y }}
+  <div>
+    <div class="grid-container">
+      <div
+        v-for="gridItem in gridItems"
+        :key="gridItem.id"
+        class="grid-item"
+        :class="{ 'grid-item--danger': checkZone(gridItem) }"
+      >
+        {{ gridItem.x }}, {{ gridItem.y }}
+      </div>
+
+      <Vessel
+        v-for="vessel in filteredVessels"
+        :key="vessel.id"
+        v-bind="vessel"
+        :edge-of-the-world-coordinates="edgeOfTheWorldCoordinates"
+        :danger-zones="dangerZones"
+        class="vessel"
+        @lost="setDangerZone"
+        @sendReport="collectReport"
+      />
     </div>
 
-    <Vessel
-      v-for="vessel in filteredVessels"
-      :key="vessel.id"
-      v-bind="vessel"
-      :danger-zones="dangerZones"
-      :edge-of-the-world-coordinates="edgeOfTheWorldCoordinates"
-      class="vessel"
-      @lost="setDangerZone"
-      @sendReport="collectReport"
+    <VesselReports
+      :reports="reports"
+      class="vessel-reports"
     />
   </div>
 </template>
@@ -25,12 +32,14 @@
 <script>
 import { kHeadingsMap, kSequenceStepDuration } from '@/constants/moves'
 import Vessel from '@/components/Vessel'
+import VesselReports from '@/components/VesselReports'
 
 export default {
   name: 'WorldGrid',
 
   components: {
-    Vessel
+    Vessel,
+    VesselReports
   },
 
   data () {
@@ -104,7 +113,19 @@ export default {
     },
 
     collectReport (report) {
-      this.reports.push(report)
+      this.reports.push({ ...report, output: this.createReportOutput(report) })
+    },
+
+    createReportOutput (report) {
+      const { coordinates: { x, y }, heading, lost } = report
+
+      let reportOutput = `${x} ${y} ${kHeadingsMap.get(heading)}`
+
+      if (lost) {
+        reportOutput += ' LOST'
+      }
+
+      return reportOutput
     },
 
     parseInput (data) {
@@ -169,5 +190,9 @@ export default {
       );
     }
   }
+}
+
+.vessel-reports {
+  margin: 16px auto;
 }
 </style>

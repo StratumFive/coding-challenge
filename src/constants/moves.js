@@ -10,7 +10,11 @@ export const kHeadingsMap = new Map([
   ['N', 0],
   ['E', 90],
   ['S', 180],
-  ['W', 270]
+  ['W', 270],
+  [0, 'N'],
+  [90, 'E'],
+  [180, 'S'],
+  [270, 'W']
 ])
 
 export const kMoveMap = new Map([
