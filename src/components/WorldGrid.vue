@@ -38,7 +38,8 @@ export default {
       edgeOfTheWorldCoordinates: {
         x: 5,
         y: 3
-      }
+      },
+      removeVesselTimeout: null
     }
   },
 
@@ -84,6 +85,10 @@ export default {
     this.vessels = this.parseInput(data)
   },
 
+  beforeDestroy () {
+    clearTimeout(this.removeVesselTimeout)
+  },
+
   methods: {
     checkZone (gridItem) {
       return this.dangerZones.filter(zone => {
@@ -102,7 +107,8 @@ export default {
           id: `V${index + 1}`,
           initialPosition: { x: Number(x), y: Number(y), heading: kHeadingsMap.get(heading) },
           sequence: [...sequence],
-          delay: (sequenceStepsFromBeginning + 1) * kSequenceStepDuration
+          delay: (sequenceStepsFromBeginning + 1) * kSequenceStepDuration,
+          lost: false
         }
 
         sequenceStepsFromBeginning += sequence.length
@@ -111,8 +117,15 @@ export default {
       })
     },
 
-    setDangerZone ({ coordinates, heading }) {
+    removeVessel (vesselId) {
+      this.removeVesselTimeout = setTimeout(() => {
+        this.vessels.find((vessel) => vessel.id === vesselId).lost = true
+      }, kSequenceStepDuration / 2)
+    },
+
+    setDangerZone ({ coordinates, heading, vesselId }) {
       this.dangerZones.push({ coordinates, heading })
+      this.removeVessel(vesselId)
     }
   }
 }
@@ -136,11 +149,11 @@ export default {
 
     &--danger {
       background: repeating-linear-gradient(
-          45deg,
-          #FFCCCB,
-          #FFCCCB 10px,
-          #DE1738 10px,
-          #DE1738 20px
+        45deg,
+        #FFCCCB,
+        #FFCCCB 10px,
+        #DE1738 10px,
+        #DE1738 20px
       );
     }
   }

@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!lost"
     class="vessel"
     :style="computedStyle"
   >
@@ -32,6 +33,11 @@ export default {
 
     initialPosition: {
       type: Object,
+      required: true
+    },
+
+    lost: {
+      type: Boolean,
       required: true
     },
 
@@ -84,7 +90,11 @@ export default {
         x > edgeX ||
         y > edgeY
       ) {
-        this.$emit('lost', { coordinates: initialPosition, heading: this.heading })
+        this.$emit('lost', {
+          coordinates: initialPosition,
+          heading: this.heading,
+          vesselId: this.id
+        })
       }
     },
 
@@ -128,14 +138,13 @@ export default {
       this.sequenceInterval = setInterval(() => {
         ++sequenceStepIndex
 
-        if (sequenceStepIndex <= sequence.length) {
-          this.consumeSequenceStep(sequence[sequenceStepIndex])
-        } else {
+        if (this.lost || sequenceStepIndex >= sequence.length) {
           this.clearInterval()
+        } else {
+          this.consumeSequenceStep(sequence[sequenceStepIndex])
         }
       }, kSequenceStepDuration)
     }
-
   }
 }
 </script>
