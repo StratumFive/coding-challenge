@@ -1,4 +1,3 @@
-@@ -0,0 +1,67 @@
 <template>
   <div class="grid-container">
     <div
@@ -14,6 +13,12 @@
 <script>
 export default {
   name: 'WorldGrid',
+
+  data () {
+    return {
+      input: []
+    }
+  },
 
   computed: {
     gridItems () {
@@ -43,6 +48,32 @@ export default {
         { id: 23, x: 4, y: 0 },
         { id: 24, x: 5, y: 0 }
       ]
+    }
+  },
+
+  created () {
+    // Fetch data from the API
+    const data = [
+      '1 1 E\nRFRFRFRF',
+      '3 2 N\nFRRFLLFFRRFLL',
+      '0 3 W\nLLFFFLFLFL'
+    ]
+
+    this.input = this.parseInput(data)
+  },
+
+  methods: {
+    parseInput (data) {
+      data.map((vesselInput, index) => {
+        const [initialPositionInput, sequence] = vesselInput.split('\n')
+        const [x, y, heading] = initialPositionInput.split(' ')
+
+        return {
+          id: index,
+          initialPosition: { x, y, heading },
+          sequence: [...sequence]
+        }
+      })
     }
   }
 }
