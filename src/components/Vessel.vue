@@ -10,14 +10,16 @@ import { kGridSize, kZeroPosition } from '@/constants/grid'
 
 export default {
   props: {
-    heading: {
-      type: String,
-      required: true
-    },
-
-    position: {
+    initialPosition: {
       type: Object,
       required: true
+    }
+  },
+
+  data () {
+    return {
+      position: { x: this.initialPosition.x, y: this.initialPosition.y },
+      heading: this.initialPosition.heading
     }
   },
 
@@ -28,7 +30,7 @@ export default {
       return {
         top: `${kZeroPosition.y - kGridSize * y}px`,
         left: `${kZeroPosition.x + kGridSize * x}px`,
-        transform: 'rotate(0deg)'
+        transform: `rotate(${this.heading}deg)`
       }
     }
   }

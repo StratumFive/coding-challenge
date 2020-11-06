@@ -9,14 +9,16 @@
     </div>
 
     <Vessel
+      v-for="vessel in vessels"
+      :key="vessel.id"
+      :initial-position="vessel.initialPosition"
       class="vessel"
-      heading="N"
-      :position="{ x: 1, y: 2 }"
     />
   </div>
 </template>
 
 <script>
+import { kHeadingsMap } from '@/constants/moves'
 import Vessel from '@/components/Vessel'
 
 export default {
@@ -28,7 +30,7 @@ export default {
 
   data () {
     return {
-      input: []
+      vessels: []
     }
   },
 
@@ -71,18 +73,18 @@ export default {
       '0 3 W\nLLFFFLFLFL'
     ]
 
-    this.input = this.parseInput(data)
+    this.vessels = this.parseInput(data)
   },
 
   methods: {
     parseInput (data) {
-      data.map((vesselInput, index) => {
+      return data.map((vesselInput, index) => {
         const [initialPositionInput, sequence] = vesselInput.split('\n')
         const [x, y, heading] = initialPositionInput.split(' ')
 
         return {
           id: index,
-          initialPosition: { x, y, heading },
+          initialPosition: { x, y, heading: kHeadingsMap.get(heading) },
           sequence: [...sequence]
         }
       })
