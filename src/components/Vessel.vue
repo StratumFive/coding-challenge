@@ -1,8 +1,13 @@
 <template>
-  <div class="vessel"></div>
+  <div
+    class="vessel"
+    :style="computedStyle"
+  ></div>
 </template>
 
 <script>
+import { kGridSize, kZeroPosition } from '@/constants/grid'
+
 export default {
   props: {
     heading: {
@@ -14,6 +19,18 @@ export default {
       type: Object,
       required: true
     }
+  },
+
+  computed: {
+    computedStyle () {
+      const { x, y } = this.position
+
+      return {
+        top: `${kZeroPosition.y - kGridSize * y}px`,
+        left: `${kZeroPosition.x + kGridSize * x}px`,
+        transform: 'rotate(0deg)'
+      }
+    }
   }
 }
 </script>
@@ -23,8 +40,6 @@ export default {
   position: absolute;
   width: 30px;
   height: 50px;
-  top: 335px;
-  left: 35px;
   background: #A9A9A9;
   border-radius: 10px;
 }
