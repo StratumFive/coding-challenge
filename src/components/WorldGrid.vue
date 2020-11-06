@@ -4,6 +4,7 @@
       v-for="gridItem in gridItems"
       :key="gridItem.id"
       class="grid-item"
+      :class="{ 'grid-item--danger': checkZone(gridItem) }"
     >
       {{ gridItem.x }}, {{ gridItem.y }}
     </div>
@@ -14,6 +15,7 @@
       v-bind="vessel"
       :edge-of-the-world-coordinates="edgeOfTheWorldCoordinates"
       class="vessel"
+      @lost="setDangerZone"
     />
   </div>
 </template>
@@ -83,6 +85,12 @@ export default {
   },
 
   methods: {
+    checkZone (gridItem) {
+      return this.dangerZones.filter(zone => {
+        return zone.coordinates.x === gridItem.x && zone.coordinates.y === gridItem.y
+      }).length > 0
+    },
+
     parseInput (data) {
       let sequenceStepsFromBeginning = 0
 
@@ -125,6 +133,16 @@ export default {
     background-color: #B5D3E7;
     text-align: left;
     padding: 3px;
+
+    &--danger {
+      background: repeating-linear-gradient(
+          45deg,
+          #FFCCCB,
+          #FFCCCB 10px,
+          #DE1738 10px,
+          #DE1738 20px
+      );
+    }
   }
 }
 </style>
