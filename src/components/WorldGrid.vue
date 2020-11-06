@@ -7,12 +7,24 @@
     >
       {{ gridItem.x }}, {{ gridItem.y }}
     </div>
+
+    <Vessel
+      class="vessel"
+      heading="N"
+      :position="{ x: 1, y: 2 }"
+    />
   </div>
 </template>
 
 <script>
+import Vessel from '@/components/Vessel'
+
 export default {
   name: 'WorldGrid',
+
+  components: {
+    Vessel
+  },
 
   data () {
     return {
