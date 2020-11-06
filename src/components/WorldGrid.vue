@@ -17,6 +17,7 @@
       :edge-of-the-world-coordinates="edgeOfTheWorldCoordinates"
       class="vessel"
       @lost="setDangerZone"
+      @sendReport="collectReport"
     />
   </div>
 </template>
@@ -40,7 +41,8 @@ export default {
         x: 5,
         y: 3
       },
-      removeVesselTimeout: null
+      removeVesselTimeout: null,
+      reports: []
     }
   },
 
@@ -97,6 +99,10 @@ export default {
       }).length > 0
     },
 
+    collectReport (report) {
+      this.reports.push(report)
+    },
+
     parseInput (data) {
       let sequenceStepsFromBeginning = 0
 
@@ -127,6 +133,7 @@ export default {
     setDangerZone ({ coordinates, heading, vesselId }) {
       this.dangerZones.push({ coordinates, heading })
       this.removeVessel(vesselId)
+      this.collectReport({ coordinates, heading, vesselId, lost: true })
     }
   }
 }

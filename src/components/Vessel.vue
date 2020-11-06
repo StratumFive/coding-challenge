@@ -12,7 +12,12 @@
 
 <script>
 import { kGridSize, kZeroPosition } from '@/constants/grid'
-import { kMoveMap, kRotationMap, kSequenceStepDuration } from '@/constants/moves'
+import {
+  kAvailableMoves,
+  kMoveMap,
+  kRotationMap,
+  kSequenceStepDuration
+} from '@/constants/moves'
 
 export default {
   props: {
@@ -117,7 +122,7 @@ export default {
     },
 
     consumeSequenceStep (sequenceStep) {
-      if (sequenceStep === 'F') {
+      if (sequenceStep === kAvailableMoves.get('goAhead')) {
         this.moveVessel()
       } else {
         this.rotateVessel(sequenceStep)
@@ -139,9 +144,11 @@ export default {
     },
 
     rotateVessel (direction) {
-      if (this.heading === 0 && direction === 'L') {
+      if (this.heading === 0 && direction === kAvailableMoves.get('turnLeft')) {
+        // Prevent negative heading value in case of 270 deg
         this.heading += kRotationMap.get(direction) + 360
-      } else if (this.heading === 270 && direction === 'R') {
+      } else if (this.heading === 270 && direction === kAvailableMoves.get('turnRight')) {
+        // Prevent 360 deg which is equal to 0 deg
         this.heading = 0
       } else {
         this.heading += kRotationMap.get(direction)
@@ -153,7 +160,18 @@ export default {
       let sequenceStepIndex = -1
 
       this.sequenceInterval = setInterval(() => {
-        ++sequenceStepIndex
+        sequenceStepIndex++
+
+        // Prevent sending second report when the vessel is lost already.
+        // The report is send on lost event.
+        // Send report on sequence finished only if the vessel is still on the grid.
+        if (sequenceStepIndex >= sequence.length && !this.lost) {
+          this.$emit('sendReport', {
+            vesselId: this.id,
+            coordinates: this.position,
+            heading: this.heading
+          })
+        }
 
         if (this.lost || sequenceStepIndex >= sequence.length) {
           this.clearInterval()

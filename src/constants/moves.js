@@ -1,5 +1,11 @@
 export const kSequenceStepDuration = 500
 
+export const kAvailableMoves = new Map([
+  ['goAhead', 'F'],
+  ['turnLeft', 'L'],
+  ['turnRight', 'R']
+])
+
 export const kHeadingsMap = new Map([
   ['N', 0],
   ['E', 90],
