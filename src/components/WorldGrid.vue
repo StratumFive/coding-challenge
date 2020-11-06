@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div class="grid-container">
+    <div
+      class="grid-container"
+      :style="{
+        'grid-template-columns': `repeat(${this.edgeOfTheWorldCoordinates.x + 1}, 100px)`,
+        'grid-template-rows': `repeat(${this.edgeOfTheWorldCoordinates.y + 1}, 100px)`
+      }"
+    >
       <div
         v-for="gridItem in gridItems"
         :key="gridItem.id"
@@ -47,10 +53,7 @@ export default {
       currentVesselIndex: -1,
       dangerZones: [],
       vessels: [],
-      edgeOfTheWorldCoordinates: {
-        x: 5,
-        y: 3
-      },
+      edgeOfTheWorldCoordinates: {},
       removeVesselTimeout: null,
       reports: []
     }
@@ -64,10 +67,11 @@ export default {
     gridItems () {
       let id = 0
       const gridItemsArray = []
+      const { x: maxX, y: maxY } = this.edgeOfTheWorldCoordinates
 
-      for (let y = 3; y > -1; y--) {
-        for (let x = 0; x < 6; x++) {
-          gridItemsArray.push({ id: id++, x, y })
+      for (let row = maxY; row > -1; row--) {
+        for (let column = 0; column < maxX + 1; column++) {
+          gridItemsArray.push({ id: id++, x: column, y: row })
         }
       }
 
@@ -78,6 +82,7 @@ export default {
   created () {
     // Fetch data from the API
     const data = [
+      '5 3',
       '1 1 E\nRFRFRFRF',
       '3 2 N\nFRRFLLFFRRFLL',
       '0 3 W\nLLFFFLFLFL'
@@ -119,6 +124,9 @@ export default {
     },
 
     parseInput (data) {
+      const [xDimension, yDimension] = data.shift().split(' ')
+      this.edgeOfTheWorldCoordinates = { x: Number(xDimension), y: Number(yDimension) }
+
       return data.map((vesselInput, index) => {
         const [initialPositionInput, sequence] = vesselInput.split('\n')
         const [x, y, heading] = initialPositionInput.split(' ')

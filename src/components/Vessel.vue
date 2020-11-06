@@ -67,9 +67,10 @@ export default {
   computed: {
     computedStyle () {
       const { x, y } = this.position
+      const zeroYPosition = this.edgeOfTheWorldCoordinates.y * (110 - this.edgeOfTheWorldCoordinates.y * 0.6)
 
       return {
-        top: `${kZeroPosition.y - kGridSize * y}px`,
+        top: `${zeroYPosition - kGridSize * y}px`,
         left: `${kZeroPosition.x + kGridSize * x}px`,
         transform: `rotate(${this.heading}deg)`
       }
