@@ -10,7 +10,7 @@
     </div>
 
     <Vessel
-      v-for="vessel in vessels"
+      v-for="vessel in filteredVessels"
       :key="vessel.id"
       v-bind="vessel"
       :danger-zones="dangerZones"
@@ -47,6 +47,10 @@ export default {
   },
 
   computed: {
+    filteredVessels () {
+      return this.vessels.filter((vessel) => !vessel.lost)
+    },
+
     gridItems () {
       return [
         { id: 1, x: 0, y: 3 },

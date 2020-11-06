@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="!lost"
     class="vessel"
     :style="computedStyle"
   >
