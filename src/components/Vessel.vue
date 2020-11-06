@@ -2,14 +2,24 @@
   <div
     class="vessel"
     :style="computedStyle"
-  ></div>
+  >
+    <p :style="{ transform: `rotate(${-this.heading}deg)` }">
+      {{ id }}
+    </p>
+  </div>
 </template>
 
 <script>
 import { kGridSize, kZeroPosition } from '@/constants/grid'
+import { kMoveMap, kRotationMap } from '@/constants/moves'
 
 export default {
   props: {
+    id: {
+      type: String,
+      required: true
+    },
+
     initialPosition: {
       type: Object,
       required: true
@@ -33,6 +43,25 @@ export default {
         transform: `rotate(${this.heading}deg)`
       }
     }
+  },
+
+  methods: {
+    moveVessel () {
+      const { xDiff, yDiff } = kMoveMap.get(this.heading)
+
+      this.position.x += xDiff
+      this.position.y += yDiff
+    },
+
+    rotateVessel (direction) {
+      if (this.heading === 0 && direction === 'L') {
+        this.heading += kRotationMap.get(direction) + 360
+      } else if (this.heading === 270 && direction === 'R') {
+        this.heading = 0
+      } else {
+        this.heading += kRotationMap.get(direction)
+      }
+    }
   }
 }
 </script>
@@ -44,6 +73,9 @@ export default {
   height: 50px;
   background: #A9A9A9;
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .vessel:before {
