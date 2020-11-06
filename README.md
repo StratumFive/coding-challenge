@@ -51,3 +51,13 @@ LLFFFLFLFL
 
 ## Finally
 **Tell us when you have completed the challenge**
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
