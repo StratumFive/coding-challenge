@@ -12,6 +12,7 @@
       v-for="vessel in vessels"
       :key="vessel.id"
       v-bind="vessel"
+      :edge-of-the-world-coordinates="edgeOfTheWorldCoordinates"
       class="vessel"
     />
   </div>
@@ -30,7 +31,12 @@ export default {
 
   data () {
     return {
-      vessels: []
+      dangerZones: [],
+      vessels: [],
+      edgeOfTheWorldCoordinates: {
+        x: 5,
+        y: 3
+      }
     }
   },
 
@@ -95,6 +101,10 @@ export default {
 
         return vessel
       })
+    },
+
+    setDangerZone ({ coordinates, heading }) {
+      this.dangerZones.push({ coordinates, heading })
     }
   }
 }

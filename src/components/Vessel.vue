@@ -20,6 +20,11 @@ export default {
       required: true
     },
 
+    edgeOfTheWorldCoordinates: {
+      type: Object,
+      required: true
+    },
+
     id: {
       type: String,
       required: true
@@ -69,6 +74,20 @@ export default {
   },
 
   methods: {
+    checkIfLost (initialPosition) {
+      const { x, y } = this.position
+      const { x: edgeX, y: edgeY } = this.edgeOfTheWorldCoordinates
+
+      if (
+        x < 0 ||
+        y < 0 ||
+        x > edgeX ||
+        y > edgeY
+      ) {
+        this.$emit('lost', { coordinates: initialPosition, heading: this.heading })
+      }
+    },
+
     clearInterval () {
       clearInterval(this.sequenceInterval)
       this.sequenceInterval = null
@@ -84,9 +103,12 @@ export default {
 
     moveVessel () {
       const { xDiff, yDiff } = kMoveMap.get(this.heading)
+      const initialPosition = { ...this.position }
 
       this.position.x += xDiff
       this.position.y += yDiff
+
+      this.checkIfLost(initialPosition)
     },
 
     rotateVessel (direction) {
