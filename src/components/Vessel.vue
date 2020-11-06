@@ -20,11 +20,6 @@ import {
 
 export default {
   props: {
-    delay: {
-      type: Number,
-      required: true
-    },
-
     dangerZones: {
       type: Array,
       required: true
@@ -50,6 +45,11 @@ export default {
       required: true
     },
 
+    running: {
+      type: Boolean,
+      required: true
+    },
+
     sequence: {
       type: Array,
       required: true
@@ -60,8 +60,7 @@ export default {
     return {
       position: { x: this.initialPosition.x, y: this.initialPosition.y },
       heading: this.initialPosition.heading,
-      sequenceInterval: null,
-      sequenceDelayTimeout: null
+      sequenceInterval: null
     }
   },
 
@@ -85,15 +84,16 @@ export default {
     }
   },
 
-  mounted () {
-    this.sequenceDelayTimeout = setTimeout(() => {
-      this.runSequence()
-    }, this.delay)
+  watch: {
+    running (value) {
+      if (value) {
+        this.runSequence()
+      }
+    }
   },
 
   beforeDestroy () {
     this.clearInterval()
-    this.clearTimeout(this.sequenceDelayTimeout)
   },
 
   methods: {

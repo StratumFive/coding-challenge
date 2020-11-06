@@ -44,6 +44,7 @@ export default {
 
   data () {
     return {
+      currentVesselIndex: -1,
       dangerZones: [],
       vessels: [],
       edgeOfTheWorldCoordinates: {
@@ -101,6 +102,10 @@ export default {
     this.vessels = this.parseInput(data)
   },
 
+  mounted () {
+    this.runNextVessel()
+  },
+
   beforeDestroy () {
     clearTimeout(this.removeVesselTimeout)
   },
@@ -114,6 +119,7 @@ export default {
 
     collectReport (report) {
       this.reports.push({ ...report, output: this.createReportOutput(report) })
+      this.runNextVessel()
     },
 
     createReportOutput (report) {
@@ -129,23 +135,17 @@ export default {
     },
 
     parseInput (data) {
-      let sequenceStepsFromBeginning = 0
-
       return data.map((vesselInput, index) => {
         const [initialPositionInput, sequence] = vesselInput.split('\n')
         const [x, y, heading] = initialPositionInput.split(' ')
 
-        const vessel = {
+        return {
           id: `V${index + 1}`,
           initialPosition: { x: Number(x), y: Number(y), heading: kHeadingsMap.get(heading) },
           sequence: [...sequence],
-          delay: (sequenceStepsFromBeginning + 1) * kSequenceStepDuration,
-          lost: false
+          lost: false,
+          running: false
         }
-
-        sequenceStepsFromBeginning += sequence.length
-
-        return vessel
       })
     },
 
@@ -153,6 +153,13 @@ export default {
       this.removeVesselTimeout = setTimeout(() => {
         this.vessels.find((vessel) => vessel.id === vesselId).lost = true
       }, kSequenceStepDuration / 2)
+    },
+
+    runNextVessel () {
+      if (this.currentVesselIndex < this.vessels.length - 1) {
+        this.currentVesselIndex++
+        this.vessels[this.currentVesselIndex].running = true
+      }
     },
 
     setDangerZone ({ coordinates, heading, vesselId }) {
@@ -193,6 +200,6 @@ export default {
 }
 
 .vessel-reports {
-  margin: 16px auto;
+  margin: 16px auto 0;
 }
 </style>
