@@ -11,14 +11,14 @@
     <Vessel
       v-for="vessel in vessels"
       :key="vessel.id"
-      :initial-position="vessel.initialPosition"
+      v-bind="vessel"
       class="vessel"
     />
   </div>
 </template>
 
 <script>
-import { kHeadingsMap } from '@/constants/moves'
+import { kHeadingsMap, kSequenceStepDuration } from '@/constants/moves'
 import Vessel from '@/components/Vessel'
 
 export default {
@@ -78,15 +78,22 @@ export default {
 
   methods: {
     parseInput (data) {
+      let sequenceStepsFromBeginning = 0
+
       return data.map((vesselInput, index) => {
         const [initialPositionInput, sequence] = vesselInput.split('\n')
         const [x, y, heading] = initialPositionInput.split(' ')
 
-        return {
-          id: index,
-          initialPosition: { x, y, heading: kHeadingsMap.get(heading) },
-          sequence: [...sequence]
+        const vessel = {
+          id: `V${index + 1}`,
+          initialPosition: { x: Number(x), y: Number(y), heading: kHeadingsMap.get(heading) },
+          sequence: [...sequence],
+          delay: (sequenceStepsFromBeginning + 1) * kSequenceStepDuration
         }
+
+        sequenceStepsFromBeginning += sequence.length
+
+        return vessel
       })
     }
   }

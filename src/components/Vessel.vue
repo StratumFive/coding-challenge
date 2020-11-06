@@ -11,10 +11,15 @@
 
 <script>
 import { kGridSize, kZeroPosition } from '@/constants/grid'
-import { kMoveMap, kRotationMap } from '@/constants/moves'
+import { kMoveMap, kRotationMap, kSequenceStepDuration } from '@/constants/moves'
 
 export default {
   props: {
+    delay: {
+      type: Number,
+      required: true
+    },
+
     id: {
       type: String,
       required: true
@@ -23,13 +28,20 @@ export default {
     initialPosition: {
       type: Object,
       required: true
+    },
+
+    sequence: {
+      type: Array,
+      required: true
     }
   },
 
   data () {
     return {
       position: { x: this.initialPosition.x, y: this.initialPosition.y },
-      heading: this.initialPosition.heading
+      heading: this.initialPosition.heading,
+      sequenceInterval: null,
+      sequenceDelayTimeout: null
     }
   },
 
@@ -45,7 +57,31 @@ export default {
     }
   },
 
+  mounted () {
+    this.sequenceDelayTimeout = setTimeout(() => {
+      this.runSequence()
+    }, this.delay)
+  },
+
+  beforeDestroy () {
+    this.clearInterval()
+    this.clearTimeout(this.sequenceDelayTimeout)
+  },
+
   methods: {
+    clearInterval () {
+      clearInterval(this.sequenceInterval)
+      this.sequenceInterval = null
+    },
+
+    consumeSequenceStep (sequenceStep) {
+      if (sequenceStep === 'F') {
+        this.moveVessel()
+      } else {
+        this.rotateVessel(sequenceStep)
+      }
+    },
+
     moveVessel () {
       const { xDiff, yDiff } = kMoveMap.get(this.heading)
 
@@ -61,7 +97,23 @@ export default {
       } else {
         this.heading += kRotationMap.get(direction)
       }
+    },
+
+    runSequence () {
+      const sequence = this.sequence
+      let sequenceStepIndex = -1
+
+      this.sequenceInterval = setInterval(() => {
+        ++sequenceStepIndex
+
+        if (sequenceStepIndex <= sequence.length) {
+          this.consumeSequenceStep(sequence[sequenceStepIndex])
+        } else {
+          this.clearInterval()
+        }
+      }, kSequenceStepDuration)
     }
+
   }
 }
 </script>
@@ -76,6 +128,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 500ms;
 }
 
 .vessel:before {

@@ -1,3 +1,5 @@
+export const kSequenceStepDuration = 500
+
 export const kHeadingsMap = new Map([
   ['N', 0],
   ['E', 90],
