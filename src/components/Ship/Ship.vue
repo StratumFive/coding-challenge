@@ -1,15 +1,12 @@
 <template>
   <div class="flex flex-col">
-    <svg
-      :height="this.gridHeight * 40"
-      class="border border-black rounded w-full"
-    >
-      <g v-for="y in gridHeight" :key="y">
+    <svg :height="this.yMax * 40" class="border border-black rounded w-full">
+      <g v-for="y in yMax + 1" :key="y">
         <circle
-          v-for="x in gridWidth"
+          v-for="x in xMax + 1"
           :key="x"
-          :cx="`${(100 / (gridWidth + 1)) * x}%`"
-          :cy="`${(100 / (gridHeight + 1)) * y}%`"
+          :cx="`${(100 / (xMax + 2)) * x}%`"
+          :cy="`${(100 / (yMax + 2)) * y}%`"
           r="4"
           class="fill-current text-black"
         />
@@ -29,8 +26,8 @@
         Previous
       </Button>
       <Button
-        class="bg-teal-200 border border-teal-700 hover:bg-teal-100 w-32"
         @click.native="followNextInstruction"
+        class="bg-teal-200 border border-teal-700 hover:bg-teal-100 w-32"
       >
         Next
       </Button>
@@ -96,8 +93,8 @@ export default {
     // Returns coordinates within the frame of the grid, even if this ship fell off
     boundedCoordinates() {
       return {
-        x: Math.max(0, Math.min(this.x, this.gridWidth)),
-        y: Math.max(0, Math.min(this.y, this.gridHeight)),
+        x: Math.max(0, Math.min(this.x, this.xMax)),
+        y: Math.max(0, Math.min(this.y, this.yMax)),
       }
     },
     isCurrentPositionDangerous() {
@@ -108,13 +105,10 @@ export default {
     },
     isLost() {
       return (
-        this.x < 0 ||
-        this.x > this.gridWidth ||
-        this.y < 0 ||
-        this.y > this.gridHeight
+        this.x < 0 || this.x > this.xMax || this.y < 0 || this.y > this.yMax
       )
     },
-    ...mapState(['gridHeight', 'gridWidth']),
+    ...mapState(['xMax', 'yMax']),
     ...mapGetters(['getLostShips']),
   },
   created() {
@@ -149,6 +143,7 @@ export default {
     },
     followNextInstruction() {
       this.followInstruction(this.instructions[this.instructionsFollowed])
+      this.instructionsFollowed++
     },
     move() {
       if (this.isCurrentPositionDangerous) {

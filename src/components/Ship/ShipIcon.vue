@@ -1,7 +1,7 @@
 <template>
   <svg
-    :x="`${(100 / (this.gridWidth + 1)) * this.x}%`"
-    :y="`${(100 / (this.gridHeight + 1)) * this.y}%`"
+    :x="`${(100 / (this.xMax + 2)) * (this.x + 1)}%`"
+    :y="`${100 - (100 / (this.yMax + 2)) * (this.y + 1)}%`"
   >
     <path :d="pathData" class="fill-current" fill-rule="evenodd" />
   </svg>
@@ -49,7 +49,7 @@ export default {
       }
       return pathStrings[this.orientation]
     },
-    ...mapState(['gridHeight', 'gridWidth']),
+    ...mapState(['xMax', 'yMax']),
   },
 }
 </script>

@@ -11,7 +11,7 @@
 
       <Card title="Grid" class="col-span-2">
         <h2 class="text-md text-center">
-          Width: {{ gridWidth }} | Height: {{ gridHeight }}
+          Width: {{ xMax + 1 }} | Height: {{ yMax + 1 }}
         </h2>
         <div class="grid grid-cols-6 mt-4">
           <div>
@@ -66,11 +66,11 @@ export default {
         )
         .join('\n')
     },
-    ...mapState(['finalShipPositions', 'gridHeight', 'gridWidth']),
+    ...mapState(['finalShipPositions', 'xMax', 'yMax']),
   },
   created() {
     const [gridSize, ...shipsData] = input.split('\n')
-    const [gridWidth, gridHeight] = gridSize.split(' ')
+    const [xMax, yMax] = gridSize.split(' ')
 
     // Each entry has 1 line for start pos, 1 line for instructions, and a separating newline, so divide by 3
     const numberOfShips = shipsData.length / 3
@@ -93,15 +93,15 @@ export default {
     this.input = input
     this.ships = ships
 
-    this.setGridHeight({
-      height: Math.min(Number(gridHeight), 50),
+    this.setXMax({
+      xMax: Math.min(Number(xMax), 50),
     })
-    this.setGridWidth({
-      width: Math.min(Number(gridWidth), 50),
+    this.setYMax({
+      yMax: Math.min(Number(yMax), 50),
     })
   },
   methods: {
-    ...mapMutations(['addFinalShipPosition', 'setGridHeight', 'setGridWidth']),
+    ...mapMutations(['addFinalShipPosition', 'setXMax', 'setYMax']),
   },
 }
 </script>

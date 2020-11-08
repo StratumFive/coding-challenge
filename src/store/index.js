@@ -6,8 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     finalShipPositions: [],
-    gridHeight: 0,
-    gridWidth: 0,
+    xMax: 0,
+    yMax: 0,
   },
   getters: {
     getLostShips: (state) => (id) => {
@@ -20,11 +20,11 @@ export default new Vuex.Store({
     addFinalShipPosition(state, { ship }) {
       state.finalShipPositions.push(ship)
     },
-    setGridHeight(state, { height }) {
-      state.gridHeight = height
+    setXMax(state, { xMax }) {
+      state.xMax = xMax
     },
-    setGridWidth(state, { width }) {
-      state.gridWidth = width
+    setYMax(state, { yMax }) {
+      state.yMax = yMax
     },
   },
 })
