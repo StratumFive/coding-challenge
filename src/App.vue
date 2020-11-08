@@ -16,6 +16,7 @@
 import Card from '@/components/Card/Card'
 import Ship from '@/components/Ship/Ship'
 import input from '@/constants/input'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'App',
@@ -42,10 +43,18 @@ export default {
       }
     })
 
-    this.gridHeight = Math.min(Number(gridHeight), 50)
-    this.gridWidth = Math.min(Number(gridWidth), 50)
     this.input = input
     this.ships = ships
+
+    this.setGridHeight({
+      height: Math.min(Number(gridHeight), 50),
+    })
+    this.setGridWidth({
+      width: Math.min(Number(gridWidth), 50),
+    })
+  },
+  methods: {
+    ...mapMutations(['setGridHeight', 'setGridWidth']),
   },
 }
 </script>

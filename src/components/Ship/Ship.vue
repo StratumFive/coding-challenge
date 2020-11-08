@@ -4,6 +4,7 @@
 
 <script>
 import { LEFT_TURNS, MOVES, RIGHT_TURNS } from '@/constants/instructions'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Ship',
@@ -48,6 +49,17 @@ export default {
       y: this.initialY,
     }
   },
+  computed: {
+    isLost() {
+      return (
+        this.x < 0 ||
+        this.x > this.gridWidth ||
+        this.y < 0 ||
+        this.y > this.gridHeight
+      )
+    },
+    ...mapState(['gridHeight', 'gridWidth']),
+  },
   created() {
     for (const instruction of this.instructions) {
       this.followInstruction(instruction)
@@ -55,6 +67,10 @@ export default {
   },
   methods: {
     followInstruction(instruction) {
+      if (this.isLost) {
+        return
+      }
+
       if (instruction === 'F') {
         this.move()
       } else if (instruction === 'L') {
