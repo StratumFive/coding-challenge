@@ -5,18 +5,21 @@
         <pre><code>{{ input }}</code></pre>
       </Card>
       <Card title="Output"></Card>
-      <Card title="Grid" class="col-span-2">{{ ships }}</Card>
+      <Card title="Grid" class="col-span-2">
+        <Ship v-for="ship in ships" :key="ship.id" v-bind="ship" />
+      </Card>
     </div>
   </div>
 </template>
 
 <script>
 import Card from '@/components/Card/Card'
+import Ship from '@/components/Ship/Ship'
 import input from '@/constants/input'
 
 export default {
   name: 'App',
-  components: { Card },
+  components: { Card, Ship },
   created() {
     const [gridSize, ...shipsData] = input.split('\n')
     const [gridWidth, gridHeight] = gridSize.split(' ')
@@ -25,15 +28,17 @@ export default {
     const numberOfShips = shipsData.length / 3
 
     const ships = Array.from({ length: numberOfShips }, (_, index) => {
-      const [x, y, orientation] = shipsData[index * 3].split(' ')
+      const [initialX, initialY, initialOrientation] = shipsData[
+        index * 3
+      ].split(' ')
       const instructions = shipsData[index * 3 + 1]
 
       return {
         id: index,
         instructions,
-        orientation,
-        x: Number(x),
-        y: Number(y),
+        initialOrientation,
+        initialX: Number(initialX),
+        initialY: Number(initialY),
       }
     })
 
