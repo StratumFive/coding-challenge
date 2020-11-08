@@ -5,7 +5,7 @@
         <pre><code>{{ input }}</code></pre>
       </Card>
       <Card title="Output">
-        <pre><code>{{ finalShipPositions }}</code></pre>
+        <pre><code>{{ output }}</code></pre>
       </Card>
       <Card title="Grid" class="col-span-2">
         <Ship
@@ -29,6 +29,14 @@ export default {
   name: 'App',
   components: { Card, Ship },
   computed: {
+    output() {
+      return this.finalShipPositions
+        .map(
+          ({ isLost, orientation, x, y }) =>
+            `${x} ${y} ${orientation}${isLost ? ' LOST' : ''}`
+        )
+        .join('\n')
+    },
     ...mapState(['finalShipPositions']),
   },
   created() {
