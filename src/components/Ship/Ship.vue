@@ -15,7 +15,8 @@
         :orientation="orientation"
         :x="x"
         :y="y"
-        class="w-8 text-blue-600"
+        class="w-8"
+        :class="isLost ? { 'text-red-500': true } : { 'text-green-500': true }"
       />
     </svg>
     <div class="mt-8 flex justify-between">

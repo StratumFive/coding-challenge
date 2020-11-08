@@ -3,7 +3,11 @@
     :x="`${(100 / (this.xMax + 2)) * (this.x + 1)}%`"
     :y="`${100 - (100 / (this.yMax + 2)) * (this.y + 1)}%`"
   >
-    <path :d="pathData" class="fill-current" fill-rule="evenodd" />
+    <path
+      :d="pathData"
+      class="fill-current transition-colors duration-100"
+      fill-rule="evenodd"
+    />
   </svg>
 </template>
 
