@@ -4,7 +4,7 @@
 
 <script>
 import { LEFT_TURNS, MOVES, RIGHT_TURNS } from '@/constants/instructions'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'Ship',
@@ -57,6 +57,12 @@ export default {
         y: Math.max(0, Math.min(this.y, this.gridHeight)),
       }
     },
+    isCurrentPositionDangerous() {
+      return this.getLostShips(this.id).some(
+        ({ orientation, x, y }) =>
+          orientation === this.orientation && x === this.x && y === this.y
+      )
+    },
     isLost() {
       return (
         this.x < 0 ||
@@ -66,6 +72,7 @@ export default {
       )
     },
     ...mapState(['gridHeight', 'gridWidth']),
+    ...mapGetters(['getLostShips']),
   },
   created() {
     for (const instruction of this.instructions) {
@@ -96,6 +103,10 @@ export default {
       }
     },
     move() {
+      if (this.isCurrentPositionDangerous) {
+        return
+      }
+
       const [xDiff, yDiff] = MOVES[this.orientation]
       this.x += xDiff
       this.y += yDiff

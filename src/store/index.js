@@ -9,6 +9,13 @@ export default new Vuex.Store({
     gridHeight: 0,
     gridWidth: 0,
   },
+  getters: {
+    getLostShips: (state) => (id) => {
+      return state.finalShipPositions.filter(
+        ({ id: shipId, isLost }) => isLost && shipId < id
+      )
+    },
+  },
   mutations: {
     addFinalShipPosition(state, { ship }) {
       state.finalShipPositions.push(ship)
