@@ -1,7 +1,9 @@
 <template>
   <div id="app" class="min-h-screen gradient-ocean">
     <div class="grid grid-cols-2 gap-8 p-8">
-      <Card title="Input"></Card>
+      <Card title="Input">
+        <pre><code>{{ input }}</code></pre>
+      </Card>
       <Card title="Output"></Card>
       <Card title="Grid" class="col-span-2"></Card>
     </div>
@@ -10,10 +12,14 @@
 
 <script>
 import Card from '@/components/Card/Card'
+import input from '@/constants/input'
 
 export default {
   name: 'App',
   components: { Card },
+  created() {
+    this.input = input
+  },
 }
 </script>
 
