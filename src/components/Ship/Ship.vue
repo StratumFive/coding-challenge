@@ -50,6 +50,13 @@ export default {
     }
   },
   computed: {
+    // Returns coordinates within the frame of the grid, even if this ship fell off
+    boundedCoordinates() {
+      return {
+        x: Math.max(0, Math.min(this.x, this.gridWidth)),
+        y: Math.max(0, Math.min(this.y, this.gridHeight)),
+      }
+    },
     isLost() {
       return (
         this.x < 0 ||
@@ -66,11 +73,12 @@ export default {
     }
 
     this.$emit('signal-final-position', {
-      id: this.id,
-      isLost: this.isLost,
-      orientation: this.orientation,
-      x: this.x,
-      y: this.y,
+      ship: {
+        id: this.id,
+        isLost: this.isLost,
+        orientation: this.orientation,
+        ...this.boundedCoordinates,
+      },
     })
   },
   methods: {

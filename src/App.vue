@@ -5,14 +5,14 @@
         <pre><code>{{ input }}</code></pre>
       </Card>
       <Card title="Output">
-        <pre><code>{{ output }}</code></pre>
+        <pre><code>{{ finalShipPositions }}</code></pre>
       </Card>
       <Card title="Grid" class="col-span-2">
         <Ship
           v-for="ship in ships"
           :key="ship.id"
           v-bind="ship"
-          @signal-final-position="addToOutput"
+          @signal-final-position="addFinalShipPosition"
         />
       </Card>
     </div>
@@ -23,15 +23,13 @@
 import Card from '@/components/Card/Card'
 import Ship from '@/components/Ship/Ship'
 import input from '@/constants/input'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'App',
   components: { Card, Ship },
-  data() {
-    return {
-      output: [],
-    }
+  computed: {
+    ...mapState(['finalShipPositions']),
   },
   created() {
     const [gridSize, ...shipsData] = input.split('\n')
@@ -66,10 +64,7 @@ export default {
     })
   },
   methods: {
-    addToOutput(ship) {
-      this.output.push(ship)
-    },
-    ...mapMutations(['setGridHeight', 'setGridWidth']),
+    ...mapMutations(['addFinalShipPosition', 'setGridHeight', 'setGridWidth']),
   },
 }
 </script>
