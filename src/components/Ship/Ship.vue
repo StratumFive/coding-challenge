@@ -1,13 +1,55 @@
 <template>
-  <div>{{ `${id}: ${x} ${y} ${orientation}` }}</div>
+  <div class="flex flex-col">
+    <svg
+      :height="this.gridHeight * 40"
+      class="border border-black rounded w-full"
+    >
+      <g v-for="y in gridHeight" :key="y">
+        <circle
+          v-for="x in gridWidth"
+          :key="x"
+          :cx="`${(100 / (gridWidth + 1)) * x}%`"
+          :cy="`${(100 / (gridHeight + 1)) * y}%`"
+          r="4"
+          class="fill-current text-black"
+        />
+      </g>
+      <ShipIcon
+        :orientation="orientation"
+        :x="x"
+        :y="y"
+        class="w-8 text-blue-600"
+      />
+    </svg>
+    <div class="mt-8 flex justify-between">
+      <Button
+        @click.native="followPreviousInstruction"
+        class="bg-teal-200 border border-teal-700 hover:bg-teal-100 w-32"
+      >
+        Previous
+      </Button>
+      <Button
+        class="bg-teal-200 border border-teal-700 hover:bg-teal-100 w-32"
+        @click.native="followNextInstruction"
+      >
+        Next
+      </Button>
+    </div>
+  </div>
 </template>
 
 <script>
+import ShipIcon from './ShipIcon'
+import Button from '@/components/Form/Button'
 import { LEFT_TURNS, MOVES, RIGHT_TURNS } from '@/constants/instructions'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'Ship',
+  components: {
+    Button,
+    ShipIcon,
+  },
   props: {
     id: {
       required: true,
@@ -44,6 +86,7 @@ export default {
   },
   data() {
     return {
+      instructionsFollowed: 0,
       orientation: this.initialOrientation,
       x: this.initialX,
       y: this.initialY,
@@ -87,6 +130,8 @@ export default {
         ...this.boundedCoordinates,
       },
     })
+
+    this.reset()
   },
   methods: {
     followInstruction(instruction) {
@@ -102,6 +147,9 @@ export default {
         this.orientation = RIGHT_TURNS[this.orientation]
       }
     },
+    followNextInstruction() {
+      this.followInstruction(this.instructions[this.instructionsFollowed])
+    },
     move() {
       if (this.isCurrentPositionDangerous) {
         return
@@ -110,6 +158,11 @@ export default {
       const [xDiff, yDiff] = MOVES[this.orientation]
       this.x += xDiff
       this.y += yDiff
+    },
+    reset() {
+      this.orientation = this.initialOrientation
+      this.x = this.initialX
+      this.y = this.initialY
     },
   },
 }
