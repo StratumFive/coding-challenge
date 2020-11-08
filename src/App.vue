@@ -4,16 +4,39 @@
       <Card title="Input">
         <pre><code>{{ input }}</code></pre>
       </Card>
+
       <Card title="Output">
         <pre><code>{{ output }}</code></pre>
       </Card>
+
       <Card title="Grid" class="col-span-2">
-        <Ship
-          v-for="ship in ships"
-          :key="ship.id"
-          v-bind="ship"
-          @signal-final-position="addFinalShipPosition"
-        />
+        <h2 class="text-md text-center">
+          Height: {{ gridHeight }} | Width: {{ gridWidth }}
+        </h2>
+        <div class="grid grid-cols-6">
+          <div>
+            <Select
+              v-model.number="selectedShipId"
+              class="hover:border-gray-500 focus:border-teal-300"
+            >
+              <option disabled value="">Select a ship to view</option>
+              <option v-for="ship in ships" :key="ship.id" :value="ship.id">
+                {{
+                  `${ship.id}: Starting at ${ship.initialX} ${ship.initialY} ${ship.initialOrientation}`
+                }}
+              </option>
+            </Select>
+          </div>
+          <div class="col-span-5">
+            <Ship
+              v-for="ship in ships"
+              v-show="ship.id === selectedShipId"
+              :key="ship.id"
+              v-bind="ship"
+              @signal-final-position="addFinalShipPosition"
+            />
+          </div>
+        </div>
       </Card>
     </div>
   </div>
@@ -21,13 +44,19 @@
 
 <script>
 import Card from '@/components/Card/Card'
+import Select from '@/components/Form/Select'
 import Ship from '@/components/Ship/Ship'
 import input from '@/constants/input'
 import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'App',
-  components: { Card, Ship },
+  components: { Card, Select, Ship },
+  data() {
+    return {
+      selectedShipId: 0,
+    }
+  },
   computed: {
     output() {
       return this.finalShipPositions
@@ -37,7 +66,7 @@ export default {
         )
         .join('\n')
     },
-    ...mapState(['finalShipPositions']),
+    ...mapState(['finalShipPositions', 'gridHeight', 'gridWidth']),
   },
   created() {
     const [gridSize, ...shipsData] = input.split('\n')
