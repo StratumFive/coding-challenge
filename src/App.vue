@@ -13,16 +13,17 @@
         <h2 class="text-md text-center">
           Width: {{ xMax + 1 }} | Height: {{ yMax + 1 }}
         </h2>
-        <div class="grid grid-cols-6 mt-4">
+        <div class="grid grid-cols-6 gap-4 mt-4">
           <div>
             <Select
               v-model.number="selectedShipId"
-              class="hover:border-gray-500 focus:border-teal-300"
+              label="Select a ship!"
+              selectClass="hover:border-gray-500 focus:border-teal-300"
             >
               <option disabled value="">Select a ship to view</option>
               <option v-for="ship in ships" :key="ship.id" :value="ship.id">
                 {{
-                  `${ship.id}: Starting at ${ship.initialX} ${ship.initialY} ${ship.initialOrientation}`
+                  `${ship.id}: Starting at (${ship.initialX}, ${ship.initialY}) ${ship.initialOrientation}`
                 }}
               </option>
             </Select>
