@@ -11,9 +11,9 @@
 
       <Card title="Grid" class="col-span-2">
         <h2 class="text-md text-center">
-          Height: {{ gridHeight }} | Width: {{ gridWidth }}
+          Width: {{ gridWidth }} | Height: {{ gridHeight }}
         </h2>
-        <div class="grid grid-cols-6">
+        <div class="grid grid-cols-6 mt-4">
           <div>
             <Select
               v-model.number="selectedShipId"
