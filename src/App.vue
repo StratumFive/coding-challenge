@@ -1,18 +1,19 @@
 <template>
   <div id="app" class="min-h-screen gradient-ocean">
     <div class="grid grid-cols-2 gap-8 p-8">
-      <div class="bg-white rounded-lg p-6 border shadow-xl">Input</div>
-      <div class="bg-white rounded-lg p-6 border shadow-xl">Output</div>
-      <div class="bg-white col-span-2 rounded-lg p-6 border shadow-xl">
-        Grid
-      </div>
+      <Card title="Input"></Card>
+      <Card title="Output"></Card>
+      <Card title="Grid" class="col-span-2"></Card>
     </div>
   </div>
 </template>
 
 <script>
+import Card from '@/components/Card/Card'
+
 export default {
   name: 'App',
+  components: { Card },
 }
 </script>
 
