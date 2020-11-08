@@ -19,7 +19,16 @@
         :class="isLost ? { 'text-red-500': true } : { 'text-green-500': true }"
       />
     </svg>
-    <div class="mt-8 flex justify-between">
+    <p class="font-mono text-center mt-4">
+      Instructions:
+      <span class="text-green-500">
+        {{ instructions.slice(0, instructionsFollowed) }}
+      </span>
+      <span class="text-red-500">
+        {{ instructions.slice(instructionsFollowed) }}
+      </span>
+    </p>
+    <div class="mt-4 flex justify-between">
       <Button
         @click.native="reset()"
         class="bg-teal-200 border border-teal-700 hover:bg-teal-100 w-32"
