@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { LEFT_TURNS, MOVES, RIGHT_TURNS } from '@/constants/instructions'
+
 export default {
   name: 'Ship',
   props: {
@@ -45,6 +47,27 @@ export default {
       x: this.initialX,
       y: this.initialY,
     }
+  },
+  created() {
+    for (const instruction of this.instructions) {
+      this.followInstruction(instruction)
+    }
+  },
+  methods: {
+    followInstruction(instruction) {
+      if (instruction === 'F') {
+        this.move()
+      } else if (instruction === 'L') {
+        this.orientation = LEFT_TURNS[this.orientation]
+      } else if (instruction === 'R') {
+        this.orientation = RIGHT_TURNS[this.orientation]
+      }
+    },
+    move() {
+      const [xDiff, yDiff] = MOVES[this.orientation]
+      this.x += xDiff
+      this.y += yDiff
+    },
   },
 }
 </script>
