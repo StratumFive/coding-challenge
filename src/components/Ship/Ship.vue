@@ -20,10 +20,10 @@
     </svg>
     <div class="mt-8 flex justify-between">
       <Button
-        @click.native="followPreviousInstruction"
+        @click.native="reset()"
         class="bg-teal-200 border border-teal-700 hover:bg-teal-100 w-32"
       >
-        Previous
+        Reset
       </Button>
       <Button
         @click.native="followNextInstruction"
@@ -155,6 +155,7 @@ export default {
       this.y += yDiff
     },
     reset() {
+      this.instructionsFollowed = 0
       this.orientation = this.initialOrientation
       this.x = this.initialX
       this.y = this.initialY
