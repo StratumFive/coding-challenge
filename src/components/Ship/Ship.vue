@@ -37,7 +37,9 @@
       </Button>
       <Button
         @click.native="followNextInstruction"
-        class="bg-teal-200 border border-teal-700 hover:bg-teal-100 w-32"
+        class="border w-32"
+        :class="nextButtonClass"
+        :disabled="isLost || instructionsFollowed >= instructions.length"
       >
         Next
       </Button>
@@ -107,6 +109,11 @@ export default {
         y: Math.max(0, Math.min(this.y, this.yMax)),
       }
     },
+    canMove() {
+      return !(
+        this.isLost || this.instructionsFollowed >= this.instructions.length
+      )
+    },
     isCurrentPositionDangerous() {
       return this.getLostShips(this.id).some(
         ({ orientation, x, y }) =>
@@ -117,6 +124,19 @@ export default {
       return (
         this.x < 0 || this.x > this.xMax || this.y < 0 || this.y > this.yMax
       )
+    },
+    nextButtonClass() {
+      return this.canMove
+        ? {
+            'bg-teal-200': true,
+            'border-teal-700': true,
+            'hover:bg-teal-100': true,
+          }
+        : {
+            'bg-red-500': true,
+            'border-red-700': true,
+            'cursor-not-allowed': true,
+          }
     },
     ...mapState(['xMax', 'yMax']),
     ...mapGetters(['getLostShips']),
