@@ -12,7 +12,7 @@ export default {
   name: 'Select',
   props: {
     value: {
-      type: String,
+      type: Number,
     },
   },
 }
