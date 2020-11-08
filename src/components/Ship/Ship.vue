@@ -64,6 +64,14 @@ export default {
     for (const instruction of this.instructions) {
       this.followInstruction(instruction)
     }
+
+    this.$emit('signal-final-position', {
+      id: this.id,
+      isLost: this.isLost,
+      orientation: this.orientation,
+      x: this.x,
+      y: this.y,
+    })
   },
   methods: {
     followInstruction(instruction) {

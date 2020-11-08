@@ -4,9 +4,16 @@
       <Card title="Input">
         <pre><code>{{ input }}</code></pre>
       </Card>
-      <Card title="Output"></Card>
+      <Card title="Output">
+        <pre><code>{{ output }}</code></pre>
+      </Card>
       <Card title="Grid" class="col-span-2">
-        <Ship v-for="ship in ships" :key="ship.id" v-bind="ship" />
+        <Ship
+          v-for="ship in ships"
+          :key="ship.id"
+          v-bind="ship"
+          @signal-final-position="addToOutput"
+        />
       </Card>
     </div>
   </div>
@@ -21,6 +28,11 @@ import { mapMutations } from 'vuex'
 export default {
   name: 'App',
   components: { Card, Ship },
+  data() {
+    return {
+      output: [],
+    }
+  },
   created() {
     const [gridSize, ...shipsData] = input.split('\n')
     const [gridWidth, gridHeight] = gridSize.split(' ')
@@ -54,6 +66,9 @@ export default {
     })
   },
   methods: {
+    addToOutput(ship) {
+      this.output.push(ship)
+    },
     ...mapMutations(['setGridHeight', 'setGridWidth']),
   },
 }
