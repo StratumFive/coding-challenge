@@ -15,11 +15,14 @@ const state = {
 		y: -1,
 		orientation: "",
 		status: "",
-	}
+	},
+	warnings: []
 }
 
 const getters = {
 	currentShip: (state) => state.currentShip,
+	hasShipInCoordinates : (state) => coordinates => (state.world.length > 0) && (state.world[coordinates.y][coordinates.x] === 2),
+	hasWarningInCoordinates : (state) => coordinates => (state.world.length > 0) && (state.warnings.findIndex(w => (w.x === coordinates.x && w.y === coordinates.y) === -1)),
 }
 
 const mutations = {
@@ -37,7 +40,9 @@ const mutations = {
 	SET_WARNING(state, coordinates) {
 		if (coordinates !== undefined && coordinates.x !== undefined && coordinates.y !== undefined 
 			&& coordinates.x < MAXIMUM_WORLD_LIMIT && coordinates.y < MAXIMUM_WORLD_LIMIT) {
-				state.world[coordinates.x, coordinates.y] = 1
+				// state.world[coordinates.y][	coordinates.x] = 1
+				const alreadyWarned = state.warnings.findIndex(warning => (warning.x === coordinates.x && warning.y === coordinates.y) !== -1)
+				if (!alreadyWarned) state.warnings.push({ x: coordinates.x, y: coordinates.y })
 			}
 	},
 
@@ -45,7 +50,14 @@ const mutations = {
 		if (ship !== undefined) {
 			state.currentShip = { ...ship }
 		}
-	}
+	},
+
+	SET_SHIP_MAP(state, coordinates) {
+		if (coordinates !== undefined && coordinates.x !== undefined && coordinates.y !== undefined 
+			&& coordinates.x < MAXIMUM_WORLD_LIMIT && coordinates.y < MAXIMUM_WORLD_LIMIT) {
+				state.world[coordinates.x][	coordinates.y] = 2
+			}
+	},
 }
 
 const actions = {
@@ -57,7 +69,8 @@ const actions = {
 	 * @param {[Number]} limitY	[ represents maximum y coordinate for any ship ]
 	 */
 	createWorld({ commit }, limits) {
-		if (limits === undefined || limits.limitX === undefined || limits.limitY === undefined) {
+		if (limits === undefined || limits.limitX === undefined || limits.limitY === undefined
+			|| limits.limitX <= 0 || limits.limitY <= 0) {
 			throw new Error("The world can not be created without the proper limits. Please define the limits within range.")
 		} 
 		const { limitX, limitY } = limits
@@ -101,19 +114,17 @@ const actions = {
 				movedShip = executeOneInstruction(movedShip, instruction)
 
 				if (movedShip.status === "LOST") {
-					if (state.world[movedShip.x, movedShip.y] === 1){
+					if (state.world[movedShip.y, movedShip.x] === 1){
 						// if the coordinates was already marked with a warning, the ship can ignore the instruction
 						movedShip.status = "OK"
 					} else {
 						// mark the "off limit" coordinate
-						commit("SET_WARNING", { 
-							x: movedShip.x, 
-							y: movedShip.y 
-						})
+						commit("SET_WARNING", { x: movedShip.x, y: movedShip.y })
 					}
 				}
 			}
 		})
+		if (movedShip.status === "OK") commit("SET_SHIP_MAP", { x: movedShip.x, y: movedShip.y })
 		commit("SET_MOVED_SHIP", movedShip)
 	}
 }

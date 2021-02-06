@@ -1,4 +1,4 @@
-import { orientation, instruction } from "./shipUtils";
+import { orientation, instruction } from "./shipUtils"
 
 const limitX = 5
 const limitY = 3

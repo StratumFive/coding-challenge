@@ -1,64 +1,49 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-	<div class="ship-input-container">
-		<div class="ship-preferences title">
-			<label>Limits: </label>
-		</div>
-		<div class="ship-preferences">
-			<label>Limit X: </label>
-			<input v-model="limitX" placeholder="limitX">
-			<label>Limit Y: </label>
-			<input v-model="limitY" placeholder="limitY">
-			<button class="basic-button" @click="setWorldLimits">Create World</button>
-		</div>
-		<div class="ship-preferences title">
-			<label>Ship: </label>
-		</div>
-		<div class="ship-preferences">
-			<label>Coord X: </label>
-			<input v-model="initialX" placeholder="Horizontal coordinate">
-			<label>Coord Y: </label>
-			<input v-model="initialY" placeholder="Vertical coordinate">
-		</div>
-		<div class="ship-preferences">
-			<label>Orientation: </label>
-			<input v-model="orientation" placeholder="Orientation">
-		</div>
-		<div class="ship-preferences">
-			<label>Instructions: </label>
-			<input v-model="instructions" placeholder="instructions">
-			<button class="basic-button" @click="executeInstructions()">MoveShip</button>
-		</div>
-		<div class="results">
-			<div class="ship-preferences title">
-				<label>Results: </label>
+	<v-card class="mt-0 pt-0">
+		<div class="main-layout">
+			<div class="components">
+				<v-card-title class="pb-0">World Settings</v-card-title>
+				<settings @createdWorld="loadGrid" @resetWorld="resetWorld" />
+				
+				<v-divider class="mt-4" />
+				<v-card-title class="pt-5 pb-0">Add Ship</v-card-title>
+				<ship @newShip="updateGrid" />
+
 			</div>
-			<div class="ship-preferences">
-				<label> {{ results }} </label>
+			<div class="components">
+				<map-grid
+					:key="gridComponentKey"
+					v-show="showMapGrid"
+					:rows="limitY"
+					:columns="limitX"
+				/>
 			</div>
 		</div>
-	</div>
-  </div>
+	</v-card>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex"
+import Settings from "@components/Settings"
+import Ship from "@components/Ship"
+import MapGrid from "@components/MapGrid"
 
 export default {
 	name: "Home",
 
-	data: () => ({
-		limitX: 5,
-		limitY: 3,
-		initialX: 1,
-		initialY: 1,
-		orientation: "E",
-		instructions: "RFRFRFRF",
-		movedShip: {},
-		results: ""
-	}),
+	components: {
+		Settings,
+		Ship,
+		MapGrid,
+	},
 
+    data: () => ({
+		showMapGrid: false,
+		limitX: 0,
+		limitY: 0,
+		gridComponentKey: 0
+	}),
+	
 	computed: {
 		...mapGetters({
 			currentShip: "currentShip",
@@ -71,74 +56,36 @@ export default {
 			moveShip: "moveShip",
 		}),
 
-		setWorldLimits() {
-			try {
-				this.createWorld({ 
-					limitX: Number(this.limitX), 
-					limitY: Number(this.limitY)
-				})
-				this.results = "The world has been created!|"
-			} catch(error) {
-				this.results = error
+		loadGrid(limits) {
+			if (limits) {
+				this.limitX = parseInt(limits.limitX, 10)
+				this.limitY = parseInt(limits.limitY, 10)
+				this.gridComponentKey += 1
+				this.showMapGrid = true
 			}
 		},
 
-		executeInstructions() {
-			const ship = {
-				x: Number(this.initialX),
-				y: Number(this.initialY),
-				orientation: this.orientation,
-				status: "OK"
-			}
-			const instructions = Array.from(this.instructions)
+		resetWorld(){
+			this.showMapGrid = false
+			this.limitX = 0
+			this.limitY = 0
+		},
 
-			try {
-				this.moveShip({ ship, instructions })
-				this.results = `Coordinates: ${this.currentShip.x} ${this.currentShip.y}
-							- Orientation: ${this.currentShip.orientation}
-							Status: ${this.currentShip.status}`
-			} catch(error) {
-				this.results = error
-			}
-
-		}
+		updateGrid(){
+			this.gridComponentKey += 1
+		},
 	}
 
 };
 </script>
 
-<style lang="scss" scoped>
-	.ship-input-container {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
+<style lang="scss" >
+	.main-layout {
+		display: grid;
+		grid-template-columns: 20% 80%;
+	}
 
-		.ship-preferences {
-			display: flex;
-			flex-direction: row;
-			margin: 0.5rem 2rem;
-			padding: 0 1rem;
-
-			> label {
-				margin: 0 1rem;
-			}
-		}
-
-		.title {
-			font-weight: bold;
-		}
-
-		.basic-button {
-			font-weight: bold;
-			margin: 0 1rem;
-		}
-
-		.results {
-			display: flex;
-			flex-direction: column;
-			margin: 2rem 4rem;
-			box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-			border-radius: 10px;
-		}
+	.components {
+		margin-bottom: 2rem;
 	}
 </style>
