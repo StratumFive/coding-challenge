@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing Home Template should render the page and match the snapshot 1`] = `
+<v-card-stub loaderheight="4" tag="div" class="mt-0 pt-0">
+  <div name="mainHomeComponent" class="main-home-component">
+    <div name="worldSettingsComponentContainer" class="components">
+      <v-card-title-stub class="pb-0">World Settings</v-card-title-stub>
+      <settings-stub></settings-stub>
+      <v-divider-stub class="mt-4"></v-divider-stub>
+      <v-card-title-stub class="pt-5 pb-0">Add Ship</v-card-title-stub>
+      <ship-stub></ship-stub>
+    </div>
+    <div name="mapGridComponentContainer" class="components">
+      <map-grid-stub rows="0" columns="0" style="display: none;"></map-grid-stub>
+    </div>
+  </div>
+</v-card-stub>
+`;

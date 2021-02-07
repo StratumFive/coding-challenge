@@ -230,9 +230,7 @@ describe("testing GETTERS", () => {
 					const commit = jest.fn()
 					try {
 						await shipStore.actions.moveShip({ commit }, undefined)
-					} catch(error) {
-						console.log(error)
-					}	
+					} catch(error) {}	
 					expect(commit).toHaveBeenCalledTimes(0)
 				})
 
@@ -240,9 +238,7 @@ describe("testing GETTERS", () => {
 					const commit = jest.fn()
 					try {
 						await shipStore.actions.moveShip({ commit }, { ship, instructions: undefined })
-					} catch(error) {
-						console.log(error)
-					}	
+					} catch(error) {}	
 					expect(commit).toHaveBeenCalledTimes(0)
 				})
 
@@ -251,9 +247,7 @@ describe("testing GETTERS", () => {
 					const commit = jest.fn()
 					try {
 						await shipStore.actions.moveShip({ commit }, { ship, instructions: [] })
-					} catch(error) {
-						console.log(error)
-					}	
+					} catch(error) {}	
 					expect(commit).toHaveBeenCalledTimes(0)
 				})
 
@@ -261,9 +255,7 @@ describe("testing GETTERS", () => {
 					const commit = jest.fn()
 					try {
 						await shipStore.actions.moveShip({ commit }, { instructions: [] })
-					} catch(error) {
-						console.log(error)
-					}	
+					} catch(error) {}
 					expect(commit).toHaveBeenCalledTimes(0)
 				})
 
@@ -279,9 +271,7 @@ describe("testing GETTERS", () => {
 					const commit = jest.fn()
 					try {
 						await shipStore.actions.moveShip({ state, commit }, { ship, instructions: ["L", "L"] })
-					} catch(error) {
-						console.log(error)
-					}	
+					} catch(error) {}
 					expect(commit).toHaveBeenCalledTimes(1)
 					expect(executeOneInstruction).toHaveBeenCalledTimes(2)
 				})
@@ -302,7 +292,8 @@ function initialization(newWorld, limitX=0, limitY=0) {
 		limitX,
 		limitY,
 		world: (newWorld)? newWorld : [],
-		currentShip: { ...defaultShip }
+		currentShip: { ...defaultShip },
+		warnings: [],
 	}
 
 	store = new Vuex.Store({
