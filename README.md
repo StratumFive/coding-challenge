@@ -52,7 +52,24 @@ LLFFFLFLFL
 ## Finally
 **Tell us when you have completed the challenge**
 =======
-# shippy
+# Mi Solution - shippy
+The project was built using:
+
+
+* Vue.js
+* Vuetify
+* Vuex
+* Vue router
+* vue-test-utils
+* Jest
+* Font Awesome (for the icons)
+
+
+The installation is very standard, and here are the usual commands. Underneath these sections, there are details about the implementation, features, architecture, testing and workflow. Here is a sneak peek of the application run with the data provided.
+
+
+![alt text](src/assets/config-1.png?raw=true 'Main results')
+
 
 ## Project setup
 ```
@@ -79,5 +96,71 @@ npm run test:unit
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Features
+The application provides 2 main interfaces:
+
+* The **Ship Tracker** menu: This is a page where the user can:
+	- create the settings for a new world on a handy form with specific inputs per value
+	![alt text](src/assets/settings-form.png?raw=true 'Settings form')
+	- crete and execute ONE instruction for one ship, also with a form with specific inputs. On this form the user can enter the X coordinate, the Y coordinate, the Orientation (on a dropdown select input) and the instructions. The instructions can be added both by copying a line (that will later be parsed) or by clicking the "L", "R" and "F" buttons.
+	![alt text](src/assets/ship-form.png?raw=true 'Ship form')
+
+	- These components and view allow the user to interact with an interface more controlled, where the input fields are more guided and easy to control.
+
+	- The forms have validations and alerts (for success and errors). And both forms also have a reset button to reset all the information.
+	![alt text](src/assets/alerts.png?raw=true 'Alerts')
+	
+* The **All Instructions** menu: This is a page where the user can enter a set of instructions altogether like the ones on the example and the system provides also a feature to process all the instruction in sequence, if they are all well defined.
+This form presents the user with only one field to enter all the information. But also the alerts and reset features (as in the previous forms). This page presents all the instructions results together on a specific field (instead of an alert).
+
+![alt text](src/assets/all-instructions-form.png?raw=true 'All instructions')
+
+
+Regardless of where the user enters the instructions, the application will show a map grid component that is able to represent all the possible configurations. Then when the user sends (correct) instructions that result with a ship WITHIN the proper range, then that ship is represented also on the map with a different color. Here are some configurations for the grid:
+
+
+![alt text](src/assets/config-3.png?raw=true 'Main results')
+
+
+
+![alt text](src/assets/config-2.png?raw=true 'Main results')
+
+### Architecture and Implementation
+The application was built separating:
+- the state (on Vuex) where we I keep track of:
+	- the world settings (map grid configuration) which is a 2*2 matrix (2d array) that contains zeros by default but gets a number 2 when there is a ship in those coordinates.
+	- the limits for that map grid: limitX and limitY
+	- an array of warnings keeping the positions where other ships have previously fallen.
+	- the currentShip information, which actually represents the last ship that had an instruction.
+	- and the processedShips which is alson an array but in this case, containing the positions, orientation and status of all the last set of instructions run by the user altogether.
+	The state is only updated via MUTATIONS and accessed by getters. The MUTATIONS are only accessed by ACTIONS.
+- the services contain the methods that actually calculate how to execute the ships instructions. In that file there are functions to move the ship Right, Left or Forward and to control the coordinates and orientation of the ships. These services are only consumed by the ACTIONS. The actions are triggered by the components.
+- views (Home and AllInstructions) and components (MapGrid, Settings, Ship and ShipInstructionsSet).
+
+
+The main methods at the store, services and main components are mostly documented.
+
+
+### Testing
+The testing was made with Jest and vue-test-utils. There are only 2 test files (due to time restrictions)
+- store.spec.js: the store testing I divided into:
+	- testing **getters**
+	- testing **mutations**
+	- testing **actions**
+- Home.spec.js: the view or components testing I divide into:
+	- testing **Template** (including snapshots)¸
+	- testing **Computed properties**
+	- testing **Methods**
+	- testing **Watchers** (in this case there aren't any)
+
+Here are some examples of the results:
+
+![alt text](src/assets/testing-store.png?raw=true 'Test store')
+
+![alt text](src/assets/testing-home.png?raw=true 'Test store')
+
+
+### Workflow and Git
+This application has 2 branches: master and development. Since this is not a real project, I worked on development and pushed my changes there. Normally I would branch off for every feature, create a merge request and only then merge to development.
+
+That is all! If you have any questions, please do not hesitate to ask.

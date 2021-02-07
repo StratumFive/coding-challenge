@@ -51,8 +51,8 @@ export default {
 
 		calculateWidth() {
 			return (this.$refs.mapGrid && this.$refs.mapGrid.clientWidth) ? 
-				this.$refs.mapGrid.clientWidth / (this.columns + 1)
-				: (900 / (this.columns + 1) )
+				this.$refs.mapGrid.clientWidth / (this.columns + 2)
+				: (950 / (this.columns + 2) )
 		},
 
 		cellSize() {
@@ -60,18 +60,23 @@ export default {
 			let margin = "10px"
 			let padding = "30px"
 			if (this.calculateWidth >= 220) size = this.calculateWidth - 30
-			else if (this.calculateWidth >= 150) size = this.calculateWidth - 15
+			else if (this.calculateWidth >= 180) size = this.calculateWidth - 20
+			else if (this.calculateWidth >= 130) size = this.calculateWidth - 10
 			else if (this.calculateWidth >= 90) {
-				size = this.calculateWidth - 10
+				size = this.calculateWidth - 8
 				padding = "20px"
 			} else if (this.calculateWidth >= 50) {
-				size = this.calculateWidth - 8
+				size = this.calculateWidth - 4
 				margin = "5px"
 				padding = "15px"
 			} else if (this.calculateWidth >= 30) {
-				size = this.calculateWidth - 5
+				size = this.calculateWidth
 				margin = "2px"
 				padding = "10px"
+			} else if (this.calculateWidth >= 10) {
+				size = this.calculateWidth + 1
+				margin = "2px"
+				padding = "3px"
 			} else {
 				size = this.calculateWidth + 2
 				margin = "2px"
@@ -91,7 +96,8 @@ export default {
 			if (this.calculateWidth >= 150) return "fa-5x"
 			if (this.calculateWidth >= 90) return "fa-3x"
 			if (this.calculateWidth >= 70) return "fa-2x"
-			if (this.calculateWidth >= 50) return "fa-sm"
+			if (this.calculateWidth >= 50) return "fa-lg"
+			if (this.calculateWidth >= 30) return "fa-sm"
 			return "fa-xs"
 		}
 	},
@@ -112,7 +118,7 @@ export default {
 		flex-direction: column;
 		height: 100%;
 		border-radius: 10px;
-		margin-top: 3rem;
+		margin-top: 0;
 	}
 
 	.rowCSS {

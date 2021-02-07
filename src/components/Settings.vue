@@ -5,6 +5,19 @@
 		lazy-validation
 		class="settings-container"
 	>
+		<h2 class="mt-2"> World Settings </h2>
+		<v-alert
+			:value="showAlert"
+			border="top"
+			class="mt-3"
+			colored-border
+			:type="alertType"
+			elevation="2"
+			transition="scale-transition"
+			dismissible
+			@click="closeAlert"
+			>	{{ alertMessage }}
+		</v-alert>
 		<v-row>
 			<v-col
 				cols="12"
@@ -49,18 +62,6 @@
 					fas fa-globe sm
 				</v-icon>
 		</v-btn>
-		
-		<v-alert
-			:value="showMessage"
-			border="top"
-			class="mt-3"
-			colored-border
-			:type="alertType"
-			elevation="2"
-			transition="scale-transition"
-			dismissible
-			>	{{ results }}
-		</v-alert>
   </v-form>
 </template>
 
@@ -79,8 +80,8 @@ export default {
 			v => (v && v.length <= 2) || "The limits should have at most 2 characters",
 		],
 		alertType: "success",
-		showMessage: false,
-		results: "",
+		showAlert: false,
+		alertMessage: "",
     }),
 
     methods: {
@@ -91,6 +92,7 @@ export default {
 		reset () {
 			this.$refs.form.reset()
 			this.$emit("resetWorld")
+			this.closeAlert()
 		},
 
 		async setWorldLimits() {
@@ -99,16 +101,22 @@ export default {
 					limitX: Number(this.limitX), 
 					limitY: Number(this.limitY)
 				})
-				this.results = "The world has been created!|"
-				this.showMessage = true
+				this.alertMessage = "The world has been created!|"
+				this.showAlert = true
 				this.alertType = "success"
-				this.$emit("createdWorld", { limitX: this.limitX, limitY: this.limitY })
+				this.$emit("createdWorld")
 			} catch(error) {
-				this.results = error
-				this.showMessage = true
+				this.alertMessage = error
+				this.showAlert = true
 				this.alertType = "error"
 			}
 		},
+
+		closeAlert() {
+			this.alertMessage = ""
+			this.showAlert = false
+			this.alertType = "success"
+		}
     },
   }
 </script>

@@ -2,10 +2,7 @@
 	<v-card class="mt-0 pt-0">
 		<div name="mainHomeComponent" class="main-home-component">
 			<div name="worldSettingsComponentContainer" class="components">
-				<settings @createdWorld="loadGrid" @resetWorld="resetWorld" />
-				
-				<v-divider class="mt-4" />
-				<ship @newShip="updateGrid" />
+				<ship-instructions-set @createdWorld="loadGrid"  @updateGrid="updateGrid" @resetWorld="resetWorld" />
 			</div>
 			<div name="mapGridComponentContainer" class="components">
 				<map-grid
@@ -18,19 +15,16 @@
 		</div>
 	</v-card>
 </template>
-
 <script>
 import { mapGetters, mapActions } from "vuex"
-import Settings from "@components/Settings"
-import Ship from "@components/Ship"
+import ShipInstructionsSet from "@components/ShipInstructionsSet"
 import MapGrid from "@components/MapGrid"
 
 export default {
 	name: "Home",
 
 	components: {
-		Settings,
-		Ship,
+		ShipInstructionsSet,
 		MapGrid,
 	},
 

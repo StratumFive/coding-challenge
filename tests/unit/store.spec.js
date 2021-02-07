@@ -128,15 +128,26 @@ describe("testing GETTERS", () => {
 
 			it("should NOT set the world if the coordinate parameter has the y coordinate >50", () => {
 				shipStore.mutations.SET_WORLD(state, newWorld)
-				shipStore.mutations.SET_WARNING(state, { x: 2, y: 52})
+				shipStore.mutations.SET_WARNING(state, { x: 2, y: 52 })
 				expect(store.state.world).toEqual(newWorld)
 			})
 
 			it("should mark the exact coordinate with a number 1, if it exists on the matrix", () => {
 				shipStore.mutations.SET_WORLD(state, newWorld)
-				shipStore.mutations.SET_WARNING(state, { x: 2, y: 1})
+				shipStore.mutations.SET_WARNING(state, { x: 2, y: 1 })
 				newWorld[2, 1] = 1
 				expect(store.state.world).toEqual(newWorld)
+			})
+		})
+
+		describe("testing RESET_WARNINGS", () => {
+			it("should reset the warning set to empty", () => {
+				shipStore.mutations.SET_WARNING(state, { 
+					coordinates: { x: 1, y: 2 } , 
+					orientation: "E" 
+				})
+				shipStore.mutations.RESET_WARNINGS(state)
+				expect(store.state.warnings).toEqual([])
 			})
 		})
 		
@@ -191,13 +202,13 @@ describe("testing GETTERS", () => {
 					const commit = jest.fn()
 					const limitX = 2
 					const limitY = 3
-					const world = Array.from({ length: limitY }, () => Array.from({ length: limitX }, () => 0))
+					const world = Array.from({ length: limitY + 1 }, () => Array.from({ length: limitX + 1 }, () => 0))
 
 					await shipStore.actions.createWorld({ commit }, { limitX, limitY })
 
 					expect(commit).toHaveBeenCalledTimes(2)
 					expect(commit).toHaveBeenNthCalledWith(1, "SET_WORLD", world)
-					expect(commit).toHaveBeenNthCalledWith(2, "SET_WORLD_LIMITS", { limitX, limitY })
+					expect(commit).toHaveBeenNthCalledWith(2, "SET_WORLD_LIMITS", { limitX: limitX + 1, limitY: limitY + 1 })
 				})
 			})
 
@@ -294,6 +305,7 @@ function initialization(newWorld, limitX=0, limitY=0) {
 		world: (newWorld)? newWorld : [],
 		currentShip: { ...defaultShip },
 		warnings: [],
+		processedShips: [],
 	}
 
 	store = new Vuex.Store({

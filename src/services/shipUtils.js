@@ -6,6 +6,10 @@ const orientationValues = {
 }
 const orientation = Object.freeze(orientationValues)
 
+function validateOrientation(orientation) {
+	return Object.values(orientationValues).includes(orientation)
+}
+
 const instructionValues = {
 	LEFT    : "L",
 	RIGHT   : "R",
@@ -13,7 +17,16 @@ const instructionValues = {
 }
 const instruction = Object.freeze(instructionValues)
 
+function validateSetOfInstructions(instructions) {
+	for (let iter of instructions) {
+		if (!Object.values(instructionValues).includes(iter)) return false
+	}
+	return true
+}
+
 export {
 	orientation,
-	instruction
+	instruction,
+	validateOrientation,
+	validateSetOfInstructions,
 }
