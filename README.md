@@ -70,7 +70,6 @@ The installation is very standard, and here are the usual commands. Underneath t
 
 ![alt text](src/assets/config-1.png?raw=true 'Main results')
 
-
 ## Project setup
 ```
 npm install
@@ -101,29 +100,38 @@ The application provides 2 main interfaces:
 
 * The **Ship Tracker** menu: This is a page where the user can:
 	- create the settings for a new world on a handy form with specific inputs per value
-	![alt text](src/assets/settings-form.png?raw=true 'Settings form')
+
+
+	![image](src/assets/settings-form.png?=100x100)
+
+
 	- crete and execute ONE instruction for one ship, also with a form with specific inputs. On this form the user can enter the X coordinate, the Y coordinate, the Orientation (on a dropdown select input) and the instructions. The instructions can be added both by copying a line (that will later be parsed) or by clicking the "L", "R" and "F" buttons.
-	![alt text](src/assets/ship-form.png?raw=true 'Ship form')
+	
+	
+	![image](src/assets/ship-form.png?raw=true)
 
 	- These components and view allow the user to interact with an interface more controlled, where the input fields are more guided and easy to control.
 
 	- The forms have validations and alerts (for success and errors). And both forms also have a reset button to reset all the information.
-	![alt text](src/assets/alerts.png?raw=true 'Alerts')
+
+
+	![image](src/assets/alerts.png?raw=true)
 	
 * The **All Instructions** menu: This is a page where the user can enter a set of instructions altogether like the ones on the example and the system provides also a feature to process all the instruction in sequence, if they are all well defined.
 This form presents the user with only one field to enter all the information. But also the alerts and reset features (as in the previous forms). This page presents all the instructions results together on a specific field (instead of an alert).
 
-![alt text](src/assets/all-instructions-form.png?raw=true 'All instructions')
+
+![image](src/assets/all-instructions-form.png?raw=true)
 
 
 Regardless of where the user enters the instructions, the application will show a map grid component that is able to represent all the possible configurations. Then when the user sends (correct) instructions that result with a ship WITHIN the proper range, then that ship is represented also on the map with a different color. Here are some configurations for the grid:
 
 
-![alt text](src/assets/config-3.png?raw=true 'Main results')
+![image](src/assets/config-3.png?raw=true)
 
 
 
-![alt text](src/assets/config-2.png?raw=true 'Main results')
+![image](src/assets/config-2.png?raw=true)
 
 ### Architecture and Implementation
 The application was built separating:
@@ -155,9 +163,9 @@ The testing was made with Jest and vue-test-utils. There are only 2 test files (
 
 Here are some examples of the results:
 
-![alt text](src/assets/testing-store.png?raw=true 'Test store')
+![image](src/assets/testing-store.png?raw=true)
 
-![alt text](src/assets/testing-home.png?raw=true 'Test store')
+![image](src/assets/testing-home.png?raw=true)
 
 
 ### Workflow and Git
