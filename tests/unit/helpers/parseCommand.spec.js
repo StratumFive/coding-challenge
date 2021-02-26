@@ -27,4 +27,38 @@ describe("parseCommand", () => {
     expect(parsedCommand.ships[0].commands).toBe("RFRFRFRF");
     expect(parsedCommand.ships[1].commands).toBe("FRRFLLFFRRFLL");
   });
+  it("produces an explicit array of ship objects with clear attributes", () => {
+    console.log("expect - parsedCommand", parsedCommand);
+    // This is a combined-view of the above tests.
+    expect(parsedCommand).toEqual({
+      maxX: 3,
+      maxY: 5,
+      ships: [
+        {
+          commands: "RFRFRFRF",
+          startingCoords: {
+            x: 1,
+            y: 1,
+          },
+          startingDirection: "E",
+        },
+        {
+          commands: "FRRFLLFFRRFLL",
+          startingCoords: {
+            x: 2,
+            y: 3,
+          },
+          startingDirection: "N",
+        },
+        {
+          commands: "LLFFFLFLFL",
+          startingCoords: {
+            x: 3,
+            y: 0,
+          },
+          startingDirection: "W",
+        },
+      ],
+    });
+  });
 });
