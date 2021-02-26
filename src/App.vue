@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <pre>
-1 1 E
-      3 3 N LOST
-      2 3 S</pre
-    >
+    <text-based-solution></text-based-solution>
   </div>
 </template>
 
 <script>
+import TextBasedSolution from "@/components/TextBasedSolution";
 export default {
   name: "App",
+  components: {
+    TextBasedSolution,
+  },
   data() {
     return {
       output: `
