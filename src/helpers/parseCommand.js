@@ -8,11 +8,11 @@ export default (command) => {
   const shipsRaw = commandWithoutCoordinates.split("\n\n");
   console.log("shipsRaw", shipsRaw);
   const ships = shipsRaw.map((ship) => {
-    console.log("ships - ship", ship);
+    const coordsRaw = ship.match(/\d+ \d+ [NSEW]\n/gm)[0].split(" ");
     return {
       startingCoords: {
-        y: Number(ship.match(/\d+ \d+ [NSEW]\n/gm)[0].split(" ")[0]),
-        x: Number(ship.match(/\d+ \d+ [NSEW]\n/gm)[0].split(" ")[1]),
+        y: Number(coordsRaw[0]),
+        x: Number(coordsRaw[1]),
       },
     };
   });

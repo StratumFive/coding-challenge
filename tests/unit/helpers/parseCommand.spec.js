@@ -19,4 +19,8 @@ describe("parseCommand", () => {
     expect(parsedCommand.ships[0].startingCoords).toEqual({ y: 1, x: 1 });
     expect(parsedCommand.ships[1].startingCoords).toEqual({ y: 3, x: 2 });
   });
+  it("extracts a starting direction from the command for each ship", () => {
+    expect(parsedCommand.ships[0].startingDirection).toBe("E");
+    expect(parsedCommand.ships[1].startingDirection).toBe("N");
+  });
 });
