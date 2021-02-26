@@ -15,4 +15,8 @@ describe("parseCommand", () => {
     expect(Array.isArray(parsedCommand.ships)).toBe(true);
     expect(typeof parsedCommand.ships[0]).toBe("object");
   });
+  it("extracts a starting position from the command for each ship", () => {
+    expect(parsedCommand.ships[0].startingCoords).toEqual({ y: 1, x: 1 });
+    expect(parsedCommand.ships[1].startingCoords).toEqual({ y: 3, x: 2 });
+  });
 });
