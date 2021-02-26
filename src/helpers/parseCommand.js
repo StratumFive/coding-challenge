@@ -4,7 +4,7 @@ export default (command) => {
     .match(regexForCoordinates)[0]
     .replace("\n", "")
     .split(" ");
-  console.log("coordinates", coordinates);
+  const commandWithoutCoordinates = command.replace(regexForCoordinates, "");
   return {
     maxY: Number(coordinates[0]),
     maxX: Number(coordinates[1]),
