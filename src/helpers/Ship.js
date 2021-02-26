@@ -21,5 +21,19 @@ export default class Ship {
     this.direction =
       CLOCKWISE_DIRECTIONS[CLOCKWISE_DIRECTIONS.indexOf(this.direction) + 1];
   }
+  goForwards() {
+    if (this.direction === "N") {
+      this.coords.y++;
+    }
+    if (this.direction === "E") {
+      this.coords.x++;
+    }
+    if (this.direction === "S") {
+      this.coords.y--;
+    }
+    if (this.direction === "W") {
+      this.coords.x--;
+    }
+  }
 }
 const CLOCKWISE_DIRECTIONS = ["N", "E", "S", "W"];

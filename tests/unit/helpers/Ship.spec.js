@@ -30,10 +30,22 @@ describe("The Ship Class", () => {
     testShip.turnRight();
     expect(testShip.direction).toBe("N");
   });
-  it("can go forwards", () => {
+  it("can go forwards from each of the cardinal directions", () => {
     testShip.direction = "N";
     testShip.coords = { x: 2, y: 2 };
     testShip.goForwards();
     expect(testShip.coords).toEqual({ x: 2, y: 3 });
+    testShip.direction = "E";
+    testShip.coords = { x: 2, y: 2 };
+    testShip.goForwards();
+    expect(testShip.coords).toEqual({ x: 3, y: 2 });
+    testShip.direction = "S";
+    testShip.coords = { x: 2, y: 2 };
+    testShip.goForwards();
+    expect(testShip.coords).toEqual({ x: 2, y: 1 });
+    testShip.direction = "W";
+    testShip.coords = { x: 2, y: 2 };
+    testShip.goForwards();
+    expect(testShip.coords).toEqual({ x: 1, y: 2 });
   });
 });
