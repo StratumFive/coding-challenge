@@ -29,5 +29,6 @@ function parseShip(ship) {
       x: Number(coordsRaw[1]),
     },
     startingDirection: coordsRaw[2].replace("\n", ""),
+    commands: ship.split("\n")[1],
   };
 }
