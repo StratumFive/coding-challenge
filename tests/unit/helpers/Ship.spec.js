@@ -22,4 +22,10 @@ describe("The Ship Class", () => {
     testShip.turnLeft();
     expect(testShip.direction).toBe("W");
   });
+  it("can turn right", () => {
+    testShip.turnRight();
+    expect(testShip.direction).toBe("N");
+    testShip.turnRight();
+    expect(testShip.direction).toBe("W");
+  });
 });

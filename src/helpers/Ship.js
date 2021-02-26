@@ -13,5 +13,6 @@ export default class Ship {
     this.direction =
       CLOCKWISE_DIRECTIONS[CLOCKWISE_DIRECTIONS.indexOf(this.direction) - 1];
   }
+  turnRight() {}
 }
 const CLOCKWISE_DIRECTIONS = ["N", "E", "S", "W"];
