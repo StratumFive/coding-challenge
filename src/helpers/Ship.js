@@ -13,6 +13,13 @@ export default class Ship {
     this.direction =
       CLOCKWISE_DIRECTIONS[CLOCKWISE_DIRECTIONS.indexOf(this.direction) - 1];
   }
-  turnRight() {}
+  turnRight() {
+    if (this.direction === "W") {
+      this.direction = "N";
+      return;
+    }
+    this.direction =
+      CLOCKWISE_DIRECTIONS[CLOCKWISE_DIRECTIONS.indexOf(this.direction) + 1];
+  }
 }
 const CLOCKWISE_DIRECTIONS = ["N", "E", "S", "W"];
