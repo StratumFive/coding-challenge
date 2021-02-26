@@ -8,5 +8,6 @@ export default (command) => {
   return {
     maxY: Number(coordinates[0]),
     maxX: Number(coordinates[1]),
+    ships: [{}],
   };
 };
