@@ -1,7 +1,9 @@
 export default class Ship {
   constructor(attributes) {
-    this.startingCoords = attributes.startingCoords;
-    this.startingDirection = attributes.startingDirection;
+    this.coords = attributes.startingCoords;
+    this.direction = attributes.startingDirection;
     this.commands = attributes.commands;
   }
+  turnLeft() {}
 }
+const CLOCKWISE_DIRECTIONS = ["N", "E", "S", "W"];

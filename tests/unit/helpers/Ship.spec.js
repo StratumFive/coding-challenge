@@ -13,4 +13,10 @@ describe("The Ship Class", () => {
   it("exists as an object", () => {
     expect(typeof testShip).toBe("object");
   });
+  it("can turn left", () => {
+    testShip.turnLeft();
+    expect(testShip.direction).toBe("N");
+    testShip.turnLeft();
+    expect(testShip.direction).toBe("W");
+  });
 });
