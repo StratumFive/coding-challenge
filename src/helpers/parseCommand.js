@@ -20,6 +20,7 @@ export default (command) => {
     ships,
   };
 };
+
 function parseShip(ship) {
   const coordsRaw = ship.match(/\d+ \d+ [NSEW]\n/gm)[0].split(" ");
   return {
