@@ -1,5 +1,8 @@
 <template>
-  <div>I'm a text-based solution</div>
+  <div>
+    <div>I'm a text-based solution</div>
+    <input id="text-input" type="text" />
+  </div>
 </template>
 
 <script>
