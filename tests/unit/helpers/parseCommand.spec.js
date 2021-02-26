@@ -23,4 +23,8 @@ describe("parseCommand", () => {
     expect(parsedCommand.ships[0].startingDirection).toBe("E");
     expect(parsedCommand.ships[1].startingDirection).toBe("N");
   });
+  //   it("extracts a command list from the command for each ship", () => {
+  //     expect(parsedCommand.ships[0].commands).toBe("RFRFRFRF");
+  //     expect(parsedCommand.ships[1].commands).toBe("FRRFLLFFRRFLL");
+  //   });
 });
