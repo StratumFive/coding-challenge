@@ -17,7 +17,7 @@ describe("parseCommand", () => {
   });
   it("extracts a starting position from the command for each ship", () => {
     expect(parsedCommand.ships[0].startingCoords).toEqual({ y: 1, x: 1 });
-    expect(parsedCommand.ships[1].startingCoords).toEqual({ y: 3, x: 2 });
+    expect(parsedCommand.ships[1].startingCoords).toEqual({ y: 2, x: 3 });
   });
   it("extracts a starting direction from the command for each ship", () => {
     expect(parsedCommand.ships[0].startingDirection).toBe("E");
@@ -45,16 +45,16 @@ describe("parseCommand", () => {
         {
           commands: "FRRFLLFFRRFLL",
           startingCoords: {
-            x: 2,
-            y: 3,
+            x: 3,
+            y: 2,
           },
           startingDirection: "N",
         },
         {
           commands: "LLFFFLFLFL",
           startingCoords: {
-            x: 3,
-            y: 0,
+            x: 0,
+            y: 3,
           },
           startingDirection: "W",
         },

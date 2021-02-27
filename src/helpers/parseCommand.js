@@ -28,8 +28,8 @@ function parseShip(ship) {
   const coordsRaw = ship.match(/\d+ \d+ [NSEW]\n/gm)[0].split(" ");
   return {
     startingCoords: {
-      y: Number(coordsRaw[0]),
-      x: Number(coordsRaw[1]),
+      x: Number(coordsRaw[0]),
+      y: Number(coordsRaw[1]),
     },
     startingDirection: coordsRaw[2].replace("\n", ""),
     commands: ship.split("\n")[1],
