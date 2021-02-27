@@ -1,4 +1,8 @@
 export default class Ship {
+  static max = {
+    x: 50,
+    y: 50,
+  };
   constructor(attributes, callback) {
     this.coords = attributes.startingCoords;
     this.direction = attributes.startingDirection;
