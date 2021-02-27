@@ -35,5 +35,19 @@ export default class Ship {
       this.coords.x--;
     }
   }
+  executeCommands() {
+    let _commands = this.commands.split("");
+    for (const command of _commands) {
+      if (command === "F") {
+        this.goForwards();
+      }
+      if (command === "R") {
+        this.turnRight();
+      }
+      if (command === "L") {
+        this.turnLeft();
+      }
+    }
+  }
 }
 const CLOCKWISE_DIRECTIONS = ["N", "E", "S", "W"];
