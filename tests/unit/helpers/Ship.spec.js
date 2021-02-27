@@ -56,20 +56,36 @@ describe("The Ship Class", () => {
     // - The first one ends where it started, so not ideal for accurate failing tests.
     // - The second one needs to deal with falling off the world.
     const thirdShipAttributes = {
-      //   commands: "LLFFFLFLFL",
       commands: "LLFFFLFLFL",
       startingCoords: {
-        x: 3,
-        y: 0,
+        x: 0,
+        y: 3,
       },
       startingDirection: "W",
     };
     const thirdShip = new Ship(thirdShipAttributes);
     thirdShip.executeCommands();
     expect(thirdShip.coords).toEqual({
-      x: 3,
-      y: 2,
+      x: 2,
+      y: 4, // My current manual understanding. TODO: Adjust based on new insight.
     });
     expect(thirdShip.direction).toBe("S");
+  });
+  it("can execute a string of commands - own manual check", () => {
+    const ownShipAttributes = {
+      commands: "FRFLFRF",
+      startingCoords: {
+        x: 1,
+        y: 1,
+      },
+      startingDirection: "N",
+    };
+    const ownShip = new Ship(ownShipAttributes);
+    ownShip.executeCommands();
+    expect(ownShip.coords).toEqual({
+      x: 3,
+      y: 3,
+    });
+    expect(ownShip.direction).toBe("E");
   });
 });
