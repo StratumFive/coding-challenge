@@ -1,8 +1,9 @@
 export default class Ship {
-  constructor(attributes) {
+  constructor(attributes, callback) {
     this.coords = attributes.startingCoords;
     this.direction = attributes.startingDirection;
     this.commands = attributes.commands;
+    this.callback = callback;
   }
   turnLeft() {
     // Deal with the case of "N", which is at index 0 of CLOCKWISE_DIRECTIONS
@@ -34,6 +35,7 @@ export default class Ship {
     if (this.direction === "W") {
       this.coords.x--;
     }
+    this.callback && this.callback(this.coords); // If there's a callback use it
   }
   executeCommands() {
     let _commands = this.commands.split("");

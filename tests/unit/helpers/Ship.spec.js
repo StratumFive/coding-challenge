@@ -100,7 +100,6 @@ describe("The Ship Class", () => {
     let message = ownShipAttributes.startingCoords;
     const ownShip = new Ship(ownShipAttributes, (coords) => {
       message = coords;
-      console.log("ownShip - message", message);
     });
     ownShip.executeCommands();
     expect(message).toEqual(ownShip.coords);
