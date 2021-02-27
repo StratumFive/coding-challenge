@@ -1,6 +1,6 @@
 import Ship from "@/helpers/Ship";
 
-describe("The Ship Class", () => {
+describe("The Ship Class - basic movements", () => {
   let testShip;
   beforeEach(() => {
     const shipValuesFromParsedInput = {
@@ -88,19 +88,24 @@ describe("The Ship Class", () => {
     });
     expect(ownShip.direction).toBe("E");
   });
+});
+describe("The Ship Class - event emitting and edge awareness", () => {
+  const ownShipAttributes = {
+    commands: "FFF",
+    startingCoords: {
+      x: 0,
+      y: 0,
+    },
+    startingDirection: "E",
+  };
+  let ownShip, message;
+  let handleMessage = (coords) => {
+    message = coords;
+  };
+  beforeEach(() => {
+    ownShip = new Ship(ownShipAttributes, handleMessage);
+  });
   it("emits its location via a callback every time it moves forward", () => {
-    const ownShipAttributes = {
-      commands: "FFFF",
-      startingCoords: {
-        x: 0,
-        y: 0,
-      },
-      startingDirection: "E",
-    };
-    let message = ownShipAttributes.startingCoords;
-    const ownShip = new Ship(ownShipAttributes, (coords) => {
-      message = coords;
-    });
     ownShip.executeCommands();
     expect(message).toEqual(ownShip.coords);
   });

@@ -30,11 +30,11 @@ export default class Ship {
     if (this.direction === "N") {
       this.coords.y++;
     }
-    if (this.direction === "E") {
-      this.coords.x++;
-    }
     if (this.direction === "S") {
       this.coords.y--;
+    }
+    if (this.direction === "E") {
+      this.coords.x++;
     }
     if (this.direction === "W") {
       this.coords.x--;
