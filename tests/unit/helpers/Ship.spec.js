@@ -88,4 +88,21 @@ describe("The Ship Class", () => {
     });
     expect(ownShip.direction).toBe("E");
   });
+  it("emits its location via a callback every time it moves forward", () => {
+    const ownShipAttributes = {
+      commands: "FFFF",
+      startingCoords: {
+        x: 0,
+        y: 0,
+      },
+      startingDirection: "E",
+    };
+    let message = ownShipAttributes.startingCoords;
+    const ownShip = new Ship(ownShipAttributes, (coords) => {
+      message = coords;
+      console.log("ownShip - message", message);
+    });
+    ownShip.executeCommands();
+    expect(message).toEqual(ownShip.coords);
+  });
 });
