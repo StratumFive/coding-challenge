@@ -4,12 +4,14 @@ export default class Ship {
     y: 50,
   };
   static warningPoints = [];
+
   constructor(attributes, callback) {
     this.coords = attributes.startingCoords;
     this.direction = attributes.startingDirection;
     this.callback = callback;
     this.isLost = false;
   }
+
   turnLeft() {
     // Deal with the case of "N", which is at index 0 of CLOCKWISE_DIRECTIONS
     if (this.direction === "N") {
@@ -19,6 +21,7 @@ export default class Ship {
     this.direction =
       CLOCKWISE_DIRECTIONS[CLOCKWISE_DIRECTIONS.indexOf(this.direction) - 1];
   }
+
   turnRight() {
     if (this.direction === "W") {
       this.direction = "N";
@@ -27,6 +30,7 @@ export default class Ship {
     this.direction =
       CLOCKWISE_DIRECTIONS[CLOCKWISE_DIRECTIONS.indexOf(this.direction) + 1];
   }
+
   goForwards() {
     if (this.direction === "N") {
       if (this.coords.y === Ship.max.y) {
@@ -57,6 +61,7 @@ export default class Ship {
       this.coords.x--;
     }
   }
+
   executeCommands(commands) {
     let _commands = commands.split("");
     for (const command of _commands) {
@@ -76,6 +81,7 @@ export default class Ship {
       this.callback && this.callback({ coords, direction }); // If there's a callback use it
     }
   }
+
   onLost() {
     this.isLost = true;
     Ship.warningPoints.push(this.coords);

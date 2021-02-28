@@ -4,7 +4,6 @@ describe("The Ship Class - basic movements", () => {
   let testShip;
   beforeEach(() => {
     const shipValuesFromParsedInput = {
-      //   commands: "RFRFRFRF",
       startingCoords: {
         x: 1,
         y: 1,
@@ -53,23 +52,23 @@ describe("The Ship Class - basic movements", () => {
   });
   it("can execute a string of commands - happy path no edge commands", () => {
     const commands = "FRFLFRFLFRFL"; // Diagonal
-    const thirdShipAttributes = {
+    const shipAttributes = {
       startingCoords: {
         x: 0,
         y: 3,
       },
       startingDirection: "E",
     };
-    const thirdShip = new Ship(thirdShipAttributes);
-    thirdShip.executeCommands(commands);
-    expect(thirdShip.coords).toEqual({
+    const testShip = new Ship(shipAttributes);
+    testShip.executeCommands(commands);
+    expect(testShip.coords).toEqual({
       x: 3,
       y: 0,
     });
-    expect(thirdShip.direction).toBe("E");
+    expect(testShip.direction).toBe("E");
   });
 });
-describe("The Ship Class - event emitting and edge awareness", () => {
+describe("The Ship Class - event emitting and falling", () => {
   const ownShipAttributes = {
     startingCoords: {
       x: 0,
@@ -105,9 +104,9 @@ describe("The Ship Class - event emitting and edge awareness", () => {
     Ship.warningPoints = [{ x: 5, y: 1 }];
     ownShip.coords = { x: 2, y: 2 };
     ownShip.executeCommands("RFFFFF"); // Fall off the world at (0, 3) and try to keep going.
-    console.log("it - ownShip.coords", ownShip.coords);
     expect(ownShip.coords).toEqual({ x: 2, y: 0 });
     expect(ownShip.isLost).toBe(true);
     expect(Ship.warningPoints[1]).toEqual({ x: 2, y: 0 });
   });
 });
+describe("The Ship Class - not falling at warning locations", () => {});
