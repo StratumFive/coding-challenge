@@ -36,6 +36,10 @@ export default class Ship {
       this.coords.y++;
     }
     if (this.direction === "S") {
+      if (this.coords.y === 0) {
+        this.onLost();
+        return;
+      }
       this.coords.y--;
     }
     if (this.direction === "E") {
@@ -46,6 +50,10 @@ export default class Ship {
       this.coords.x++;
     }
     if (this.direction === "W") {
+      if (this.coords.x === 0) {
+        this.onLost();
+        return;
+      }
       this.coords.x--;
     }
   }
@@ -70,7 +78,7 @@ export default class Ship {
   }
   onLost() {
     this.isLost = true;
-    Ship.warningPoints.push(this.coords)
+    Ship.warningPoints.push(this.coords);
   }
 }
 const CLOCKWISE_DIRECTIONS = ["N", "E", "S", "W"];
