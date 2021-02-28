@@ -34,14 +34,14 @@ export default class Ship {
   goForwards() {
     if (this.direction === "N") {
       if (this.coords.y === Ship.max.y) {
-        this.onLost();
+        this.onMaybeLost();
         return;
       }
       this.coords.y++;
     }
     if (this.direction === "S") {
       if (this.coords.y === 0) {
-        this.onLost();
+        this.onMaybeLost();
         return;
       }
       this.coords.y--;
@@ -55,7 +55,7 @@ export default class Ship {
     }
     if (this.direction === "W") {
       if (this.coords.x === 0) {
-        this.onLost();
+        this.onMaybeLost();
         return;
       }
       this.coords.x--;
@@ -64,6 +64,7 @@ export default class Ship {
 
   executeCommands(commands) {
     let _commands = commands.split("");
+    // Using for loop (instead of forEach) for its ability to break or return
     for (const command of _commands) {
       if (this.isLost) {
         break;
@@ -82,8 +83,8 @@ export default class Ship {
     }
   }
 
-  onLost() {
-    // Using for loop for its ability to break or return
+  onMaybeLost() {
+    // Check if ship is standing on any existing warningPoints
     for (const warningPoint of Ship.warningPoints) {
       if (
         warningPoint.x === this.coords.x &&
