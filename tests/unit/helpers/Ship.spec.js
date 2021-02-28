@@ -4,7 +4,7 @@ describe("The Ship Class - basic movements", () => {
   let testShip;
   beforeEach(() => {
     const shipValuesFromParsedInput = {
-      commands: "RFRFRFRF",
+      //   commands: "RFRFRFRF",
       startingCoords: {
         x: 1,
         y: 1,
@@ -52,8 +52,8 @@ describe("The Ship Class - basic movements", () => {
     expect(testShip.coords).toEqual({ x: 1, y: 2 });
   });
   it("can execute a string of commands - happy path no edge commands", () => {
+    const commands = "FRFLFRFLFRFL"; // Diagonal
     const thirdShipAttributes = {
-      commands: "FRFLFRFLFRFL", // Diagonal
       startingCoords: {
         x: 0,
         y: 3,
@@ -61,7 +61,7 @@ describe("The Ship Class - basic movements", () => {
       startingDirection: "E",
     };
     const thirdShip = new Ship(thirdShipAttributes);
-    thirdShip.executeCommands();
+    thirdShip.executeCommands(commands);
     expect(thirdShip.coords).toEqual({
       x: 3,
       y: 0,
@@ -70,8 +70,8 @@ describe("The Ship Class - basic movements", () => {
   });
 });
 describe("The Ship Class - event emitting and edge awareness", () => {
+  const commands = "FFF";
   const ownShipAttributes = {
-    commands: "FFF",
     startingCoords: {
       x: 0,
       y: 0,
@@ -86,7 +86,7 @@ describe("The Ship Class - event emitting and edge awareness", () => {
     ownShip = new Ship(ownShipAttributes, handleMessage);
   });
   it("emits its location via a callback every time it moves forward", () => {
-    ownShip.executeCommands();
+    ownShip.executeCommands(commands);
     expect(message).toEqual(ownShip.coords);
   });
 });

@@ -6,7 +6,6 @@ export default class Ship {
   constructor(attributes, callback) {
     this.coords = attributes.startingCoords;
     this.direction = attributes.startingDirection;
-    this.commands = attributes.commands;
     this.callback = callback;
   }
   turnLeft() {
@@ -41,8 +40,8 @@ export default class Ship {
     }
     this.callback && this.callback(this.coords); // If there's a callback use it
   }
-  executeCommands() {
-    let _commands = this.commands.split("");
+  executeCommands(commands) {
+    let _commands = commands.split("");
     for (const command of _commands) {
       if (command === "F") {
         this.goForwards();
