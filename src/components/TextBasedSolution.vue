@@ -19,16 +19,20 @@ import Ship from "@/helpers/Ship";
 export default {
   data() {
     return {
-      // commandInput:
-      //   "5 3 \n 1 1 E \n RFRFRFRF \n\n 3 2 N \n FRRFLLFFRRFLL \n\n 0 3 W \n LLFFFLFLFL",
-      commandInput: "",
+      commandInput:
+        "5 3\n1 1 E\n RFRFRFRF\n\n3 2 N\nFRRFLLFFRRFLL\n\n0 3 W\nLLFFFLFLFL",
+      // commandInput: "",
       shipsOutput: "",
     };
   },
   methods: {
     calculateShips() {
+      console.log("Ship", Ship);
       const parsedCommand = parseCommand(this.commandInput);
-      console.log("calculateShips - parsedCommand", parsedCommand);
+      Ship.max = { x: parsedCommand.maxX, y: parsedCommand.maxY };
+      for (const ship of parsedCommand.ships) {
+        console.log("calculateShips - ship", ship);
+      }
       this.shipsOutput = "Early Days";
     },
   },
