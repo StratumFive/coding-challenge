@@ -25,7 +25,6 @@ export default {
     return {
       commandInput:
         "5 3\n1 1 E\n RFRFRFRF\n\n3 2 N\nFRRFLLFFRRFLL\n\n0 3 W\nLLFFFLFLFL",
-      // commandInput: "",
       shipsOutput: "",
     };
   },
@@ -57,7 +56,8 @@ export default {
         )
         .join("\n");
       this.commandInput = "";
-      console.log("calculateShips - this.shipsOutput", this.shipsOutput);
+      Ship.warningPoints = [];
+      Ship.console.log("calculateShips - this.shipsOutput", this.shipsOutput);
     },
   },
 };
