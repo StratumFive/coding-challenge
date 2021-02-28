@@ -70,7 +70,6 @@ describe("The Ship Class - basic movements", () => {
   });
 });
 describe("The Ship Class - event emitting and edge awareness", () => {
-  const commands = "FFF";
   const ownShipAttributes = {
     startingCoords: {
       x: 0,
@@ -87,8 +86,16 @@ describe("The Ship Class - event emitting and edge awareness", () => {
   });
   it("emits its state via a callback for every command it receives", () => {
     // Why not only emit it's finishing state upon finishing?
-    // Having a callback in each command allows us to more easily observe what's happening in the ship.
-    ownShip.executeCommands(commands);
+    // Calling the callback for each command allows us to more easily observe what's happening in the ship.
+    // A future user of the Ship class can use the handler for all sorts of interesting functionality,
+    // without needing to change the class itself.
+    ownShip.executeCommands("FFF");
     expect(message.coords).toEqual(ownShip.coords);
+  });
+  it("handles falling off the top/right extremes of the grid", () => {
+    Ship.max = { x: 5, y: 3 };
+    ownShip.coords = { x: 0, y: 0 };
+    ownShip.executeCommands("LFFFFFFF"); // Fall off the world at (0, 3) and try and keep going.
+    expect(message.coords).toEqual({ x: 0, y: 3 });
   });
 });
