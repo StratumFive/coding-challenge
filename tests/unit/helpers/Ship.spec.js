@@ -128,9 +128,8 @@ describe("The Ship Class - not falling at warning locations, using the third shi
     };
     thirdShip = new Ship(shipAttributes, handler);
   });
-  it.only("doesn't fall off from point(3, 3)", () => {
+  it("doesn't fall off from warning-point(3, 3)", () => {
     thirdShip.executeCommands(commands);
-    console.log("describe - trackedMovements", trackedCoords);
     const allCoordsExceptTheLastOne = [...trackedCoords]; // Prevent having point(3,3) as the last position from giving a false-pass.
     trackedCoords.pop();
     expect(allCoordsExceptTheLastOne).toContainEqual({ x: 3, y: 3 });

@@ -83,6 +83,15 @@ export default class Ship {
   }
 
   onLost() {
+    // Using for loop for its ability to break or return
+    for (const warningPoint of Ship.warningPoints) {
+      if (
+        warningPoint.x === this.coords.x &&
+        warningPoint.y === this.coords.y
+      ) {
+        return;
+      }
+    }
     this.isLost = true;
     Ship.warningPoints.push(this.coords);
   }
