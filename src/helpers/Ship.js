@@ -38,7 +38,6 @@ export default class Ship {
     if (this.direction === "W") {
       this.coords.x--;
     }
-    this.callback && this.callback(this.coords); // If there's a callback use it
   }
   executeCommands(commands) {
     let _commands = commands.split("");
@@ -52,6 +51,8 @@ export default class Ship {
       if (command === "L") {
         this.turnLeft();
       }
+      const { coords, direction } = this;
+      this.callback && this.callback({ coords, direction }); // If there's a callback use it
     }
   }
 }

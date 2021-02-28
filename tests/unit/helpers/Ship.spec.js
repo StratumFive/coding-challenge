@@ -79,14 +79,16 @@ describe("The Ship Class - event emitting and edge awareness", () => {
     startingDirection: "E",
   };
   let ownShip, message;
-  let handleMessage = (coords) => {
-    message = coords;
+  let handleMessage = (shipState) => {
+    message = shipState;
   };
   beforeEach(() => {
     ownShip = new Ship(ownShipAttributes, handleMessage);
   });
-  it("emits its location via a callback every time it moves forward", () => {
+  it("emits its state via a callback for every command it receives", () => {
+    // Why not only emit it's finishing state upon finishing?
+    // Having a callback in each command allows us to more easily observe what's happening in the ship.
     ownShip.executeCommands(commands);
-    expect(message).toEqual(ownShip.coords);
+    expect(message.coords).toEqual(ownShip.coords);
   });
 });
