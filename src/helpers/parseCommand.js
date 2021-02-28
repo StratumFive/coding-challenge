@@ -18,8 +18,8 @@ export default (command) => {
   const shipsRaw = commandWithoutCoordinates.split("\n\n");
   const ships = shipsRaw.map(parseShip);
   return {
-    maxY: Number(coordinates[0]),
-    maxX: Number(coordinates[1]),
+    maxY: Number(coordinates[1]),
+    maxX: Number(coordinates[0]),
     ships,
   };
 };

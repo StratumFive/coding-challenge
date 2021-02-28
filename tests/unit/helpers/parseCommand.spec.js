@@ -8,8 +8,8 @@ describe("parseCommand", () => {
     expect(typeof parsedCommand).toBe("object");
   });
   it("extracts maxY and maxX from the command", () => {
-    expect(parsedCommand.maxY).toBe(5);
-    expect(parsedCommand.maxX).toBe(3);
+    expect(parsedCommand.maxY).toBe(3);
+    expect(parsedCommand.maxX).toBe(5);
   });
   it("extracts an array of ship objects from the command", () => {
     expect(Array.isArray(parsedCommand.ships)).toBe(true);
@@ -30,8 +30,8 @@ describe("parseCommand", () => {
   it("produces an explicit array of ship objects with clear attributes", () => {
     // This is a combined-view of the above tests.
     expect(parsedCommand).toEqual({
-      maxX: 3,
-      maxY: 5,
+      maxX: 5,
+      maxY: 3,
       ships: [
         {
           commands: "RFRFRFRF",

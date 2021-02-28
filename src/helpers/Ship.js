@@ -48,7 +48,7 @@ export default class Ship {
     }
     if (this.direction === "E") {
       if (this.coords.x === Ship.max.x) {
-        this.onFalling();
+        this.onMaybeLost();
         return;
       }
       this.coords.x++;
