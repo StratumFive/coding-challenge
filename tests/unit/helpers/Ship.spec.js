@@ -69,44 +69,71 @@ describe("The Ship Class - basic movements", () => {
   });
 });
 describe("The Ship Class - event emitting and falling", () => {
-  const ownShipAttributes = {
+  const shipAttributes = {
     startingCoords: {
       x: 0,
       y: 0,
     },
     startingDirection: "E",
   };
-  let ownShip, message;
+  let testShip, message;
   let handleMessage = (shipState) => {
     message = shipState;
   };
   beforeEach(() => {
-    ownShip = new Ship(ownShipAttributes, handleMessage);
+    testShip = new Ship(shipAttributes, handleMessage);
   });
   it("emits its state via a callback for every command it receives", () => {
     // Why not only emit it's finishing state upon finishing?
     // Calling the callback for each command allows us to more easily observe what's happening in the ship.
     // A future user of the Ship class can use the handler for all sorts of interesting functionality,
     // without needing to change the class itself.
-    ownShip.executeCommands("FFF");
-    expect(message.coords).toEqual(ownShip.coords);
+    testShip.executeCommands("FFF");
+    expect(message.coords).toEqual(testShip.coords);
   });
   it("handles falling off the top/right extremes of the grid", () => {
     Ship.max = { x: 5, y: 3 };
     Ship.warningPoints = [{ x: 5, y: 1 }];
-    ownShip.coords = { x: 0, y: 0 };
-    ownShip.executeCommands("LFFFFFFF"); // Fall off the world at (0, 3) and try to keep going.
-    expect(ownShip.coords).toEqual({ x: 0, y: 3 });
-    expect(ownShip.isLost).toBe(true);
+    testShip.coords = { x: 0, y: 0 };
+    testShip.executeCommands("LFFFFFFF"); // Fall off the world at (0, 3) and try to keep going.
+    expect(testShip.coords).toEqual({ x: 0, y: 3 });
+    expect(testShip.isLost).toBe(true);
     expect(Ship.warningPoints[1]).toEqual({ x: 0, y: 3 });
   });
   it("handles falling off the bottom/left extremes of the grid", () => {
     Ship.warningPoints = [{ x: 5, y: 1 }];
-    ownShip.coords = { x: 2, y: 2 };
-    ownShip.executeCommands("RFFFFF"); // Fall off the world at (0, 3) and try to keep going.
-    expect(ownShip.coords).toEqual({ x: 2, y: 0 });
-    expect(ownShip.isLost).toBe(true);
+    testShip.coords = { x: 2, y: 2 };
+    testShip.executeCommands("RFFFFF"); // Fall off the world at (0, 3) and try to keep going.
+    expect(testShip.coords).toEqual({ x: 2, y: 0 });
+    expect(testShip.isLost).toBe(true);
     expect(Ship.warningPoints[1]).toEqual({ x: 2, y: 0 });
   });
 });
-describe("The Ship Class - not falling at warning locations", () => {});
+describe("The Ship Class - not falling at warning locations, using the third ship sample", () => {
+  let thirdShip, trackedCoords;
+  const commands = "LLFFFLFLFL";
+  beforeEach(() => {
+    trackedCoords = [];
+    const handler = (message) => {
+      trackedCoords.push({ ...message.coords }); // without this immutability-destructuring, we get an array with identical objects matching only the last received.
+    };
+    Ship.max = { x: 5, y: 3 };
+    Ship.warningPoints = [{ x: 3, y: 3 }];
+    const shipAttributes = {
+      startingCoords: {
+        x: 0,
+        y: 3,
+      },
+      startingDirection: "W",
+    };
+    thirdShip = new Ship(shipAttributes, handler);
+  });
+  it.only("doesn't fall off from point(3, 3)", () => {
+    thirdShip.executeCommands(commands);
+    console.log("describe - trackedMovements", trackedCoords);
+    const allCoordsExceptTheLastOne = [...trackedCoords]; // Prevent having point(3,3) as the last position from giving a false-pass.
+    trackedCoords.pop();
+    expect(allCoordsExceptTheLastOne).toContainEqual({ x: 3, y: 3 });
+    expect(thirdShip.isLost).toBe(false);
+  });
+});
