@@ -27,12 +27,25 @@ export default {
   },
   methods: {
     calculateShips() {
-      console.log("Ship", Ship);
       const parsedCommand = parseCommand(this.commandInput);
       Ship.max = { x: parsedCommand.maxX, y: parsedCommand.maxY };
-      for (const ship of parsedCommand.ships) {
-        console.log("calculateShips - ship", ship);
+      const instantiatedShips = parsedCommand.ships.map((ship) => ({
+        ship: new Ship({
+          startingCoords: ship.startingCoords,
+          startingDirection: ship.startingDirection,
+        }),
+        command: ship.commands,
+      }));
+      let results = [];
+      for (const instance of instantiatedShips) {
+        const interimResults = [];
+        instance.ship.callback = (shipState) => {
+          interimResults.push({ shipState });
+        };
+        instance.ship.executeCommands(instance.command);
+        results.push(interimResults.pop());
       }
+      console.log("calculateShips - results", results);
       this.shipsOutput = "Early Days";
     },
   },
