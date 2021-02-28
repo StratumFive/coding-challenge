@@ -29,6 +29,7 @@ export default {
     calculateShips() {
       const parsedCommand = parseCommand(this.commandInput);
       Ship.max = { x: parsedCommand.maxX, y: parsedCommand.maxY };
+      console.log("calculateShips - Ship.max", Ship.max);
       const instantiatedShips = parsedCommand.ships.map((ship) => ({
         ship: new Ship({
           startingCoords: ship.startingCoords,
@@ -38,15 +39,20 @@ export default {
       }));
       let results = [];
       for (const instance of instantiatedShips) {
-        const interimResults = [];
-        instance.ship.callback = (shipState) => {
-          interimResults.push({ shipState });
-        };
         instance.ship.executeCommands(instance.command);
-        results.push(interimResults.pop());
+        const { coords, direction, isLost } = instance.ship;
+        results.push({ coords, direction, isLost });
       }
       console.log("calculateShips - results", results);
-      this.shipsOutput = "Early Days";
+      this.shipsOutput = results
+        .map(
+          (result) =>
+            `${result.coords.x} ${result.coords.y} ${result.direction}${
+              result.isLost ? " LOST" : ""
+            }`
+        )
+        .join("\n");
+      console.log("calculateShips - this.shipsOutput", this.shipsOutput);
     },
   },
 };
