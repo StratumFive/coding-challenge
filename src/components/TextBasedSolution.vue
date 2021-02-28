@@ -1,19 +1,22 @@
 <template>
-  <div>
-    <div>I'm a text-based solution</div>
-    <v-textarea
-      id="text-input"
-      label="Input"
-      v-model="commandInput"
-    ></v-textarea>
-    <v-btn @click="calculateShips" id="calculate-button" color="success"
-      >Calculate Ship Positions</v-btn
-    >
-    <div>
-      <p>The answer is:</p>
-      <div>{{ shipsOutput }}</div>
-    </div>
-  </div>
+  <v-card class="text-solution">
+    <v-card-title>Text Based Solution</v-card-title>
+    <v-card-text>
+      <v-textarea
+        id="text-input"
+        class="fixed-height"
+        label="Input"
+        v-model="commandInput"
+      ></v-textarea>
+      <v-btn dark color="#015a8d" @click="calculateShips" id="calculate-button">
+        Calculate Ship Positions
+      </v-btn>
+      <div>
+        <p>The answer is:</p>
+        <p class="ma-0" v-for="ship in shipsOutput" :key="ship">{{ ship }}</p>
+      </div>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -32,7 +35,6 @@ export default {
     calculateShips() {
       const parsedCommand = parseCommand(this.commandInput);
       Ship.max = { x: parsedCommand.maxX, y: parsedCommand.maxY };
-      console.log("calculateShips - Ship.max", Ship.max);
       const instantiatedShips = parsedCommand.ships.map((ship) => ({
         ship: new Ship({
           startingCoords: ship.startingCoords,
@@ -46,21 +48,32 @@ export default {
         const { coords, direction, isLost } = instance.ship;
         results.push({ coords, direction, isLost });
       }
-      console.log("calculateShips - results", results);
-      this.shipsOutput = results
-        .map(
-          (result) =>
-            `${result.coords.x} ${result.coords.y} ${result.direction}${
-              result.isLost ? " LOST" : ""
-            }`
-        )
-        .join("\n");
+      this.shipsOutput = results.map(
+        (result) =>
+          `${result.coords.x} ${result.coords.y} ${result.direction}${
+            result.isLost ? " LOST" : ""
+          }`
+      );
       this.commandInput = "";
       Ship.warningPoints = [];
-      Ship.console.log("calculateShips - this.shipsOutput", this.shipsOutput);
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-solution {
+  /* min-height: 700px; */
+  width: 350px;
+  min-height: 580px;
+  margin: auto 0;
+  align-self: center;
+  justify-self: center;
+  transition: all 1s ease-in-out;
+}
+</style>
+<style>
+.fixed-height.v-textarea textarea {
+  min-height: 300px;
+}
+</style>

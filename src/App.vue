@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :style="{ background: 'hsl(202deg 99% 95%)' }">
     <text-based-solution></text-based-solution>
   </v-app>
 </template>
@@ -11,12 +11,7 @@ export default {
   components: {
     TextBasedSolution,
   },
-  data() {
-    return {
-      output: `
-      
-      `,
-    };
-  },
 };
 </script>
+
+<style scoped></style>
