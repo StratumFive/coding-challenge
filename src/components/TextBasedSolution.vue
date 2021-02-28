@@ -9,6 +9,10 @@
     <v-btn @click="calculateShips" id="calculate-button" color="success"
       >Calculate Ship Positions</v-btn
     >
+    <div>
+      <p>The answer is:</p>
+      <div>{{ shipsOutput }}</div>
+    </div>
   </div>
 </template>
 
@@ -52,6 +56,7 @@ export default {
             }`
         )
         .join("\n");
+      this.commandInput = "";
       console.log("calculateShips - this.shipsOutput", this.shipsOutput);
     },
   },

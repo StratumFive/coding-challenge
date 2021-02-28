@@ -16,10 +16,10 @@ describe("TextBasedSolution.vue", () => {
     expect(wrapper.find("#text-input").exists()).toBe(true);
     expect(wrapper.find("#calculate-button").exists()).toBe(true);
   });
-  it.only("calculates the ending positions of the ships", () => {
+  it("calculates the ending positions of the ships", () => {
     wrapper.setData({
       commandInput:
-        "5 3 \n 1 1 E \n RFRFRFRF \n\n 3 2 N \n FRRFLLFFRRFLL \n\n 0 3 W \n LLFFFLFLFL",
+        "5 3\n1 1 E\n RFRFRFRF\n\n3 2 N\nFRRFLLFFRRFLL\n\n0 3 W\nLLFFFLFLFL",
     });
     wrapper.vm.calculateShips();
     expect(wrapper.vm.shipsOutput).toBe("1 1 E\n3 3 N LOST\n2 3 S");
