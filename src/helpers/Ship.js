@@ -3,10 +3,12 @@ export default class Ship {
     x: 50,
     y: 50,
   };
+  static warningPoints = [];
   constructor(attributes, callback) {
     this.coords = attributes.startingCoords;
     this.direction = attributes.startingDirection;
     this.callback = callback;
+    this.isLost = false;
   }
   turnLeft() {
     // Deal with the case of "N", which is at index 0 of CLOCKWISE_DIRECTIONS
@@ -50,6 +52,9 @@ export default class Ship {
   executeCommands(commands) {
     let _commands = commands.split("");
     for (const command of _commands) {
+      if (this.isLost) {
+        break;
+      }
       if (command === "F") {
         this.goForwards();
       }
@@ -64,7 +69,8 @@ export default class Ship {
     }
   }
   onLost() {
-    console.log("LOST!!");
+    this.isLost = true;
+    Ship.warningPoints.push(this.coords)
   }
 }
 const CLOCKWISE_DIRECTIONS = ["N", "E", "S", "W"];
