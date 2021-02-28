@@ -28,7 +28,6 @@ describe("parseCommand", () => {
     expect(parsedCommand.ships[1].commands).toBe("FRRFLLFFRRFLL");
   });
   it("produces an explicit array of ship objects with clear attributes", () => {
-    console.log("expect - parsedCommand", parsedCommand);
     // This is a combined-view of the above tests.
     expect(parsedCommand).toEqual({
       maxX: 3,
