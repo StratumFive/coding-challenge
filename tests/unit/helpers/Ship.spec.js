@@ -135,4 +135,9 @@ describe("The Ship Class - not falling at warning locations, using the third shi
     expect(allCoordsExceptTheLastOne).toContainEqual({ x: 3, y: 3 });
     expect(thirdShip.isLost).toBe(false);
   });
+  it("ignores the command to fall from a warning-point, but ends up where sample ship three does", () => {
+    thirdShip.executeCommands(commands);
+    expect(thirdShip.coords).toEqual({ x: 2, y: 3 });
+    expect(thirdShip.direction).toBe("S");
+  });
 });

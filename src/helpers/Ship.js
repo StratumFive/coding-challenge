@@ -84,7 +84,7 @@ export default class Ship {
   }
 
   onMaybeLost() {
-    // Check if ship is standing on any existing warningPoints
+    // Check if ship is standing on any existing warningPoints.
     for (const warningPoint of Ship.warningPoints) {
       if (
         warningPoint.x === this.coords.x &&
