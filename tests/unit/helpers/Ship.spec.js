@@ -94,11 +94,20 @@ describe("The Ship Class - event emitting and edge awareness", () => {
   });
   it("handles falling off the top/right extremes of the grid", () => {
     Ship.max = { x: 5, y: 3 };
-    Ship.warningPoints = [{x: 5, y: 1}]
+    Ship.warningPoints = [{ x: 5, y: 1 }];
     ownShip.coords = { x: 0, y: 0 };
     ownShip.executeCommands("LFFFFFFF"); // Fall off the world at (0, 3) and try to keep going.
-    expect(message.coords).toEqual({ x: 0, y: 3 });
+    expect(ownShip.coords).toEqual({ x: 0, y: 3 });
     expect(ownShip.isLost).toBe(true);
-    expect(Ship.warningPoints[1]).toEqual({ x: 0, y: 3 })
+    expect(Ship.warningPoints[1]).toEqual({ x: 0, y: 3 });
+  });
+  it("handles falling off the bottom/left extremes of the grid", () => {
+    Ship.warningPoints = [{ x: 5, y: 1 }];
+    ownShip.coords = { x: 2, y: 2 };
+    ownShip.executeCommands("RFFFFF"); // Fall off the world at (0, 3) and try to keep going.
+    console.log("it - ownShip.coords", ownShip.coords);
+    expect(ownShip.coords).toEqual({ x: 2, y: 0 });
+    expect(ownShip.isLost).toBe(true);
+    expect(Ship.warningPoints[1]).toEqual({ x: 2, y: 0 });
   });
 });
