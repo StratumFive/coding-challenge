@@ -10,6 +10,10 @@
  */
 export default (command) => {
   const regexForCoordinates = /\d+ \d+\n/gm;
+  if (!command.match(regexForCoordinates)) {
+    alert("Please check the input provided - it is not in a shape I can parse");
+    return null;
+  }
   const coordinates = command
     .match(regexForCoordinates)[0]
     .replace("\n", "")
