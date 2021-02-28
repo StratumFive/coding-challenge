@@ -13,16 +13,24 @@
 </template>
 
 <script>
+import parseCommand from "@/helpers/parseCommand";
+import Ship from "@/helpers/Ship";
+
 export default {
   data() {
     return {
       // commandInput:
       //   "5 3 \n 1 1 E \n RFRFRFRF \n\n 3 2 N \n FRRFLLFFRRFLL \n\n 0 3 W \n LLFFFLFLFL",
       commandInput: "",
+      shipsOutput: "",
     };
   },
   methods: {
-    calculateShips() {},
+    calculateShips() {
+      const parsedCommand = parseCommand(this.commandInput);
+      console.log("calculateShips - parsedCommand", parsedCommand);
+      this.shipsOutput = "Early Days";
+    },
   },
 };
 </script>
