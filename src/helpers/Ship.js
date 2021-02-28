@@ -27,12 +27,20 @@ export default class Ship {
   }
   goForwards() {
     if (this.direction === "N") {
+      if (this.coords.y === Ship.max.y) {
+        this.onLost();
+        return;
+      }
       this.coords.y++;
     }
     if (this.direction === "S") {
       this.coords.y--;
     }
     if (this.direction === "E") {
+      if (this.coords.x === Ship.max.x) {
+        this.onFalling();
+        return;
+      }
       this.coords.x++;
     }
     if (this.direction === "W") {
@@ -54,6 +62,9 @@ export default class Ship {
       const { coords, direction } = this;
       this.callback && this.callback({ coords, direction }); // If there's a callback use it
     }
+  }
+  onLost() {
+    console.log("LOST!!");
   }
 }
 const CLOCKWISE_DIRECTIONS = ["N", "E", "S", "W"];
