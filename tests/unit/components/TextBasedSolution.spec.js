@@ -22,6 +22,6 @@ describe("TextBasedSolution.vue", () => {
         "5 3\n1 1 E\n RFRFRFRF\n\n3 2 N\nFRRFLLFFRRFLL\n\n0 3 W\nLLFFFLFLFL",
     });
     wrapper.vm.calculateShips();
-    expect(wrapper.vm.shipsOutput).toBe("1 1 E\n3 3 N LOST\n2 3 S");
+    expect(wrapper.vm.singleStringOutput).toBe("1 1 E\n3 3 N LOST\n2 3 S");
   });
 });

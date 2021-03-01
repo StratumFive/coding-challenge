@@ -27,9 +27,14 @@ export default {
   data() {
     return {
       commandInput:
-        "5 3\n1 1 E\n RFRFRFRF\n\n3 2 N\nFRRFLLFFRRFLL\n\n0 3 W\nLLFFFLFLFL",
-      shipsOutput: "",
+        "5 3\n1 1 E\nRFRFRFRF\n\n3 2 N\nFRRFLLFFRRFLL\n\n0 3 W\nLLFFFLFLFL",
+      shipsOutput: [],
     };
+  },
+  computed: {
+    singleStringOutput() {
+      return this.shipsOutput.join("\n");
+    },
   },
   methods: {
     calculateShips() {
