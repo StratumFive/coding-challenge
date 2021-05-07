@@ -8,7 +8,6 @@ Welcome to the StratumFive Coding Challenge. Please take ten minutes to carefull
 * **Commit your code frequently. This is how we will review your submission.**
 * If you do not have time to fully complete the challenge, please still push it and indicate what your next steps would be. Remember to try to solve the hardest problems first.
 * We are not asking for a clever, over engineered or obfuscated solution. Please be as pragmatic as possible.
-* User interface design is not the focus of the problem although we will not mark you down for creating a UI.
 * We should be able to run your code without any crazy steps
 * Make use of the sample data, it is correct
 * Make sure your final solution is on master
