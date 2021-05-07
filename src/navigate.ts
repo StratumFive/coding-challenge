@@ -23,39 +23,56 @@ function compassNavigation(current : Compass, direction : 'L' | 'R') {
 
 const gridTop : number[] = [5,3]
 const shipInfo = {
-    coordinates: '1 1 E',
-    instructions: 'RFRFRFRF'
+    coordinates: '3 2 N',
+    instructions: 'FRRFLLFFRRFLL'
 }
 
 function calculatePosition(gridBorder : number[], ship : Ship) {
+    const eastBorder : number = gridBorder[0]
+    const northBorder : number = gridBorder[1]
     const splitCoords : string[] = ship.coordinates.split(' ')
-    let xCoords = Number(splitCoords[0])
-    let yCoords = Number(splitCoords[1])
-    const startingDirection = splitCoords[2]
-    let currentDirection = startingDirection
+    let xCoords : number = Number(splitCoords[0])
+    let yCoords : number = Number(splitCoords[1])
+    let currentDirection : string = splitCoords[2]
     const shipInstruction = ship.instructions
-    let lost : boolean = false
+    let shipLost : boolean = false
 
     for(let i = 0; i < shipInstruction.length; i++) {
-        console.log(currentDirection)
-        if(shipInstruction.charAt(i) == 'F') {
-            if(currentDirection == Compass[2]) {
-                xCoords = xCoords + 1
-            } else if(currentDirection == Compass[3]){
-                yCoords = yCoords - 1
-            } else if(currentDirection == Compass[4]) {
-                xCoords = xCoords - 1
-            } else if(currentDirection == Compass[1]) {
-                yCoords = yCoords + 1
+        if(!shipLost) {
+            if(shipInstruction.charAt(i) == 'F') {
+                if(currentDirection == Compass[2]) {
+                    if(xCoords < eastBorder) {
+                        xCoords = xCoords + 1
+                    } else {
+                        shipLost = true
+                    }
+                } else if(currentDirection == Compass[3]){
+                    if(yCoords > 0) {
+                        yCoords = yCoords - 1
+                    } else {
+                        shipLost = true
+                    }
+                } else if(currentDirection == Compass[4]) {
+                    if(xCoords > 0) {
+                        xCoords = xCoords - 1
+                    } else {
+                        shipLost = true
+                    }
+                } else if(currentDirection == Compass[1]) {
+                    if(yCoords < northBorder) {
+                        yCoords = yCoords + 1
+                    } else {
+                        shipLost = true
+                    }
+                }
+            } else if(shipInstruction.charAt(i) == 'R') {
+                currentDirection = compassNavigation(Compass[currentDirection], 'R')
+            } else if(shipInstruction.charAt(i) == 'L') {
+                currentDirection = compassNavigation(Compass[currentDirection], 'L')
             }
-        } else if(shipInstruction.charAt(i) == 'R') {
-            currentDirection = compassNavigation(Compass[currentDirection], 'R')
-        } else if(shipInstruction.charAt(i) == 'L') {
-            currentDirection = compassNavigation(Compass[currentDirection], 'L')
         }
     }
-
-    console.log(xCoords, yCoords, currentDirection)
+    console.log(xCoords, yCoords, currentDirection, shipLost ? 'LOST' : '')
 }
 
 
