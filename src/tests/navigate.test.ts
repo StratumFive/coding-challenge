@@ -1,6 +1,23 @@
-import { compassNavigation, Compass } from "../navigate"
+import { compassNavigation, Compass, calculatePosition } from "../navigate"
 
 test('compass directions are correct', () => {
     const result = compassNavigation(Compass.E, 'L')
     expect(result).toBe('N')
+})
+
+describe('calculatePosition', () => {
+    const shipInfoTest = {
+        coordinates: '1 1 N',
+        instructions: 'RF'
+    }
+
+    test('calculatePosition gives the right output', () => {
+        const gridBorderTest = [3,3]
+        expect(calculatePosition(gridBorderTest, shipInfoTest)).toBe('2 1 E ')
+    })
+    
+    test('calculatePosition logs if ship is LOST', () => {
+        const gridBorderTest = [1,1]
+        expect(calculatePosition(gridBorderTest, shipInfoTest)).toBe('1 1 E LOST')
+    })
 })

@@ -33,11 +33,12 @@ function calculatePosition(gridBorder : number[], ship : Ship) {
     const splitCoords : string[] = ship.coordinates.split(' ')
     let xCoords : number = Number(splitCoords[0])
     let yCoords : number = Number(splitCoords[1])
-    let currentDirection : string = splitCoords[2]
+    let currentDirection = splitCoords[2]
     const shipInstruction = ship.instructions
     let shipLost : boolean = false
 
     for(let i = 0; i < shipInstruction.length; i++) {
+        console.log(typeof currentDirection)
         if(!shipLost) {
             if(shipInstruction.charAt(i) == 'F') {
                 if(currentDirection == Compass[2]) {
@@ -66,13 +67,15 @@ function calculatePosition(gridBorder : number[], ship : Ship) {
                     }
                 }
             } else if(shipInstruction.charAt(i) == 'R') {
-                currentDirection = compassNavigation(Compass[currentDirection], 'R')
+                currentDirection = compassNavigation((<any>Compass)[currentDirection], 'R')
             } else if(shipInstruction.charAt(i) == 'L') {
-                currentDirection = compassNavigation(Compass[currentDirection], 'L')
+                currentDirection = compassNavigation((<any>Compass)[currentDirection], 'L')
             }
         }
     }
-    console.log(xCoords, yCoords, currentDirection, shipLost ? 'LOST' : '')
+    const output = `${xCoords} ${yCoords} ${currentDirection} ${shipLost ? 'LOST' : ''}`
+    console.log(output)
+    return output
 }
 
 
