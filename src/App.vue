@@ -1,13 +1,19 @@
 <template>
   <div id="app">
+    <input-form />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import {/* compassNavigation, Compass, */ calculatePosition, shipInfo} from './navigate'
+import inputForm from './components/inputForm.vue'
 
-@Component
+@Component({
+  components: {
+    inputForm
+  }
+})
 
 export default class App extends Vue {
   mounted() {
