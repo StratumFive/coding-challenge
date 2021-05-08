@@ -11,7 +11,7 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class App extends Vue {
   get outputValue() {
-    return this.$store.state.output;
+    return this.$store.getters.outputValue;
   }
 }
 </script>

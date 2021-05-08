@@ -30,7 +30,7 @@
       <input
         type="text"
         name="instruction"
-        placeholder="Instructions"
+        placeholder="Instructions - allowed letters are L, R and F"
         class="instr-input"
         v-model="instructions"
       />
@@ -39,12 +39,16 @@
         Calculate
       </button>
     </form>
+    <p v-if="!instructionsCorrect" class="error-msg">
+      Some of your instructions seem to be unrecognizable - they will be omitted
+      in the process.
+    </p>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { Ship } from "../navigate";
+import { Ship } from "../utils/navigate";
 
 @Component
 export default class App extends Vue {
@@ -55,8 +59,10 @@ export default class App extends Vue {
   direction: string = "N";
   instructions: string = "";
 
+  instructionsCorrect: boolean = true;
+
   calculateData() {
-      console.log(this.$store.state.bannedMoves)
+    this.instructionsCorrect = /^[RLFrlf]+$/.test(this.instructions);
     const grid = [this.eastBorder, this.northBorder];
     const shipInfo: Ship = {
       coordinates: `${this.xValue} ${this.yValue} ${this.direction}`,
@@ -82,6 +88,8 @@ export default class App extends Vue {
 <style>
 .form-wrap {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 form {
@@ -121,5 +129,10 @@ select,
 .calculate-btn:hover {
   background-color: rgba(51, 153, 255, 0.8);
   cursor: pointer;
+}
+.error-msg {
+  color: red;
+  font-weight: 500;
+  padding: 0 5%;
 }
 </style>
