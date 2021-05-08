@@ -1,4 +1,5 @@
-import { compassNavigation, Compass, calculatePosition } from "../navigate"
+import {  calculatePosition } from "../navigate"
+import {compassNavigation, Compass} from "../compass"
 
 test('compass directions are correct', () => {
     const result = compassNavigation(Compass.E, 'L')

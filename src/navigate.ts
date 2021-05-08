@@ -55,4 +55,4 @@ function calculatePosition(gridBorder : number[], ship : Ship) {
 }
 
 
-export {compassNavigation, Compass, calculatePosition, shipInfo, Coordinates} 
+export {calculatePosition, shipInfo, Coordinates} 

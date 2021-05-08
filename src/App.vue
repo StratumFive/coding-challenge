@@ -19,7 +19,6 @@ export default class App extends Vue {
   mounted() {
     calculatePosition([5,3], shipInfo)
   }
-
 }
 </script>
 
