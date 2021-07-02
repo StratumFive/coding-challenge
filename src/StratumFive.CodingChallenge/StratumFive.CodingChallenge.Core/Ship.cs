@@ -34,6 +34,13 @@ namespace StratumFive.CodingChallenge.Core
                 if(instruction == 'F')
                 {
                     var nextPositionIsInRegion = _region.IsInRegion(nextPosition());
+
+                    if (nextPositionIsInRegion)
+                        moveForward();
+                    else
+                    {
+                        
+                    }
                 }
             }
         }

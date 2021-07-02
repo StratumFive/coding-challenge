@@ -8,5 +8,6 @@ namespace StratumFive.CodingChallenge.Core.Interfaces
 {
     public interface IWarningProvider
     {
+        public bool AnyWarningsForPosition(IntVector2 position);
     }
 }

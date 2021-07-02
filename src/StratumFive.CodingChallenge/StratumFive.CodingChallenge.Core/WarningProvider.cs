@@ -9,5 +9,9 @@ namespace StratumFive.CodingChallenge.Core
 {
     public class WarningProvider : IWarningProvider
     {
+        public bool AnyWarningsForPosition(IntVector2 position)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
