@@ -39,7 +39,11 @@ namespace StratumFive.CodingChallenge.Core
                         moveForward();
                     else
                     {
-                        
+                        if(!_warningProvider.AnyWarningsForPosition(this.Position))
+                        {
+                            lost();
+                            break; //Stop executing instructions
+                        }
                     }
                 }
             }
@@ -53,6 +57,11 @@ namespace StratumFive.CodingChallenge.Core
         private IntVector2 nextPosition()
         {
             return this.Position + Heading.GetTranslation();
+        }
+
+        private void lost()
+        {
+            this.State = ShipState.LOST;
         }
 
         public enum ShipState
