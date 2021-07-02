@@ -25,13 +25,27 @@ namespace StratumFive.CodingChallenge.Core
         {
             foreach(var instruction in instructions)
             {
+                if (instruction == 'L')
+                    Heading.Turn90DegLeft();
 
+                if (instruction == 'R')
+                    Heading.Turn90DegRight();
+
+                if(instruction == 'F')
+                {
+                    var nextPositionIsInRegion = _region.IsInRegion(nextPosition());
+                }
             }
         }
 
         private void moveForward()
         {
             this.Position = this.Position + Heading.GetTranslation();
+        }
+
+        private IntVector2 nextPosition()
+        {
+            return this.Position + Heading.GetTranslation();
         }
 
         public enum ShipState
