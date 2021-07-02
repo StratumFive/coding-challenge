@@ -7,18 +7,19 @@ namespace StratumFive.CodingChallenge.Tests
     [TestClass]
     public class RectangularBoundedRegionTests
     {
-        private IBoundedRegion boundedRegion;
+        private IBoundedRegion _boundedRegion;
         [TestInitialize]
         public void Init()
         {
-            boundedRegion = new RectangularBoundedRegion(new IntVector2(10, 10));
+            //Create a 10x10 test region
+            _boundedRegion = new RectangularBoundedRegion(new IntVector2(10, 10));
         }
 
         [TestMethod]
         public void When_ExpectedValues_IsInRegion()
         {
             var position = new IntVector2(5, 5);
-            var isInRegion = boundedRegion.IsInRegion(position);
+            var isInRegion = _boundedRegion.IsInRegion(position);
 
             Assert.IsTrue(isInRegion);
         }
@@ -27,7 +28,7 @@ namespace StratumFive.CodingChallenge.Tests
         public void When_NegativeValues_IsNotInRegion()
         {
             var position = new IntVector2(-4, 8);
-            var isInRegion = boundedRegion.IsInRegion(position);
+            var isInRegion = _boundedRegion.IsInRegion(position);
 
             Assert.IsFalse(isInRegion);
         }
@@ -36,7 +37,7 @@ namespace StratumFive.CodingChallenge.Tests
         public void When_TooLargeValues_IsNotInRegion()
         {
             var position = new IntVector2(2, 100);
-            var isInRegion = boundedRegion.IsInRegion(position);
+            var isInRegion = _boundedRegion.IsInRegion(position);
 
             Assert.IsFalse(isInRegion);
         }
