@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "StratumFive.CodingChallenge.App/1.0.0": {
+        "dependencies": {
+          "StratumFive.CodingChallenge.Core": "1.0.0"
+        },
+        "runtime": {
+          "StratumFive.CodingChallenge.App.dll": {}
+        }
+      },
+      "StratumFive.CodingChallenge.Core/1.0.0": {
+        "runtime": {
+          "StratumFive.CodingChallenge.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "StratumFive.CodingChallenge.App/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "StratumFive.CodingChallenge.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
