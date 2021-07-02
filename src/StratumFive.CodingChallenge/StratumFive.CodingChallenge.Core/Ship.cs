@@ -62,6 +62,8 @@ namespace StratumFive.CodingChallenge.Core
         private void lost()
         {
             this.State = ShipState.LOST;
+            _warningProvider.RegisterWarningForPosition(this.Position);
+            moveForward();
         }
 
         public enum ShipState
