@@ -14,6 +14,7 @@ namespace StratumFive.CodingChallenge.Tests.IntegrationTests
         [TestMethod]
         public void When_ValidInput_CorrectResults()
         {
+            //Check test Standard Output for result
             Program.Main(
                 new string[]
                 {
