@@ -21,5 +21,10 @@ namespace StratumFive.CodingChallenge.Core
         {
             return new IntVector2(a.X + b.X, a.Y + b.Y);
         }
+
+        public override string ToString()
+        {
+            return $"{X} {Y}";
+        }
     }
 }

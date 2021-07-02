@@ -49,6 +49,12 @@ namespace StratumFive.CodingChallenge.Core
             }
         }
 
+        public override string ToString()
+        {
+            var lostStr = (this.State == ShipState.LOST) ? "LOST" : "";
+            return $"{this.Position} {this.Heading} {lostStr}";
+        }
+
         private void moveForward()
         {
             this.Position = this.Position + Heading.GetTranslation();

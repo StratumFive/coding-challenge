@@ -1,17 +1,20 @@
 ﻿using StratumFive.CodingChallenge.Core;
 using StratumFive.CodingChallenge.Core.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace StratumFive.CodingChallenge.App
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             if (args.Length > 0)
             {
                 var regionBounds = GetBoundedRegion(args[0].Split(' '));
                 IWarningProvider warningProvider = new WarningProvider();
+
+                Dictionary<Ship, string> ships = new Dictionary<Ship, string>();
 
                 for(var i = 1; i < args.Length; i+=2)
                 {
@@ -23,6 +26,8 @@ namespace StratumFive.CodingChallenge.App
                         regionBounds,
                         warningProvider);
 
+                    ships.Add(ship, args[i + 1]);
+
                     ship.ExecuteInstructions(args[i + 1]);
                 }
             }
@@ -31,6 +36,14 @@ namespace StratumFive.CodingChallenge.App
                 Console.WriteLine("Args missing!");
             }
             Console.ReadLine();
+        }
+
+        static void ExecuteShipInstructions(Dictionary<Ship,string> ships)
+        {
+            foreach(var shipWithInstructions in ships)
+            {
+                shipWithInstructions.Key.ExecuteInstructions(shipWithInstructions.Value);
+            }
         }
 
         static IBoundedRegion GetBoundedRegion(string[] parameters)
