@@ -2,7 +2,6 @@ C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\S
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Core\bin\Debug\net5.0\StratumFive.CodingChallenge.Core.dll
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Core\bin\Debug\net5.0\ref\StratumFive.CodingChallenge.Core.dll
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Core\bin\Debug\net5.0\StratumFive.CodingChallenge.Core.pdb
-C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Core\obj\Debug\net5.0\StratumFive.CodingChallenge.Core.csproj.AssemblyReference.cache
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Core\obj\Debug\net5.0\StratumFive.CodingChallenge.Core.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Core\obj\Debug\net5.0\StratumFive.CodingChallenge.Core.AssemblyInfoInputs.cache
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Core\obj\Debug\net5.0\StratumFive.CodingChallenge.Core.AssemblyInfo.cs

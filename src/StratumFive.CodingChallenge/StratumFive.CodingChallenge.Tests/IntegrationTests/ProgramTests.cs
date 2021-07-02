@@ -26,5 +26,31 @@ namespace StratumFive.CodingChallenge.Tests.IntegrationTests
                     "LLFFFLFLFL"
                 });
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void When_TooLargeCoordinates_InvalidOperationException()
+        {
+            Program.Main(
+                    new string[]
+                    {
+                        "300 3",
+                        "1 1 E",
+                        "RFRFRFRF",
+                    });
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void When_TooLargeInstruction_InvalidOperationException()
+        {
+            Program.Main(
+                    new string[]
+                    {
+                        "5 3",
+                        "1 1 E",
+                        new string('f', 100),
+                    });
+        }
     }
 }
