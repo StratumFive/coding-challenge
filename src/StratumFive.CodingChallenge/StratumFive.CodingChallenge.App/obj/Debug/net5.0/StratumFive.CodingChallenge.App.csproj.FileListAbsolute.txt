@@ -14,3 +14,6 @@ C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\S
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\ref\StratumFive.CodingChallenge.App.dll
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.pdb
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.genruntimeconfig.cache
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\bin\Debug\net5.0\StratumFive.CodingChallenge.Core.dll
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\bin\Debug\net5.0\StratumFive.CodingChallenge.Core.pdb
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.csproj.CopyComplete

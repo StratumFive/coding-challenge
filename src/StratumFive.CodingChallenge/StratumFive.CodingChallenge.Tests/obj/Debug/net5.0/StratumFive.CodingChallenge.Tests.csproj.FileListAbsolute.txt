@@ -98,3 +98,9 @@ C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\S
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Tests\obj\Debug\net5.0\ref\StratumFive.CodingChallenge.Tests.dll
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Tests\obj\Debug\net5.0\StratumFive.CodingChallenge.Tests.pdb
 C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Tests\obj\Debug\net5.0\StratumFive.CodingChallenge.Tests.genruntimeconfig.cache
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Tests\bin\Debug\net5.0\StratumFive.CodingChallenge.App.deps.json
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Tests\bin\Debug\net5.0\StratumFive.CodingChallenge.App.runtimeconfig.json
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Tests\bin\Debug\net5.0\StratumFive.CodingChallenge.App.runtimeconfig.dev.json
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Tests\bin\Debug\net5.0\StratumFive.CodingChallenge.App.exe
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Tests\bin\Debug\net5.0\StratumFive.CodingChallenge.App.dll
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.Tests\bin\Debug\net5.0\StratumFive.CodingChallenge.App.pdb

@@ -9,7 +9,7 @@ namespace StratumFive.CodingChallenge.App
     {
         public static void Main(string[] args)
         {
-            if (args.Length > 0)
+            if (args.Length >= 2)
             {
                 var regionBounds = GetBoundedRegion(args[0].Split(' '));
                 IWarningProvider warningProvider = new WarningProvider();
@@ -27,15 +27,14 @@ namespace StratumFive.CodingChallenge.App
                         warningProvider);
 
                     ships.Add((ship, args[i + 1]));
-
-                    ship.ExecuteInstructions(args[i + 1]);
                 }
+
+                ExecuteShipInstructions(ships);
             }
             else
             {
                 Console.WriteLine("Args missing!");
             }
-            Console.ReadLine();
         }
 
         static void ExecuteShipInstructions(List<(Ship, string)> ships)
@@ -43,6 +42,7 @@ namespace StratumFive.CodingChallenge.App
             foreach(var shipWithInstructions in ships)
             {
                 shipWithInstructions.Item1.ExecuteInstructions(shipWithInstructions.Item2);
+                Console.WriteLine(shipWithInstructions.Item1);
             }
         }
 
@@ -54,5 +54,4 @@ namespace StratumFive.CodingChallenge.App
             );
         }
     }
-}
 }
