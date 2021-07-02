@@ -8,26 +8,26 @@ namespace StratumFive.CodingChallenge.Core
 {
     public class Heading
     {
-        private IntVector2 _transformation;
+        private IntVector2 _translation;
 
-        public Heading(IntVector2 transformation)
+        public Heading(IntVector2 translation)
         {
-            _transformation = transformation;
+            _translation = translation;
         }
 
-        public IntVector2 GetTransformation()
+        public IntVector2 GetTranslation()
         {
-            return _transformation;
+            return _translation;
         }
 
         public void Turn90DegLeft()
         {
-            _transformation = new IntVector2(-_transformation.Y, _transformation.X);
+            _translation = new IntVector2(-_translation.Y, _translation.X);
         }
 
         public void Turn90DegRight()
         {
-            _transformation = new IntVector2(_transformation.Y, -_transformation.X);
+            _translation = new IntVector2(_translation.Y, -_translation.X);
         }
     }
 }

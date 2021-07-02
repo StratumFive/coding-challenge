@@ -28,6 +28,12 @@ namespace StratumFive.CodingChallenge.Core
 
             }
         }
+
+        private void moveForward()
+        {
+            this.Position = this.Position + Heading.GetTranslation();
+        }
+
         public enum ShipState
         {
             OK, LOST
