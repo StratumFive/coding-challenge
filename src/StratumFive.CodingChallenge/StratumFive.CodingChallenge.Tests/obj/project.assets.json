@@ -1634,6 +1634,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "StratumFive.CodingChallenge.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/StratumFive.CodingChallenge.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/StratumFive.CodingChallenge.Core.dll": {}
+        }
       }
     }
   },
@@ -5706,6 +5716,11 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "StratumFive.CodingChallenge.Core/1.0.0": {
+      "type": "project",
+      "path": "../StratumFive.CodingChallenge.Core/StratumFive.CodingChallenge.Core.csproj",
+      "msbuildProject": "../StratumFive.CodingChallenge.Core/StratumFive.CodingChallenge.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5713,6 +5728,7 @@
       "MSTest.TestAdapter >= 2.1.1",
       "MSTest.TestFramework >= 2.1.1",
       "Microsoft.NET.Test.Sdk >= 16.7.1",
+      "StratumFive.CodingChallenge.Core >= 1.0.0",
       "coverlet.collector >= 1.3.0"
     ]
   },
@@ -5747,7 +5763,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Richard\\source\\repos\\coding-challenge\\src\\StratumFive.CodingChallenge\\StratumFive.CodingChallenge.Core\\StratumFive.CodingChallenge.Core.csproj": {
+              "projectPath": "C:\\Users\\Richard\\source\\repos\\coding-challenge\\src\\StratumFive.CodingChallenge\\StratumFive.CodingChallenge.Core\\StratumFive.CodingChallenge.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

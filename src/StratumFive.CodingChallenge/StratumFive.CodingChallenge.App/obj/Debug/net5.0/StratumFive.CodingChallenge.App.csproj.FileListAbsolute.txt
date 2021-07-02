@@ -1,0 +1,16 @@
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\bin\Debug\net5.0\StratumFive.CodingChallenge.App.exe
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\bin\Debug\net5.0\StratumFive.CodingChallenge.App.deps.json
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\bin\Debug\net5.0\StratumFive.CodingChallenge.App.runtimeconfig.json
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\bin\Debug\net5.0\StratumFive.CodingChallenge.App.runtimeconfig.dev.json
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\bin\Debug\net5.0\StratumFive.CodingChallenge.App.dll
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\bin\Debug\net5.0\ref\StratumFive.CodingChallenge.App.dll
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\bin\Debug\net5.0\StratumFive.CodingChallenge.App.pdb
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.csproj.AssemblyReference.cache
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.AssemblyInfoInputs.cache
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.AssemblyInfo.cs
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.csproj.CoreCompileInputs.cache
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.dll
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\ref\StratumFive.CodingChallenge.App.dll
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.pdb
+C:\Users\Richard\source\repos\coding-challenge\src\StratumFive.CodingChallenge\StratumFive.CodingChallenge.App\obj\Debug\net5.0\StratumFive.CodingChallenge.App.genruntimeconfig.cache
