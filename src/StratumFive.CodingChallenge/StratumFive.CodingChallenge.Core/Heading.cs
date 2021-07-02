@@ -29,5 +29,19 @@ namespace StratumFive.CodingChallenge.Core
         {
             _translation = new IntVector2(_translation.Y, -_translation.X);
         }
+
+        public string GetHeadingName()
+        {
+            if (_translation.Y == 1)
+                return "N";
+            if (_translation.Y == -1)
+                return "S";
+            if (_translation.X == 1)
+                return "E";
+            if (_translation.X == -1)
+                return "W";
+
+            throw new Exception("Invalid heading");
+        }
     }
 }

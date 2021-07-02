@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {}
+    "net5.0": {
+      "StratumFive.CodingChallenge.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/StratumFive.CodingChallenge.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/StratumFive.CodingChallenge.Core.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "StratumFive.CodingChallenge.Core/1.0.0": {
+      "type": "project",
+      "path": "../StratumFive.CodingChallenge.Core/StratumFive.CodingChallenge.Core.csproj",
+      "msbuildProject": "../StratumFive.CodingChallenge.Core/StratumFive.CodingChallenge.Core.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0": []
+    "net5.0": [
+      "StratumFive.CodingChallenge.Core >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Richard\\.nuget\\packages\\": {},
@@ -38,7 +57,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Richard\\source\\repos\\coding-challenge\\src\\StratumFive.CodingChallenge\\StratumFive.CodingChallenge.Core\\StratumFive.CodingChallenge.Core.csproj": {
+              "projectPath": "C:\\Users\\Richard\\source\\repos\\coding-challenge\\src\\StratumFive.CodingChallenge\\StratumFive.CodingChallenge.Core\\StratumFive.CodingChallenge.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
