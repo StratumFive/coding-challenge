@@ -19,7 +19,11 @@ namespace StratumFive.CodingChallenge.Core
         }
         public bool IsInRegion(IntVector2 position)
         {
-            throw new NotImplementedException();
+            return
+                !(
+                (position.X < Origin.X || position.Y < Origin.Y)
+                ||
+                (position.X > OuterBound.X || position.Y > OuterBound.Y));
         }
     }
 }
