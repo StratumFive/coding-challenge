@@ -19,5 +19,15 @@ namespace StratumFive.CodingChallenge.Core
         {
             return _transformation;
         }
+
+        public void Turn90DegLeft()
+        {
+            _transformation = new IntVector2(-_transformation.Y, _transformation.X);
+        }
+
+        public void Turn90DegRight()
+        {
+            _transformation = new IntVector2(_transformation.Y, -_transformation.X);
+        }
     }
 }
